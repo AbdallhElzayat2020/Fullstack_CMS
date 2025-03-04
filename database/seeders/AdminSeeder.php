@@ -14,18 +14,24 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::updateOrCreate([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('password'),
-        ]);
+        // Admin::updateOrCreate([
+        //     'name' => 'admin',
+        //     'email' => 'admin@gmail.com',
+        //     'password' => bcrypt('password'),
+        // ]);
+
+        $admin = new Admin();
+        $admin->name = 'admin';
+        $admin->email = 'admin@gmail.com';
+        $admin->password = bcrypt('password'); //$2y$12$kwBqEFCppgWTLWiDqbgis.7b46jb1tulES7exkh9decgfdhCB2AXG    password
+        $admin->status = 1;
+        $admin->save();
 
 
-
-//        $admin = new Admin();
-//        $admin->name = 'admin';
-//        $admin->email = 'admin@gmail.com';
-//        $admin->password = bcrypt('password');
-//        $admin->save();
+        //        $admin = new Admin();
+        //        $admin->name = 'admin';
+        //        $admin->email = 'admin@gmail.com';
+        //        $admin->password = bcrypt('password');
+        //        $admin->save();
     }
 }

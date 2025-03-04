@@ -8,8 +8,7 @@
     <ul class="navbar-nav navbar-right">
 
         <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
-                                                     class="nav-link notification-toggle nav-link-lg beep"><i
-                    class="far fa-bell"></i></a>
+                class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
                 <div class="dropdown-header">Notifications
                     <div class="float-right">
@@ -71,7 +70,7 @@
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image" src="{{ asset('assets/dashboard/img/avatar/avatar-1.png') }}"
-                     class="rounded-circle mr-1">
+                    class="rounded-circle mr-1">
                 <div class="d-sm-none d-lg-inline-block">Hi,
                     @auth('admin')
                         {{ Auth::guard('admin')->user()->name }}
@@ -92,7 +91,7 @@
                 <form id="logout" action="{{ route('admin.logout') }}" method="post">
                     @csrf
                     <a onclick="event.preventDefault(); document.getElementById('logout').submit();"
-                       href="{{ route('admin.logout') }}" class="dropdown-item has-icon text-danger">
+                        href="{{ route('admin.logout') }}" class="dropdown-item has-icon text-danger">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
                 </form>
