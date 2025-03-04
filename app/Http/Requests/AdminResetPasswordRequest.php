@@ -22,9 +22,9 @@ class AdminResetPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'exists:admins,email', 'max:255'],
+            'email' => ['required', 'email', 'exists:admins,email', 'max:200'],
             'password' => ['required', 'confirmed', 'string', 'min:8', 'max:100'],
-            'password_confirmation' => ['required'],
+            'password_confirmation' => ['required', 'max:100'],
         ];
     }
 }

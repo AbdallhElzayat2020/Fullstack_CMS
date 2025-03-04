@@ -14,13 +14,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], f
 
     Route::post('login', [AdminAuthController::class, 'handleLogin'])->name('handle-login');
 
-    //    Reset Password
+    //========================    Reset Password Routes   ========================
     Route::get('forgot-password', [AdminAuthController::class, 'forgotPassword'])->name('forgot-password');
 
     Route::post('forgot-password', [AdminAuthController::class, 'sendResetLink'])->name('forgot-password.send');
 
     Route::get('reset-password/{token}', [AdminAuthController::class, 'resetPassword'])->name('reset-password');
+
     Route::post('reset-password', [AdminAuthController::class, 'handleResetPassword'])->name('reset-password.send');
+
 });
 
 

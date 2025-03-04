@@ -46,16 +46,17 @@
 
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h4>Forgot Password</h4>
+                            <h4>Forgot Password Page Admin</h4>
                         </div>
                         <br>
-                        @if (session('success'))
-                            <br>
-                            <div class="alert alert-primary">
-                                {{ session('success') }}
-                            </div>
-                        @endif
+
                         <div class="card-body">
+                            @if (session('success'))
+                                <br>
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
                             <p class="text-muted">We will send a link to reset your password</p>
                             <form method="POST" action="{{ route('admin.forgot-password.send') }}">
                                 @csrf
@@ -63,7 +64,6 @@
                                     <label for="email">Email</label>
                                     <input id="email" type="email" class="form-control" name="email"
                                            tabindex="1" required autofocus>
-                                    {{--                                        <input type="hidden" name="" id=""> --}}
                                     @error('email')
                                     <code class="text-danger">
                                         {{ $message }}
