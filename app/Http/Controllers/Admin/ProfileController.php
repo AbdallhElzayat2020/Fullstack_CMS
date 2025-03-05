@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminProfileUpdateRequest;
+use App\Http\Requests\AdminUpdatePasswordRequest;
 use App\Models\Admin;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
 {
@@ -70,11 +73,22 @@ class ProfileController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+
+    //Update Password for Admin
+    public function updatePassword(AdminUpdatePasswordRequest $request, string $id): \Illuminate\Http\RedirectResponse
     {
-        //
+        $admin = Auth::guard('admin')->user();
+
+        // Check if the current password matches
+        if (!Hash::check($request->current_password, $admin->password)) {
+            return redirect()->back()->withErrors(['current_password' => __('Old password does not match')]);
+        }
+
+        // Update the old password
+        $admin = Admin::findOrFail($id);
+        $admin->password = Hash::make($request->password);
+        $admin->save();
+
+        return redirect()->back()->with('success_change', __('Password updated successfully'));
     }
 }

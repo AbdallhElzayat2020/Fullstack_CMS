@@ -18,10 +18,13 @@
             </p>
             <div class="row mt-sm-4">
 
+                {{--Update Profile--}}
                 <div class="col-12 col-md-12 col-lg-6">
                     <div class="card">
                         @if(session()->has('success'))
-                            <div class="alert alert-success">{{session()->get('success')}}</div>
+                            <div class="alert alert-success">
+                                {{session()->get('success')}}
+                            </div>
                         @endif
                         <form method="post" action="{{ route('admin.profile.update',$user->id) }}"
                               class="needs-validation"
@@ -71,25 +74,36 @@
                     </div>
                 </div>
 
+                {{--Update Password--}}
                 <div class="col-12 col-md-12 col-lg-6">
                     <div class="card">
-                        <form method="post" action="{{route('admin.profile.update',$user->id)}}"
+                        @if(session()->has('success_change'))
+                            <div class="alert alert-success">
+                                {{session()->get('success_change')}}
+                            </div>
+                        @endif
+                        <form method="post" action="{{route('admin.profile.password.update',$user->id)}}"
                               class="needs-validation"
                               novalidate="">
                             @csrf
                             @method('PUT')
                             <div class="card-header">
-                                <h4>{{__('Update Profile')}}</h4>
+                                <h4>{{__('Update Password')}}</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-md-12 col-12">
                                         <label>{{__('Old Password')}}</label>
-                                        <input type="text" class="form-control" name="name"
+                                        <input type="password" class="form-control" name="current_password"
                                                required="">
                                         <div class="invalid-feedback">
-                                            {{__('Please fill in the Password')}}
+                                            {{__('Please fill in the Old Password')}}
                                         </div>
+                                        @error('current_password')
+                                        <p class="text-danger">
+                                            {{$message}}
+                                        </p>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-12 col-12">
                                         <label>{{__('New Password')}}</label>
@@ -98,6 +112,11 @@
                                         <div class="invalid-feedback">
                                             {{__('Please fill in the New Password')}}
                                         </div>
+                                        @error('password')
+                                        <p class="text-danger">
+                                            {{$message}}
+                                        </p>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-12 col-12">
                                         <label>{{__('Confirm Password')}}</label>
@@ -107,6 +126,11 @@
                                         <div class="invalid-feedback">
                                             {{__('Please fill in the Confirm Password')}}
                                         </div>
+                                        @error('password_confirmation')
+                                        <p class="text-danger">
+                                            {{$message}}
+                                        </p>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
