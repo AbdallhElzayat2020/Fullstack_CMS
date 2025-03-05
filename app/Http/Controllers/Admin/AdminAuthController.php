@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminLoginRequest;
 use App\Http\Requests\AdminResetPasswordRequest;
 use App\Http\Requests\SendResetLinkRequest;
+use App\Interfaces\AdminRepositoryInterface;
 use App\Mail\AdminResetPasswordMail;
 use App\Mail\AdminSendResetLinkMail;
 use App\Models\Admin;
@@ -17,30 +18,27 @@ use Illuminate\Support\Str;
 
 class AdminAuthController extends Controller
 {
+
+    public $admin;
+
+    public function __construct(AdminRepositoryInterface $admin)
+    {
+        $this->admin = $admin;
+    }
+
     public function login()
     {
-        return view('dashboard.auth.login');
+        return $this->admin->login();
     }
 
     public function handleLogin(AdminLoginRequest $request): RedirectResponse
     {
-
-        $request->authenticate();
-
-        $request->session()->regenerate();
-
-        return redirect()->intended(route('admin.dashboard', absolute: false));
+        return $this->admin->handleLogin($request);
     }
 
     public function logout(Request $request): RedirectResponse
     {
-        Auth::guard('admin')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/admin/login');
+        return $this->admin->logout($request);
     }
 
 
@@ -49,41 +47,24 @@ class AdminAuthController extends Controller
 //     show the form to send the email
     public function forgotPassword()
     {
-        return view('dashboard.auth.forgot-password');
+        return $this->admin->forgotPassword();
     }
 
     // Send the reset link to the email with Token
     public function sendResetLink(SendResetLinkRequest $request): RedirectResponse
     {
-        $token = Str::random(60);
-        $email = $request->email;
-        $admin = Admin::where('email', $email)->first();
-        $admin->remember_token = $token;
-        $admin->save();
-
-        Mail::to($email)->send(new AdminSendResetLinkMail($token, $email));
-
-        return redirect()->back()->with('success', __('A link has been sent to your email Please check your email'));
+        return $this->admin->sendResetLink($request);
     }
 
     //show the form to reset the password
     public function resetPassword(Request $request)
     {
-        $token = $request->token;
-        return view('dashboard.auth.reset-password', compact('token'));
+        return $this->admin->resetPassword($request);
     }
 
     // Submit the form to reset the password
     public function handleResetPassword(AdminResetPasswordRequest $request): RedirectResponse
     {
-        $email = $request->email;
-        $admin = Admin::where(['email' => $email, 'remember_token' => $request->token])->first();
-        if (!$admin) {
-            return redirect()->back()->with('error', 'Invalid token');
-        }
-        $admin->password = bcrypt($request->password);
-        $admin->remember_token = null;
-        $admin->save();
-        return to_route('admin.login')->with('success', __('Password has been reset successfully'));
+        return $this->admin->handleResetPassword($request);
     }
 }
