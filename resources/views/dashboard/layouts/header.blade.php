@@ -71,7 +71,7 @@
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image" src="{{ asset('assets/dashboard/img/avatar/avatar-1.png') }}"
                      class="rounded-circle mr-1">
-                <div class="d-sm-none d-lg-inline-block">Hi,
+                <div class="d-sm-none d-lg-inline-block">{{__('Hi')}},
                     @auth('admin')
                         {{ Auth::guard('admin')->user()->name }}
                     @endauth
@@ -84,7 +84,7 @@
                     </div>
                 @endauth
                 <a href="{{ route('admin.profile.index') }}" class="dropdown-item has-icon">
-                    <i class="far fa-user"></i> Profile
+                    <i class="far fa-user"></i> {{__('Profile')}}
                 </a>
 
                 <div class="dropdown-divider"></div>
@@ -92,7 +92,7 @@
                     @csrf
                     <a onclick="event.preventDefault(); document.getElementById('logout').submit();"
                        href="{{ route('admin.logout') }}" class="dropdown-item has-icon text-danger">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                        <i class="fas fa-sign-out-alt"></i> {{__('Logout')}}
                     </a>
                 </form>
             </div>

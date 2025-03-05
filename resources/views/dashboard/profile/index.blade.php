@@ -21,11 +21,7 @@
                 {{--Update Profile--}}
                 <div class="col-12 col-md-12 col-lg-6">
                     <div class="card">
-                        @if(session()->has('success'))
-                            <div class="alert alert-success">
-                                {{session()->get('success')}}
-                            </div>
-                        @endif
+
                         <form method="post" action="{{ route('admin.profile.update',$user->id) }}"
                               class="needs-validation"
                               novalidate="" enctype="multipart/form-data">
@@ -77,11 +73,6 @@
                 {{--Update Password--}}
                 <div class="col-12 col-md-12 col-lg-6">
                     <div class="card">
-                        @if(session()->has('success_change'))
-                            <div class="alert alert-success">
-                                {{session()->get('success_change')}}
-                            </div>
-                        @endif
                         <form method="post" action="{{route('admin.profile.password.update',$user->id)}}"
                               class="needs-validation"
                               novalidate="">

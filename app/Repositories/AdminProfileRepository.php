@@ -9,6 +9,7 @@ use App\Models\Admin;
 use App\Traits\FileUploadTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminProfileRepository implements AdminProfileRepositoryInterface
 {
@@ -30,7 +31,10 @@ class AdminProfileRepository implements AdminProfileRepositoryInterface
         $admin->name = $request->name;
         $admin->email = $request->email;
         $admin->save();
-        return redirect()->back()->with('success', 'Profile updated successfully');
+
+        toast('Your Profile has been Updated successfully', 'success')->width('400px');
+
+        return redirect()->back();
     }
 
     public function updatePassword(AdminUpdatePasswordRequest $request, string $id)
@@ -47,6 +51,8 @@ class AdminProfileRepository implements AdminProfileRepositoryInterface
         $admin->password = Hash::make($request->password);
         $admin->save();
 
-        return redirect()->back()->with('success_change', __('Password updated successfully'));
+        toast('Your Password has been Updated successfully', 'success')->width('400px');
+
+        return redirect()->back();
     }
 }

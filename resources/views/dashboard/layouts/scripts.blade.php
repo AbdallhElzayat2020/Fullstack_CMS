@@ -15,8 +15,8 @@
 <!-- Template JS File -->
 <script src="{{ asset('assets/dashboard/js/scripts.js') }}"></script>
 <script src="{{ asset('assets/dashboard/js/custom.js') }}"></script>
-<script
-    src="{{asset('assets/dashboard/modules/upload-preview/assets/js/jquery.uploadPreview.min.js')}}"></script>
+<script src="{{asset('assets/dashboard/modules/upload-preview/assets/js/jquery.uploadPreview.min.js')}}"></script>
+@include('sweetalert::alert')
 <script>
     $.uploadPreview({
         input_field: "#image-upload",   // Default: .image-upload

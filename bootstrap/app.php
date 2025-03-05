@@ -6,7 +6,7 @@ use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -17,7 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'admin' => Admin::class,
-            'guest' => Guest::class
+            'guest' => Guest::class,
+            'Alert' => Alert::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
