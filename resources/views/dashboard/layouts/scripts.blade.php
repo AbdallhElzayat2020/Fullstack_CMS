@@ -13,8 +13,10 @@
 <script
     src="{{asset('assets/dashboard/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('assets/dashboard/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
+
+
 <!-- Page Specific JS File -->
-<script src="{{ asset('assets/dashboard/js/page/index-0.js') }}"></script>
+{{--<script src="{{ asset('assets/dashboard/js/page/index-0.js') }}"></script>--}}
 <script src="{{asset('assets/dashboard/js/page/modules-datatables.js')}}"></script>
 
 
@@ -23,8 +25,13 @@
 <script src="{{ asset('assets/dashboard/js/custom.js') }}"></script>
 <script src="{{asset('assets/dashboard/modules/upload-preview/assets/js/jquery.uploadPreview.min.js')}}"></script>
 
+{{--sweet alert js--}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @include('sweetalert::alert')
+
 <script>
+
     $.uploadPreview({
         input_field: "#image-upload",   // Default: .image-upload
         preview_box: "#image-preview",  // Default: .image-preview
@@ -34,6 +41,69 @@
         no_label: false,                // Default: false
         success_callback: null          // Default: null
     });
+
+
+    // add csrf token in ajax requests
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    /*
+     Handle Dynamic Delete    add delete-item in all delete buttons
+    * */
+    $(document).ready(function () {
+        $('.delete-item').on('click', function (e) {
+            e.preventDefault();
+
+            let url = $(this).attr('href'); // رابط الحذف
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You will delete it forever!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: 'DELETE',
+                        url: url,
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content') // CSRF Token
+                        },
+                        success: function (response) {
+                            Swal.fire({
+                                title: response.status === "success" ? "Deleted!" : "Warning!",
+                                text: response.message, // عرض الرسالة الراجعة من السيرفر
+                                icon: response.status === "success" ? "success" : "warning"
+                            }).then(() => {
+                                if (response.status === "success") {
+                                    location.reload(); // تحديث الصفحة بعد الحذف الناجح
+                                }
+                            });
+                        },
+                        error: function (xhr) {
+                            let errorMessage = "Something went wrong.";
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                errorMessage = xhr.responseJSON.message; // استخدم رسالة الخطأ من السيرفر
+                            }
+                            Swal.fire({
+                                title: "Error!",
+                                text: errorMessage,
+                                icon: "error"
+                            });
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+
 </script>
 
 @stack('js')

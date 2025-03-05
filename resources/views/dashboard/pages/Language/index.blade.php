@@ -74,9 +74,15 @@
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="{{ route('admin.language.destroy',$language->id) }}"
-                                               class="btn btn-danger">
+                                               class="delete-item btn btn-danger">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
+
+                                            {{--                                                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"--}}
+                                            {{--                                                                                                data-bs-target="#delete{{ $language->id }}">--}}
+                                            {{--                                                                                            <i class="fas fa-trash-alt"></i>--}}
+                                            {{--                                                                                        </button>--}}
+
                                         </td>
                                     </tr>
                                 @endforeach

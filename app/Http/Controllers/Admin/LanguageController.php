@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminLanguageStoreRequest;
+use App\Http\Requests\AdminLanguageUpdateRequest;
 use App\Models\Language;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,7 @@ class LanguageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AdminLanguageStoreRequest $request)
+    public function store(AdminLanguageStoreRequest $request): \Illuminate\Http\RedirectResponse
     {
         $language = new Language();
         $language->name = $request->name;
@@ -42,28 +43,37 @@ class LanguageController extends Controller
         return to_route('admin.language.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $language = Language::findOrFail($id);
+        return view('dashboard.pages.Language.edit', compact('language'));
+    }
+
+
+    public function show()
+    {
+        dd('from show');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AdminLanguageUpdateRequest $request, string $id): \Illuminate\Http\RedirectResponse
     {
-        //
+        $language = Language::findOrFail($id);
+        $language->name = $request->name;
+        $language->lang = $request->lang;
+        $language->slug = $request->slug;
+        $language->status = $request->status;
+        $language->default = $request->default;
+        $language->save();
+        toast('Updated successfully', 'success')->width('400px');
+        return to_route('admin.language.index');
+
     }
 
     /**
@@ -71,6 +81,15 @@ class LanguageController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+        try {
+            $language = Language::findOrFail($id);
+            $language->delete();
+            return response(['status' => 'success', 'message' => __('Deleted successfully')]);
+        } catch (\Exception $exception) {
+            return response(['status' => 'error', 'message' => __('Something went wrong')]);
+        }
+
+
     }
 }
