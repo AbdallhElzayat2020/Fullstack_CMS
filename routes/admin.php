@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 
 use App\Http\Controllers\Admin\ProfileController;
-
+use App\Http\Controllers\Admin\LanguageController;
 //============================ Public Admin Routes ============================
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], function () {
@@ -38,5 +38,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     Route::put('profile-password-update/{id}', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
 
     Route::resource('profile', ProfileController::class);
+
+    //===================== Languages Routes =====================
+    Route::resource('language', LanguageController::class);
 
 });

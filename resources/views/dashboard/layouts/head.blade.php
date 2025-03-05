@@ -9,7 +9,10 @@
 
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/modules/summernote/summernote-bs4.css') }}">
-
+    <link rel="stylesheet" href="{{asset('assets/dashboard/modules/select2/dist/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/dashboard/modules/datatables/datatables.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/dashboard/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/dashboard/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css')}}">
     <link rel="shortcut icon" href="{{asset('assets/dashboard/img/stisla-fill.svg')}}" type="image/x-icon">
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/style.css') }}">

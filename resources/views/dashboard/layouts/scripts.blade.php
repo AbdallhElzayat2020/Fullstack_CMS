@@ -8,14 +8,21 @@
 
 <!-- JS Libraies -->
 <script src="{{ asset('assets/dashboard/modules/summernote/summernote-bs4.js') }}"></script>
-
+<script src="{{asset('assets/dashboard/modules/select2/dist/js/select2.full.min.js')}}"></script>
+<script src="{{asset('assets/dashboard/modules/datatables/datatables.min.js')}}"></script>
+<script
+    src="{{asset('assets/dashboard/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/dashboard/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
 <!-- Page Specific JS File -->
-{{--<script src="{{ asset('assets/dashboard/js/page/index-0.js') }}"></script>--}}
+<script src="{{ asset('assets/dashboard/js/page/index-0.js') }}"></script>
+<script src="{{asset('assets/dashboard/js/page/modules-datatables.js')}}"></script>
+
 
 <!-- Template JS File -->
 <script src="{{ asset('assets/dashboard/js/scripts.js') }}"></script>
 <script src="{{ asset('assets/dashboard/js/custom.js') }}"></script>
 <script src="{{asset('assets/dashboard/modules/upload-preview/assets/js/jquery.uploadPreview.min.js')}}"></script>
+
 @include('sweetalert::alert')
 <script>
     $.uploadPreview({
