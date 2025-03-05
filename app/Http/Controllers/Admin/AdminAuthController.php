@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminLoginRequest;
 use App\Http\Requests\AdminResetPasswordRequest;
 use App\Http\Requests\SendResetLinkRequest;
+use App\Mail\AdminResetPasswordMail;
 use App\Mail\AdminSendResetLinkMail;
 use App\Models\Admin;
 use Illuminate\Http\RedirectResponse;
@@ -44,8 +45,8 @@ class AdminAuthController extends Controller
 
 
     // =======================    Forget Password   =======================
-    // show the form to send the email
 
+//     show the form to send the email
     public function forgotPassword()
     {
         return view('dashboard.auth.forgot-password');

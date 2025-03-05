@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 
+use App\Http\Controllers\Admin\ProfileController;
 
 //============================ Public Admin Routes ============================
 
@@ -32,4 +33,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::post('logout', [AdminAuthController::class, 'logout'])->name('logout');
+
+    Route::resource('profile', ProfileController::class);
 });

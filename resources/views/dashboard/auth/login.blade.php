@@ -56,7 +56,7 @@
                                     {{ session()->get('success') }}
                                 </div>
                             @endif
-                            <form method="POST" action="{{ route('handle-login') }}" class="needs-validation"
+                            <form method="POST" action="{{ route('admin.handle-login') }}" class="needs-validation"
                                   novalidate="">
                                 @csrf
                                 <div class="form-group">
@@ -82,7 +82,7 @@
                                         </code>
                                         @enderror
                                         <div class="float-right">
-                                            <a href="{{ route('forgot-password') }}" class="text-small">
+                                            <a href="{{ route('admin.forgot-password') }}" class="text-small">
                                                 {{__('Forgot Password?')}}
                                             </a>
                                         </div>

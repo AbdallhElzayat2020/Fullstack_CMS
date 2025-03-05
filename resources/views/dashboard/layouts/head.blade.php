@@ -10,6 +10,7 @@
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/modules/summernote/summernote-bs4.css') }}">
 
+    <link rel="shortcut icon" href="{{asset('assets/dashboard/img/stisla-fill.svg')}}" type="image/x-icon">
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/components.css') }}">
