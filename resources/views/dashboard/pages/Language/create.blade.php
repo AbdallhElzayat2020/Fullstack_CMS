@@ -25,7 +25,7 @@
                                         <label for="name">{{__('Language')}}</label>
 
                                         <select class="form-control select2" id="language-select" name="lang">
-                                            <option value="">---select---</option>
+                                            <option value="">---{{__('select')}}---</option>
                                             @foreach(config('language') as $key => $lang)
                                                 <option value="{{$key}}">{{$lang['name']}}</option>
                                             @endforeach
@@ -61,8 +61,8 @@
                                     <div class="form-group">
                                         <label for="name">{{__('Status')}}</label>
                                         <select class="form-control" id="name" name="status">
-                                            <option value="active">Active</option>
-                                            <option value="inactive">InActive</option>
+                                            <option value="active">{{__('Active')}}</option>
+                                            <option value="inactive">{{__('InActive')}}</option>
                                             @error('status')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -74,8 +74,8 @@
                                     <div class="form-group">
                                         <label for="is default">{{__('Is It Default')}}</label>
                                         <select class="form-control" name="default" id="is default">
-                                            <option value="no">No</option>
-                                            <option value="yes">Yes</option>
+                                            <option value="no">{{__('No')}}</option>
+                                            <option value="yes">{{__('Yes')}}</option>
                                         </select>
                                         @error('default')
                                         <div class="text-danger">{{ $message }}</div>
@@ -85,7 +85,7 @@
 
                             </div>
 
-                            <button class="btn btn-primary" type="submit">Create</button>
+                            <button class="btn btn-primary" type="submit">{{__('Create')}}</button>
                         </form>
                     </div>
                 </div>

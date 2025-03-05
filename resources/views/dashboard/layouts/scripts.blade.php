@@ -77,18 +77,18 @@
                         success: function (response) {
                             Swal.fire({
                                 title: response.status === "success" ? "Deleted!" : "Warning!",
-                                text: response.message, // عرض الرسالة الراجعة من السيرفر
+                                text: response.message,
                                 icon: response.status === "success" ? "success" : "warning"
                             }).then(() => {
                                 if (response.status === "success") {
-                                    location.reload(); // تحديث الصفحة بعد الحذف الناجح
+                                    location.reload();
                                 }
                             });
                         },
                         error: function (xhr) {
                             let errorMessage = "Something went wrong.";
                             if (xhr.responseJSON && xhr.responseJSON.message) {
-                                errorMessage = xhr.responseJSON.message; // استخدم رسالة الخطأ من السيرفر
+                                errorMessage = xhr.responseJSON.message;
                             }
                             Swal.fire({
                                 title: "Error!",

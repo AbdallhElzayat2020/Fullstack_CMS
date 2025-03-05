@@ -24,7 +24,6 @@
                                         <select class="form-control select2" id="language-select" name="lang">
                                             <option value="">---select---</option>
                                             @foreach(config('language') as $key => $lang)
-                                                {{--                                                if($language->lang === $key) selected @endif--}}
                                                 <option
                                                     @selected(old('lang', $language->lang) === $key) value="{{$key}}">
                                                     {{$lang['name']}}
@@ -66,11 +65,11 @@
                                         <select class="form-control" id="name" name="status">
                                             <option
                                                 @selected(old('status', $language->status) ==='active' ) value="active">
-                                                Active
+                                                {{__('Active')}}
                                             </option>
                                             <option
                                                 @selected(old('status', $language->status) === 'inactive' ) value="inactive">
-                                                InActive
+                                                {{__('InActive')}}
                                             </option>
                                             @error('status')
                                             <div class="text-danger">{{ $message }}</div>
@@ -84,11 +83,11 @@
                                         <label for="is default">{{__('Is It Default')}}</label>
                                         <select class="form-control" name="default" id="is default">
                                             <option @selected(old('default', $language->default) === 'no'  ) value="no">
-                                                No
+                                                {{__('No')}}
                                             </option>
                                             <option
                                                 @selected(old('default', $language->default) === 'yes'  ) value="yes">
-                                                Yes
+                                                {{__('Yes')}}
                                             </option>
                                         </select>
                                         @error('default')
@@ -99,7 +98,7 @@
 
                             </div>
 
-                            <button class="btn btn-primary" type="submit">Update</button>
+                            <button class="btn btn-primary" type="submit">{{__('Update')}}</button>
                         </form>
                     </div>
                 </div>
