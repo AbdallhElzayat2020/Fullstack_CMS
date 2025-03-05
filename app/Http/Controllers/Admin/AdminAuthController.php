@@ -7,20 +7,14 @@ use App\Http\Requests\AdminLoginRequest;
 use App\Http\Requests\AdminResetPasswordRequest;
 use App\Http\Requests\SendResetLinkRequest;
 use App\Interfaces\AdminRepositoryInterface;
-use App\Mail\AdminResetPasswordMail;
-use App\Mail\AdminSendResetLinkMail;
-use App\Models\Admin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
+
 
 class AdminAuthController extends Controller
 {
 
     public $admin;
-
     public function __construct(AdminRepositoryInterface $admin)
     {
         $this->admin = $admin;
