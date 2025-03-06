@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\LanguageController;
-
+use App\Http\Controllers\Admin\NewsController;
 
 
 //============================ Public Admin Routes ============================
@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     /* Categories Route */
     Route::resource('categories', CategoryController::class);
 
-
+    /* News Route */
+    Route::resource('news', NewsController::class);
 
 });

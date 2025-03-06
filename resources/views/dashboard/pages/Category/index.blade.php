@@ -31,7 +31,8 @@
                                             <a class="nav-link {{$key === 0 ?'active':''}} " id="home-tab2"
                                                data-toggle="tab" href="#home-{{$language->lang}}"
                                                role="tab" aria-controls="home"
-                                               aria-selected="true">{{$language->name}}</a>
+                                               aria-selected="true">{{$language->name}}
+                                            </a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -48,9 +49,7 @@
                                                 <table class="table table-striped" id="table-{{$language->lang}}">
                                                     <thead>
                                                     <tr>
-                                                        <th class="text-center">
-                                                            #
-                                                        </th>
+                                                        <th class="text-center">#</th>
                                                         <th>{{__('Category Name')}}</th>
                                                         <th>{{__('Language')}}</th>
                                                         <th>{{__('Status')}}</th>
