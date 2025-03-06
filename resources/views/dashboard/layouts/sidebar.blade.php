@@ -17,10 +17,17 @@
             <li class="menu-header">Startket</li>
 
             <li>
+                <a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="far fa-square"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+
+            <li>
                 <a class="nav-link" href="{{ route('admin.language.index') }}"><i class="far fa-square"></i>
                     <span>Languages</span>
                 </a>
             </li>
+
 
             {{--            <li><a class="nav-link" href=""><i class="far fa-square"></i> <span>Blank Page</span></a></li>--}}
 

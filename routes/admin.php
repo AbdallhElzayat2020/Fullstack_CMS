@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAuthController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
-
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\LanguageController;
+
+
+
 //============================ Public Admin Routes ============================
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], function () {
@@ -29,6 +31,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], f
 //============================ Protected Admin Routes ============================
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function () {
 
+//    Home Dashboard Route
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::post('logout', [AdminAuthController::class, 'logout'])->name('logout');
@@ -36,9 +39,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     //===================== Profile Routes =====================
     Route::put('profile-password-update/{id}', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
 
+    /* Profile Route */
     Route::resource('profile', ProfileController::class);
 
-    //===================== Languages Routes =====================
+    /* Language Route */
     Route::resource('language', LanguageController::class);
+
+    /* Categories Route */
+    Route::resource('categories', CategoryController::class);
+
+
 
 });
