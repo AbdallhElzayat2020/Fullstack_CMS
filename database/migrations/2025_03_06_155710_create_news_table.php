@@ -19,8 +19,8 @@ return new class extends Migration {
             $table->text('description');
             $table->text('image');
             $table->foreignId('author_id')->constrained('admins');
-            $table->string('meta_title');
-            $table->string('meta_description');
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
             $table->boolean('is_breaking_news')->default(0);
             $table->boolean('show_at_slider')->default(0);
             $table->boolean('show_at_popular')->default(0);

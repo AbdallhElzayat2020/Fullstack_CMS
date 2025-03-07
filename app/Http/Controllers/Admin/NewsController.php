@@ -7,6 +7,7 @@ use App\Http\Requests\AdminStoreNewsRequest;
 use App\Models\Category;
 use App\Models\Language;
 use App\Models\News;
+use App\Models\Tag;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,10 +46,11 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AdminStoreNewsRequest $request)
+    public function store(Request $request)
     {
 
         // Handle Image
+
         $imagePath = $this->handleFileUpload($request, 'image', '');
 
         $news = new News();
@@ -66,10 +68,22 @@ class NewsController extends Controller
         $news->show_at_popular = $request->show_at_popular === 1 ? 1 : 0;
         $news->status = $request->status;
         $news->save();
+
+        $tags = explode(',', $request->tags);
+        $tagIds = [];
+
+        foreach ($tags as $tag) {
+            $tag = trim($tag);
+            $item = new Tag();
+            $item->name = $tag;
+            $item->save();
+            $tagIds[] = $item->id;
+        }
+        $news->tags()->attach($tagIds);
+
+
         toast('Created successfully', 'success')->width('400px');
         return to_route('admin.news.index');
-
-
     }
 
     /**
