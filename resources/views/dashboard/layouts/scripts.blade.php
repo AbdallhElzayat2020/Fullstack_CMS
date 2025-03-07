@@ -13,10 +13,9 @@
 <script
     src="{{asset('assets/dashboard/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('assets/dashboard/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
-
+<script src="{{asset('assets/dashboard/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
 
 <!-- Page Specific JS File -->
-{{--<script src="{{ asset('assets/dashboard/js/page/index-0.js') }}"></script>--}}
 <script src="{{asset('assets/dashboard/js/page/modules-datatables.js')}}"></script>
 
 
@@ -30,6 +29,8 @@
 
 @include('sweetalert::alert')
 
+@stack('js')
+
 <script>
 
     $.uploadPreview({
@@ -42,6 +43,8 @@
         success_callback: null          // Default: null
     });
 
+    // handle tags input
+    $(".inputtags").tagsinput('items');
 
     // add csrf token in ajax requests
     $.ajaxSetup({
@@ -106,4 +109,4 @@
 
 </script>
 
-@stack('js')
+
