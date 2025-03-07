@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminStoreNewsRequest;
+use App\Interfaces\AdminNewsRepositoryInterface;
 use App\Models\Category;
 use App\Models\Language;
 use App\Models\News;
@@ -16,103 +17,48 @@ use Illuminate\Support\Str;
 class NewsController extends Controller
 {
 
+    public $news;
+
+    public function __construct(AdminNewsRepositoryInterface $news)
+    {
+        $this->news = $news;
+    }
+
     use FileUploadTrait;
 
     public function index()
     {
-        $languages = Language::all();
-        return view('dashboard.pages.news.index', compact('languages'));
+        return $this->news->index();
     }
 
-    /*
-     * Fetch Categories depend on language
-    */
     public function fetchCategory(Request $request)
     {
-        $categories = Category::where('language', $request->lang)->get();
-
-        return response()->json($categories);
+        return $this->news->fetchCategory($request);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        $languages = Language::all();
-        return view('dashboard.pages.news.create', compact('languages'));
+        return $this->news->create();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    public function store(AdminStoreNewsRequest $request)
     {
-
-        // Handle Image
-
-        $imagePath = $this->handleFileUpload($request, 'image', '');
-
-        $news = new News();
-        $news->language = $request->language;
-        $news->category_id = $request->category_id;
-        $news->author_id = Auth::guard('admin')->user()->id;
-        $news->image = $imagePath;
-        $news->title = $request->title;
-        $news->slug = Str::slug($request->title);
-        $news->description = $request->description;
-        $news->meta_title = $request->meta_title;
-        $news->meta_description = $request->meta_description;
-        $news->is_breaking_news = $request->is_breaking_news === 1 ? 1 : 0;
-        $news->show_at_slider = $request->show_at_slider === 1 ? 1 : 0;
-        $news->show_at_popular = $request->show_at_popular === 1 ? 1 : 0;
-        $news->status = $request->status;
-        $news->save();
-
-        $tags = explode(',', $request->tags);
-        $tagIds = [];
-
-        foreach ($tags as $tag) {
-            $tag = trim($tag);
-            $item = new Tag();
-            $item->name = $tag;
-            $item->save();
-            $tagIds[] = $item->id;
-        }
-        $news->tags()->attach($tagIds);
-
-
-        toast('Created successfully', 'success')->width('400px');
-        return to_route('admin.news.index');
+        return $this->news->store($request);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

@@ -2,15 +2,17 @@
 
 namespace App\Interfaces;
 
+use App\Http\Requests\AdminStoreNewsRequest;
 use Illuminate\Http\Request;
 
 interface AdminNewsRepositoryInterface
 {
     public function index();
 
+    public function fetchCategory(Request $request);
     public function create();
 
-    public function store(Request $request);
+    public function store(AdminStoreNewsRequest $request);
 
     public function edit($id);
 
