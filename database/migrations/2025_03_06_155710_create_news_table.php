@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->text('description');
             $table->text('image');
             $table->foreignId('author_id')->constrained('admins');
+            $table->boolean('is_approved')->default(0);
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->boolean('is_breaking_news')->default(0);

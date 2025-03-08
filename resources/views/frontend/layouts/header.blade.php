@@ -1,3 +1,7 @@
+@php
+    $languages = \App\Models\Language::where('status','active')->get();
+@endphp
+
 <header class="bg-light">
     <!-- Navbar  Top-->
     <div class="topbar d-none d-sm-block">
@@ -26,15 +30,18 @@
                     <div class="list-unstyled topbar-right d-flex align-items-center justify-content-end">
                         <div class="topbar_language">
                             <select>
-                                <option>English</option>
-                                <option>Chines</option>
-                                <option>Korean</option>
+                                @foreach($languages as $language)
+                                    <option
+                                        value="{{$language->lang}}" {{$language->default === 'yes' ? 'selected' : ''}}>
+                                        {{$language->name}}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
                         <ul class="topbar-link">
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="register.html">Register</a></li>
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
                         </ul>
                     </div>
                 </div>
