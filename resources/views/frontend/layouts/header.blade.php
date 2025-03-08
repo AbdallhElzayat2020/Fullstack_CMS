@@ -1,5 +1,5 @@
 @php
-    $languages = \App\Models\Language::where('status','active')->get();
+    $languages = \App\Models\Language::where('status', 'active')->get();
 @endphp
 
 <header class="bg-light">
@@ -30,10 +30,10 @@
                     <div class="list-unstyled topbar-right d-flex align-items-center justify-content-end">
                         <div class="topbar_language">
                             <select id="site-language">
-                                @foreach($languages as $language)
+                                @foreach ($languages as $language)
                                     <option
-                                        value="{{$language->lang}}" {{$language->default === 'yes' ? 'selected' : ''}}>
-                                        {{$language->name}}
+                                        value="{{ $language->lang }}" {{\App\Helpers\getLanguage() === $language->lang ? 'selected' : ''}}>
+                                        {{ $language->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -63,7 +63,8 @@
                 </div>
                 <figure class="mb-0 mx-auto">
                     <a href="index.html">
-                        <img src="{{asset('assets/frontend/images/logo1.png')}}" alt="" class="img-fluid logo">
+                        <img src="{{ asset('assets/frontend/images/logo1.png') }}" alt=""
+                             class="img-fluid logo">
                     </a>
                 </figure>
 

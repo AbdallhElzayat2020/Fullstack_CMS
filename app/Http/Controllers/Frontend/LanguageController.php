@@ -13,7 +13,7 @@ class LanguageController extends Controller
      */
     public function __invoke(Request $request)
     {
-//        $language=Language::where('lang',$request->language_code);
+        //$language=Language::where('lang',$request->language_code);
         session(['language' => $request->language_code]);
         return response(['status' => 'success']);
     }
