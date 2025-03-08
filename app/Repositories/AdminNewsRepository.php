@@ -10,8 +10,11 @@ use App\Models\Language;
 use App\Models\News;
 use App\Models\Tag;
 use App\Traits\FileUploadTrait;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AdminNewsRepository implements AdminNewsRepositoryInterface
@@ -53,10 +56,9 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
 
     public function store(AdminStoreNewsRequest $request)
     {
-
+        //dd($request->all());
         // Handle Image
         $imagePath = $this->handleFileUpload($request, 'image', '');
-
         $news = new News();
         $news->language = $request->language;
         $news->category_id = $request->category_id;
@@ -67,16 +69,13 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
         $news->description = $request->description;
         $news->meta_title = $request->meta_title;
         $news->meta_description = $request->meta_description;
-        $news->is_breaking_news = $request->is_breaking_news === 1 ? 1 : 0;
-        $news->show_at_slider = $request->show_at_slider === 1 ? 1 : 0;
-        $news->show_at_popular = $request->show_at_popular === 1 ? 1 : 0;
+        $news->is_breaking_news = $request->is_breaking_news == 1 ? 1 : 0;
+        $news->show_at_slider = $request->show_at_slider == 1 ? 1 : 0;
+        $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
         $news->status = $request->status;
         $news->save();
-
-        //Handle Tags
         $tags = explode(',', $request->tags);
         $tagIds = [];
-        // loop in tags array
         foreach ($tags as $tag) {
             $tag = trim($tag);
             $item = new Tag();
@@ -84,23 +83,9 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
             $item->save();
             $tagIds[] = $item->id;
         }
-
         $news->tags()->attach($tagIds);
 
-
-//        $tags = explode(',', $request->tags);
-//        $tagsIds = [];
-//        foreach ($tags as $tag) {
-//            $tag = trim($tag);
-//            $tag = Tag::create([
-//                'name' => $tag,
-//            ]);
-//            $tagsIds[] = $tag->id;
-//        }
-//        $news->tags()->attach($tagsIds);
-
-
-        toast('Created successfully', 'success')->width('400px');
+        toast(__('Created successfully'), 'success')->width('400px');
         return to_route('admin.news.index');
     }
 
@@ -110,9 +95,7 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
         $languages = Language::all();
         $categories = Category::where('language', $news->language)->get();
 
-
         $tags = implode(',', $news->tags->pluck('name')->toArray());
-
         $news->tags = $tags;
 
         return view('dashboard.pages.news.edit', compact('news', 'languages', 'categories', 'tags'));
@@ -122,21 +105,24 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
     {
         $news = News::findOrFail($id);
 
+        // ✅ Handle Image Upload (Keep old image if no new one uploaded)
+        $imagePath = $news->image;
+        if ($request->hasFile('image')) {
+            $imagePath = $this->handleFileUpload($request, 'image');
+        }
+        $news->image = $imagePath;
 
-        // Handle Image
-        $imagePath = $this->handleFileUpload($request, 'image', $news->image);
-
+        // ✅ Update News
         $news->language = $request->language;
         $news->category_id = $request->category_id;
-        $news->image = !empty($imagePath) ? $imagePath : $news->image;
         $news->title = $request->title;
         $news->slug = Str::slug($request->title);
         $news->description = $request->description;
         $news->meta_title = $request->meta_title;
         $news->meta_description = $request->meta_description;
-        $news->is_breaking_news = $request->is_breaking_news === 1 ? 1 : 0;
-        $news->show_at_slider = $request->show_at_slider === 1 ? 1 : 0;
-        $news->show_at_popular = $request->show_at_popular === 1 ? 1 : 0;
+        $news->is_breaking_news = $request->is_breaking_news ? 1 : 0;
+        $news->show_at_slider = $request->show_at_slider ? 1 : 0;
+        $news->show_at_popular = $request->show_at_popular ? 1 : 0;
         $news->status = $request->status;
         $news->save();
 
@@ -160,12 +146,37 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
 
         $news->tags()->sync($tagsIds);
 
-        toast('updated successfully', 'success')->width('400px');
+        toast(__('updated successfully'), 'success')->width('400px');
         return to_route('admin.news.index');
     }
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        DB::beginTransaction();
+        try {
+            $news = News::findOrFail($id);
+            $news->tags()->delete();
+            $news->delete();
+            $this->deleteFile($news->image);
+            DB::commit();
+            return response(['status' => 'success', 'message' => __('Deleted successfully')]);
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+            return response(['status' => 'error', 'message' => __('Something went wrong')]);
+        }
+    }
+
+    /*
+     * Copy news
+     * */
+    public function copyNews($id)
+    {
+        $news = News::findOrFail($id);
+
+        $copyNews = $news->replicate();
+        $copyNews->save();
+        toast(__('Copied successfully'), 'success')->width('400px');
+        return to_route('admin.news.index');
     }
 }

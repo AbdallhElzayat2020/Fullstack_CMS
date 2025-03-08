@@ -70,6 +70,11 @@ class NewsController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        return $this->news->destroy($id);
+    }
+
+    public function copyNews($id)
+    {
+        return $this->news->copyNews($id);
     }
 }

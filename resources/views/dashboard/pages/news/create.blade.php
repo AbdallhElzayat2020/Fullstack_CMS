@@ -152,7 +152,6 @@
                                                            class="custom-switch-input">
                                                     <span class="custom-switch-indicator"></span>
                                                 </label>
-
                                             </div>
                                         </div>
 

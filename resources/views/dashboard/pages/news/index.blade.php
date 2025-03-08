@@ -113,11 +113,12 @@
                                                             <td>
                                                                 <label class="custom-switch mt-2">
                                                                     <input
-                                                                        {{$newsItem->show_at_popular === 1 ?'checked':'' }} value="1"
-                                                                        data-id="{{$newsItem->id}}"
+                                                                        value="1"
+                                                                        data-id="{{ $newsItem->id }}"
                                                                         data-name="show_at_popular"
                                                                         type="checkbox"
-                                                                        class="custom-switch-input toggle-status">
+                                                                        class="custom-switch-input toggle-status"
+                                                                        @checked(($newsItem->show_at_popular ?? 0) === 1)>
                                                                     <span class="custom-switch-indicator"></span>
                                                                 </label>
                                                                 {{--                                                                @if($newsItem->show_at_popular === 1)--}}
@@ -151,14 +152,20 @@
                                                             </td>
 
                                                             <td>
-                                                                <a href="{{ route('admin.news.edit',$newsItem->id) }}"
-                                                                   class="btn btn-primary">
-                                                                    <i class="fas fa-edit"></i>
-                                                                </a>
-                                                                <a href="{{ route('admin.news.destroy',$newsItem->id) }}"
-                                                                   class="delete-item btn btn-danger">
-                                                                    <i class="fas fa-trash-alt"></i>
-                                                                </a>
+                                                              <div class="d-flex">
+                                                                  <a href="{{ route('admin.news.edit',$newsItem->id) }}"
+                                                                     class="btn btn-primary mx-1">
+                                                                      <i class="fas fa-edit"></i>
+                                                                  </a>
+                                                                  <a href="{{ route('admin.news.destroy',$newsItem->id) }}"
+                                                                     class="delete-item btn btn-danger mx-1">
+                                                                      <i class="fas fa-trash-alt"></i>
+                                                                  </a>
+                                                                  <a href="{{ route('admin.news-copy',$newsItem->id) }}"
+                                                                     class="btn btn-primary mx-1">
+                                                                      <i class="fas fa-copy"></i>
+                                                                  </a>
+                                                              </div>
                                                             </td>
                                                         </tr>
                                                     @endforeach

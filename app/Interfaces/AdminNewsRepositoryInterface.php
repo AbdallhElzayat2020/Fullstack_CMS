@@ -22,4 +22,6 @@ interface AdminNewsRepositoryInterface
     public function destroy($id);
 
     public function toggleNewsStatus(Request $request);
+
+    public function copyNews($id);
 }
