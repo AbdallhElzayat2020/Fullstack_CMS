@@ -57,4 +57,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     Route::resource('news', NewsController::class);
 
+
 });
