@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminStoreNewsRequest;
+use App\Http\Requests\AdminUpdateNewsRequest;
 use App\Interfaces\AdminNewsRepositoryInterface;
 use App\Models\Category;
 use App\Models\Language;
@@ -48,15 +49,32 @@ class NewsController extends Controller
         return $this->news->store($request);
     }
 
+    /*
+     * change toggle of news
+     * */
+    public function toggleNewsStatus(Request $request)
+    {
+        try {
+
+            $news = News::findOrFail($request->id);
+            $news->{$request->name} = $request->status;
+            $news->save();
+            return response()->json(['status' => 'success', 'message' => __('updated successfully !')]);
+
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
+    }
+
 
     public function edit(string $id)
     {
-        //
+        return $this->news->edit($id);
     }
 
-    public function update(Request $request, string $id)
+    public function update(AdminUpdateNewsRequest $request, string $id)
     {
-        //
+        return $this->news->update($request, $id);
     }
 
     public function destroy(string $id)

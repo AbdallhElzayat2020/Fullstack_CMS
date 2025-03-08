@@ -52,14 +52,29 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+
     /*
      Handle Dynamic Delete    add delete-item in all delete buttons
     * */
     $(document).ready(function () {
+
+
         $('.delete-item').on('click', function (e) {
             e.preventDefault();
 
-            let url = $(this).attr('href'); // رابط الحذف
+            let url = $(this).attr('href');
 
             Swal.fire({
                 title: "Are you sure?",
