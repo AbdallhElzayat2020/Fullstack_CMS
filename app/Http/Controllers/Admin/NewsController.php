@@ -54,16 +54,7 @@ class NewsController extends Controller
      * */
     public function toggleNewsStatus(Request $request)
     {
-        try {
-
-            $news = News::findOrFail($request->id);
-            $news->{$request->name} = $request->status;
-            $news->save();
-            return response()->json(['status' => 'success', 'message' => __('updated successfully !')]);
-
-        } catch (\Exception $exception) {
-            throw $exception;
-        }
+        return $this->news->toggleNewsStatus($request);
     }
 
 

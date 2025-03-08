@@ -20,4 +20,6 @@ interface AdminNewsRepositoryInterface
     public function update(AdminUpdateNewsRequest $request, $id);
 
     public function destroy($id);
+
+    public function toggleNewsStatus(Request $request);
 }
