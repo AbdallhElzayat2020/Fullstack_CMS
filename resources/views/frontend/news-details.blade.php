@@ -68,7 +68,7 @@
                         <div class="wrap__article-detail-content">
                             <div class="total-views">
                                 <div class="total-views-read">
-                                    {{$news->views}}
+                                    {{\App\Helpers\formatViews($news->views)}}
                                     <span>
                                         {{__('views')}}
                                     </span>
@@ -127,31 +127,13 @@
                                 <i class="fa fa-tags">
                                 </i>
                             </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    #property
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    #sea
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    #programming
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    #sea
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    #property
-                                </a>
-                            </li>
+                            @foreach($news->tags as $tag)
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        #{{$tag->name}}
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                     <!-- end tags-->
@@ -161,14 +143,19 @@
                     <div class="wrap__profile">
                         <div class="wrap__profile-author">
                             <figure>
-                                <img src="images/news1.jpg" alt="" class="img-fluid rounded-circle">
+                                <img style="width: 200px; height: 200px" src="{{asset($news->author->image)}}"
+                                     alt="{{$news->title}}" class="img-fluid rounded-circle">
                             </figure>
                             <div class="wrap__profile-author-detail">
-                                <div class="wrap__profile-author-detail-name">author</div>
-                                <h4>jhon doe</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis laboriosam ad
+                                <div class="wrap__profile-author-detail-name">{{__('author')}}</div>
+                                <h4>
+                                    {{$news->author->name}}
+                                </h4>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis laboriosam ad
                                     beatae itaque ea non
-                                    placeat officia ipsum praesentium! Ullam?</p>
+                                    placeat officia ipsum praesentium! Ullam?
+                                </p>
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
                                         <a href="#" class="btn btn-social btn-social-o facebook ">
@@ -203,7 +190,7 @@
 
                     <!-- Comment  -->
                     <div id="comments" class="comments-area">
-                        <h3 class="comments-title">2 Comments:</h3>
+                        <h3 class="comments-title">2 {{__('Comments:')}}</h3>
 
                         <ol class="comment-list">
                             <li class="comment">
@@ -587,160 +574,89 @@
                                 </div>
                             </div>
                             <div class="wrapper__list__article-small">
-                                <div class="mb-3">
-                                    <!-- Post Article -->
-                                    <div class="card__post card__post-list">
-                                        <div class="image-sm">
-                                            <a href="./blog_details.html">
-                                                <img src="images/newsimage1.png" class="img-fluid" alt="">
-                                            </a>
-                                        </div>
+                                @foreach($recentNews as $key=> $recentNew)
+                                    <div class="mb-3">
+                                        <!-- Post Article -->
+                                        <div class="card__post card__post-list">
+                                            <div class="image-sm">
+                                                <a href="{{ route('news-details',$recentNew->slug) }}">
+                                                    <img src="{{asset($recentNew->image)}}" class="img-fluid"
+                                                         alt="{{$recentNew->title}}">
+                                                </a>
+                                            </div>
 
+                                            <div class="card__post__body ">
+                                                <div class="card__post__content">
 
-                                        <div class="card__post__body ">
-                                            <div class="card__post__content">
-
-                                                <div class="card__post__author-info mb-2">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
+                                                    <div class="card__post__author-info mb-2">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item">
                                                             <span class="text-primary">
-                                                                by david hall
+                                                                {{__('by')}} {{$recentNew->author->name}}
                                                             </span>
-                                                        </li>
-                                                        <li class="list-inline-item">
+                                                            </li>
+                                                            <li class="list-inline-item">
                                                             <span class="text-dark text-capitalize">
-                                                                descember 09, 2016
+                                                               {{date('Y-m-d',strtotime($recentNew->created_at))}}
                                                             </span>
-                                                        </li>
-
-                                                    </ul>
-                                                </div>
-                                                <div class="card__post__title">
-                                                    <h6>
-                                                        <a href="./blog_details.html">
-                                                            6 Best Tips for Building a Good Shipping Boat
-                                                        </a>
-                                                    </h6>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="card__post__title">
+                                                        <h6>
+                                                            <a href="{{ route('news-details',$recentNew->slug) }}">
+                                                                {!! \App\Helpers\truncate($recentNew->title , 20,'...') !!}
+                                                            </a>
+                                                        </h6>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="mb-3">
-                                    <!-- Post Article -->
-                                    <div class="card__post card__post-list">
-                                        <div class="image-sm">
-                                            <a href="./blog_details.html">
-                                                <img src="images/news2.jpg" class="img-fluid" alt="">
-                                            </a>
-                                        </div>
 
-                                        <div class="card__post__body ">
-                                            <div class="card__post__content">
-
-                                                <div class="card__post__author-info mb-2">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <span class="text-primary">
-                                                                by david hall
-                                                            </span>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <span class="text-dark text-capitalize">
-                                                                descember 09, 2016
-                                                            </span>
-                                                        </li>
-
-                                                    </ul>
-                                                </div>
-                                                <div class="card__post__title">
-                                                    <h6>
-                                                        <a href="./blog_details.html">
-                                                            6 Best Tips for Building a Good Shipping Boat
-                                                        </a>
-                                                    </h6>
-                                                </div>
+                                    @if($key === 2)
+                                        <!-- Post Article -->
+                                        <div class="article__entry">
+                                            <div class="article__image">
+                                                <a href="#">
+                                                    <img src="{{asset($recentNew->image)}}" alt="{{$recentNew->name}}"
+                                                         class="img-fluid">
+                                                </a>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <!-- Post Article -->
-                                    <div class="card__post card__post-list">
-                                        <div class="image-sm">
-                                            <a href="./blog_details.html">
-                                                <img src="images/news3.jpg" class="img-fluid" alt="">
-                                            </a>
-                                        </div>
-
-
-                                        <div class="card__post__body ">
-                                            <div class="card__post__content">
-
-                                                <div class="card__post__author-info mb-2">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            <span class="text-primary">
-                                                                by david hall
-                                                            </span>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <span class="text-dark text-capitalize">
-                                                                descember 09, 2016
-                                                            </span>
-                                                        </li>
-
-                                                    </ul>
+                                            <div class="article__content">
+                                                <div class="article__category">
+                                                    {{$recentNew->category->name}}
                                                 </div>
-                                                <div class="card__post__title">
-                                                    <h6>
-                                                        <a href="./blog_details.html">
-                                                            6 Best Tips for Building a Good Shipping Boat
-                                                        </a>
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Post Article -->
-                                <div class="article__entry">
-                                    <div class="article__image">
-                                        <a href="#">
-                                            <img src="images/news4.jpg" alt="" class="img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="article__content">
-                                        <div class="article__category">
-                                            travel
-                                        </div>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item">
                                                 <span class="text-primary">
-                                                    by david hall
+                                                    {{__('by')}} {{$recentNew->author->name}}
                                                 </span>
-                                            </li>
-                                            <li class="list-inline-item">
+                                                    </li>
+                                                    <li class="list-inline-item">
                                                 <span class="text-dark text-capitalize">
-                                                    descember 09, 2016
+                                                   {{date('Y-m-d',strtotime($recentNew->created_at))}}
                                                 </span>
-                                            </li>
+                                                    </li>
+                                                </ul>
+                                                <h5>
+                                                    <a href="{{ route('news-details',$recentNew->slug) }}">
+                                                        {{$recentNew->title}}
+                                                    </a>
+                                                </h5>
+                                                <p>
+                                                    {!!\App\Helpers\truncate($recentNew->description, 50,'...')!!}
+                                                </p>
+                                                <a href="{{ route('news-details',$recentNew->slug) }}"
+                                                   class="btn btn-outline-primary mb-4 text-capitalize">
+                                                    {{__('read more')}}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
 
-                                        </ul>
-                                        <h5>
-                                            <a href="#">
-                                                Proin eu nisl et arcu iaculis placerat sollicitudin ut est
-                                            </a>
-                                        </h5>
-                                        <p>
-                                            Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu
-                                            iaculis placerat sollicitudin ut
-                                            est. In fringilla dui dui.
-                                        </p>
-                                        <a href="#" class="btn btn-outline-primary mb-4 text-capitalize"> read more</a>
-                                    </div>
-                                </div>
+
                             </div>
                         </aside>
 
