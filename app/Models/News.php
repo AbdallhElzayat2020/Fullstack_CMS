@@ -2,30 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ActiveNews;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use function App\Helpers\getLanguage;
 
 class News extends Model
 {
     protected $table = 'news';
-
-
-//    protected $fillable = [
-//        'language',
-//        'category_id',
-//        'title',
-//        'slug',
-//        'description',
-//        'image',
-//        'author_id',
-//        'meta_title',
-//        'meta_description',
-//        'is_breaking_news',
-//        'show_at_slider',
-//        'show_at_popular',
-//        'status',
-//    ];
 
     /*
      * ========================== Relationships ==========================
@@ -44,4 +30,28 @@ class News extends Model
     {
         return $this->belongsTo(Admin::class, 'author_id');
     }
+
+
+    /* ========================== Scopes ==========================  */
+
+    /* Scope for Active items */
+    public function scopeActiveNews(Builder $query)
+    {
+        $query->where([
+            'is_approved' => '1',
+            'status' => 'active'
+        ]);
+    }
+
+    /* Scope for Check Language */
+    public function scopeWithLocalize(Builder $query)
+    {
+        $query->where('language', getLanguage());
+    }
+
+//    public function scope()
+//    {
+//
+//    }
+
 }

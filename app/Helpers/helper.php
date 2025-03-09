@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Language;
+use Illuminate\Support\Str;
 
 function formatTags(array $tags): string
 {
@@ -12,7 +13,6 @@ function formatTags(array $tags): string
 /* get selected language from session */
 function getLanguage()
 {
-
     try {
         if (session()->has('language')) {
             return session('language');
@@ -32,4 +32,12 @@ function getLanguage()
 function setLanguage(string $lang): void
 {
     session()->put('language', $lang);
+}
+
+/* Limiting & truncate Text function  */
+
+
+function truncate(string $text, $limit, $ending): string
+{
+    return Str::limit($text, $limit, $ending);
 }

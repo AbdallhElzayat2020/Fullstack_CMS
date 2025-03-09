@@ -3,9 +3,9 @@
 
 @section('content')
 
-    <!-- Tranding news  carousel-->
-    @include('frontend.home-components.tranding-news')
-    <!-- End Tranding news carousel -->
+    <!-- Breaking news  carousel-->
+    @include('frontend.home-components.breaking-news')
+    <!-- End Breaking news carousel -->
 
     <!-- Hero News Section-->
     @include('frontend.home-components.hero-slider')

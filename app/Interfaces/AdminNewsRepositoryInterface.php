@@ -11,6 +11,7 @@ interface AdminNewsRepositoryInterface
     public function index();
 
     public function fetchCategory(Request $request);
+
     public function create();
 
     public function store(AdminStoreNewsRequest $request);
