@@ -19,7 +19,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//Get Active Language from the session
 Route::get('language', LanguageController::class)->name('language');
+
+//News Details Route
+Route::get('/news-details/{slug}', [HomeController::class, 'ShowNews'])->name('news-details');
+
+
 
 
 require __DIR__ . '/auth.php';

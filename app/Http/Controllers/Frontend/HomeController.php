@@ -16,4 +16,10 @@ class HomeController extends Controller
 
         return view('frontend.home', compact('breakingNews'));
     }
+
+    public function ShowNews(string $slug)
+    {
+        $news = News::where('slug', $slug)->with('author', 'category')->activeNews()->withLocalize()->first();
+        return view('frontend.news-details', compact('news'));
+    }
 }

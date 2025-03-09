@@ -21,7 +21,7 @@ class News extends Model
         return $this->belongsToMany(Tag::class, 'news_tags');
     }
 
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
@@ -35,7 +35,7 @@ class News extends Model
     /* ========================== Scopes ==========================  */
 
     /* Scope for Active items */
-    public function scopeActiveNews(Builder $query)
+    public function scopeActiveNews(Builder $query): void
     {
         $query->where([
             'is_approved' => '1',
@@ -44,7 +44,7 @@ class News extends Model
     }
 
     /* Scope for Check Language */
-    public function scopeWithLocalize(Builder $query)
+    public function scopeWithLocalize(Builder $query): void
     {
         $query->where('language', getLanguage());
     }

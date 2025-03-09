@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->boolean('is_breaking_news')->default(0);
             $table->boolean('show_at_slider')->default(0);
             $table->boolean('show_at_popular')->default(0);
+            $table->integer('views')->default(0);
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
