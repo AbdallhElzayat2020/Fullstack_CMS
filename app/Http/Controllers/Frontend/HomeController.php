@@ -24,7 +24,7 @@ class HomeController extends Controller
             ->withLocalize()
             ->first();
 
-        $recentNews = News::with('author', 'category')
+        $recentNews = News::with('author')
             ->where('slug', '!=', $slug)
             ->activeNews()
             ->withLocalize()->orderBy('id', 'desc')->take(4)->get();
@@ -36,18 +36,42 @@ class HomeController extends Controller
     }
 
     // handle  count of views
-    public function countView($news)
+
+    public function countView($news): void
     {
-        $sessionKey = 'views' . $news->id;
+        $ip = request()->ip();
+        $sessionKey = 'viewed_post_' . $ip;
 
-        if (!session()->has($sessionKey)) {
-
+        if (session()->has($sessionKey)) {
+            $postIds = session($sessionKey);
+            if (!in_array($news->id, $postIds, true)) {
+                $postIds[] = $news->id;
+                $news->increment('views');
+            }
+            session([$sessionKey => $postIds]);
+        } else {
+            session([$sessionKey => [$news->id]]);
             $news->increment('views');
-
-            session()->put($sessionKey, true);
         }
-
     }
+
+
+
+
+//    public function countView($news): void
+//    {
+//        if (session()->has('viewed_post')) {
+//            $postIds = session('viewed_post');
+//            if (!in_array($news->id, $postIds)) {
+//                $postIds[] = $news->id;
+//                $news->increment('views');
+//            }
+//            session(['viewed_post' => $postIds]);
+//        }else {
+//            session(['viewed_post' => [$news->id]]);
+//            $news->increment('views');
+//        }
+//    }
 
 
 }

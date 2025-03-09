@@ -575,50 +575,52 @@
                             </div>
                             <div class="wrapper__list__article-small">
                                 @foreach($recentNews as $key=> $recentNew)
-                                    <div class="mb-3">
-                                        <!-- Post Article -->
-                                        <div class="card__post card__post-list">
-                                            <div class="image-sm">
-                                                <a href="{{ route('news-details',$recentNew->slug) }}">
-                                                    <img src="{{asset($recentNew->image)}}" class="img-fluid"
-                                                         alt="{{$recentNew->title}}">
-                                                </a>
-                                            </div>
+                                    @if($loop->index <= 2)
+                                        <div class="mb-3">
+                                            <!-- Post Article -->
+                                            <div class="card__post card__post-list">
+                                                <div class="image-sm">
+                                                    <a href="{{ route('news-details',$recentNew->slug) }}">
+                                                        <img src="{{asset($recentNew->image)}}" class="img-fluid"
+                                                             alt="{{$recentNew->title}}">
+                                                    </a>
+                                                </div>
 
-                                            <div class="card__post__body ">
-                                                <div class="card__post__content">
+                                                <div class="card__post__body ">
+                                                    <div class="card__post__content">
 
-                                                    <div class="card__post__author-info mb-2">
-                                                        <ul class="list-inline">
-                                                            <li class="list-inline-item">
+                                                        <div class="card__post__author-info mb-2">
+                                                            <ul class="list-inline">
+                                                                <li class="list-inline-item">
                                                             <span class="text-primary">
                                                                 {{__('by')}} {{$recentNew->author->name}}
                                                             </span>
-                                                            </li>
-                                                            <li class="list-inline-item">
+                                                                </li>
+                                                                <li class="list-inline-item">
                                                             <span class="text-dark text-capitalize">
                                                                {{date('Y-m-d',strtotime($recentNew->created_at))}}
                                                             </span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="card__post__title">
-                                                        <h6>
-                                                            <a href="{{ route('news-details',$recentNew->slug) }}">
-                                                                {!! \App\Helpers\truncate($recentNew->title , 20,'...') !!}
-                                                            </a>
-                                                        </h6>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="card__post__title">
+                                                            <h6>
+                                                                <a href="{{ route('news-details',$recentNew->slug) }}">
+                                                                    {!! \App\Helpers\truncate($recentNew->title , 20,'...') !!}
+                                                                </a>
+                                                            </h6>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
 
-                                    @if($key === 2)
+                                    @if($loop->index === 2)
                                         <!-- Post Article -->
                                         <div class="article__entry">
                                             <div class="article__image">
-                                                <a href="#">
+                                                <a href="{{ route('news-details',$recentNew->slug) }}">
                                                     <img src="{{asset($recentNew->image)}}" alt="{{$recentNew->name}}"
                                                          class="img-fluid">
                                                 </a>
@@ -641,11 +643,11 @@
                                                 </ul>
                                                 <h5>
                                                     <a href="{{ route('news-details',$recentNew->slug) }}">
-                                                        {{$recentNew->title}}
+                                                        {!! \App\Helpers\truncate($recentNew->title, 30 , '...') !!}
                                                     </a>
                                                 </h5>
                                                 <p>
-                                                    {!!\App\Helpers\truncate($recentNew->description, 50,'...')!!}
+                                                    {!!\App\Helpers\truncate($recentNew->description, 150,'...')!!}
                                                 </p>
                                                 <a href="{{ route('news-details',$recentNew->slug) }}"
                                                    class="btn btn-outline-primary mb-4 text-capitalize">
