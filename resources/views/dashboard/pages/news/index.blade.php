@@ -218,7 +218,7 @@
                         if (data.status === 'success') {
                             Toast.fire({
                                 icon: "success",
-                                title: "Signed in successfully"
+                                title: "updated successfully"
                             });
                         }
                     },

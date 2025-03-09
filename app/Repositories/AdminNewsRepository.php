@@ -65,6 +65,7 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
         $news->author_id = Auth::guard('admin')->user()->id;
         $news->image = $imagePath;
         $news->title = $request->title;
+
         $news->slug = Str::slug($request->title);
         $news->description = $request->description;
         $news->meta_title = $request->meta_title;
@@ -80,7 +81,9 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
             $tag = trim($tag);
             $item = new Tag();
             $item->name = $tag;
+            $item->language = $news->language;
             $item->save();
+
             $tagIds[] = $item->id;
         }
         $news->tags()->attach($tagIds);
@@ -101,7 +104,7 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
         return view('dashboard.pages.news.edit', compact('news', 'languages', 'categories', 'tags'));
     }
 
-    public function update(AdminUpdateNewsRequest $request, $id)
+    public function update(AdminUpdateNewsRequest $request, $id): \Illuminate\Http\RedirectResponse
     {
         $news = News::findOrFail($id);
 
@@ -132,12 +135,15 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
         // loop tags array
         foreach ($tags as $tag) {
             $tag = trim($tag);
-            $existTag = Tag::where('name', $tag)->first();
+            $existTag = Tag::where('name', $tag)
+                ->where('language', $news->language)
+                ->first();
             if ($existTag) {
                 $tagsIds[] = $existTag->id;
             } else {
                 $newTag = Tag::create([
                     'name' => $tag,
+                    'language' => $news->language,
                 ]);
                 $tagsIds[] = $newTag->id;
             }

@@ -1,0 +1,9 @@
+Facebook: https://www.facebook.com/sharer/sharer.php?u=YOUR_URL
+
+twitter: https://twitter.com/intent/tweet?text=YOUR_TEXT&url=YOUR_URL
+
+whatsapp: https://wa.me/?text=YOUR_TEXT%20YOUR_URL
+
+telegram: https://t.me/share/url?url={url}&text={text}
+
+linkedin: https://www.linkedin.com/shareArticle?mini=true&url=YOUR_URL&title=YOUR_TITLE

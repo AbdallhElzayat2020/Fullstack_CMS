@@ -143,8 +143,9 @@
                     <div class="wrap__profile">
                         <div class="wrap__profile-author">
                             <figure>
-                                <img style="width: 200px; height: 200px" src="{{asset($news->author->image)}}"
-                                     alt="{{$news->title}}" class="img-fluid rounded-circle">
+                                <img style="width: 200px; height: 200px;object-fit: cover"
+                                     src="{{asset($news->author->image)}}"
+                                     alt="{{$news->author->name}}" class="img-fluid rounded-circle">
                             </figure>
                             <div class="wrap__profile-author-detail">
                                 <div class="wrap__profile-author-detail-name">{{__('author')}}</div>
@@ -261,44 +262,14 @@
                                 </ol>
                             </li>
 
-                            <li class="comment">
-                                <aside class="comment-body">
-                                    <div class="comment-meta">
-                                        <div class="comment-author vcard">
-                                            <img src="images/news4.jpg" class="avatar" alt="image">
-                                            <b class="fn">Sinmun</b>
-                                            <span class="says">says:</span>
-                                        </div>
-
-                                        <div class="comment-metadata">
-                                            <a href="#">
-                                                <span>April 24, 2019 at 10:59 am</span>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="comment-content">
-                                        <p>Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s,
-                                            when an unknown
-                                            printer took a galley of type and scrambled it to make a type specimen book.
-                                        </p>
-                                    </div>
-
-                                    <div class="reply">
-                                        <a href="#" class="comment-reply-link" data-toggle="modal"
-                                           data-target="#exampleModal">Reply</a>
-                                        <span>
-                                            <i class="fa fa-trash"></i>
-                                        </span>
-                                    </div>
-                                </aside>
-                            </li>
                         </ol>
 
                         <div class="comment-respond">
-                            <h3 class="comment-reply-title">Leave a Reply</h3>
+                            <h3 class="comment-reply-title">{{__('Leave a Reply')}}</h3>
 
-                            <form class="comment-form">
+                            <form action="{{ route('news-comment') }}" method="POST" class="comment-form">
+                                @csrf
+
                                 <p class="comment-notes">
                                     <span id="email-notes">Your email address will not be published.</span>
                                     Required fields are marked
@@ -308,26 +279,11 @@
                                     <label for="comment">Comment</label>
                                     <textarea name="comment" id="comment" cols="45" rows="5" maxlength="65525"
                                               required="required"></textarea>
+                                    @error('comment')
+                                    <span class="text-danger">{{$message}}</span>
+                                    @enderror
                                 </p>
-                                <p class="comment-form-author">
-                                    <label>Name <span class="required">*</span></label>
-                                    <input type="text" id="author" name="name" required="required">
-                                </p>
-                                <p class="comment-form-email">
-                                    <label for="email">Email <span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" required="required">
-                                </p>
-                                <p class="comment-form-url">
-                                    <label for="url">Website</label>
-                                    <input type="url" id="url" name="url">
-                                </p>
-                                <p class="comment-form-cookies-consent">
-                                    <input type="checkbox" value="yes" name="wp-comment-cookies-consent"
-                                           id="wp-comment-cookies-consent">
-                                    <label for="wp-comment-cookies-consent">Save my name, email, and website in this
-                                        browser for the next
-                                        span I comment.</label>
-                                </p>
+
                                 <p class="form-submit mb-0">
                                     <input type="submit" name="submit" id="submit" class="submit" value="Post Comment">
                                 </p>
@@ -712,85 +668,17 @@
                         <!-- End social media -->
 
                         <aside class="wrapper__list__article">
-                            <h4 class="border_section">tags</h4>
+                            <h4 class="border_section">{{__('tags')}}</h4>
                             <div class="blog-tags p-0">
                                 <ul class="list-inline">
+                                    @foreach($mostTags as $tag)
 
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #property
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #sea
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #programming
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #sea
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #property
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #life style
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #technology
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #framework
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #sport
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #game
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #wfh
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #sport
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #game
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #wfh
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #framework
-                                        </a>
-                                    </li>
+                                        <li class="list-inline-item">
+                                            <a href="#">
+                                                #{{$tag->name}} ({{$tag->count}})
+                                            </a>
+                                        </li>
+                                    @endforeach
 
                                 </ul>
                             </div>
