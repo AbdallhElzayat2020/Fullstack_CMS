@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\News;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use function App\Helpers\getLanguage;

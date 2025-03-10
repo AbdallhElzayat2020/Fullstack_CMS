@@ -8,14 +8,13 @@
                             <!-- Post Article -->
                             <div class="card__post card__post-list">
                                 <div class="image-sm">
-                                    <a href="{{ route('news-details',$news->slug) }}">
+                                    <a href="{{ route('news-details', $news->slug) }}">
                                         <img src="{{ asset($news->image) }}" class="img-fluid" alt="{{ $news->title }}">
                                     </a>
                                 </div>
 
                                 <div class="card__post__body ">
                                     <div class="card__post__content">
-
                                         <div class="card__post__author-info mb-2">
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
@@ -33,7 +32,7 @@
 
                                         <div class="card__post__title">
                                             <h6>
-                                                <a href="{{ route('admin.news.show',$news->slug) }}">
+                                                <a href="{{ route('admin.news.show', $news->slug) }}">
                                                     {{ \App\Helpers\truncate($news->title, 20, '...') }}
                                                 </a>
                                             </h6>

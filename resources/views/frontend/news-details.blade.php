@@ -189,6 +189,7 @@
                     </div>
                     <!-- end author-->
 
+
                     <!-- Comment  -->
                     @auth
                         <div id="comments" class="comments-area">
