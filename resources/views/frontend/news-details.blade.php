@@ -192,7 +192,7 @@
                     <!-- Comment  -->
                     @auth
                         <div id="comments" class="comments-area">
-                            <h3 class="comments-title">2 {{__('Comments:')}}</h3>
+                            <h3 class="comments-title">{{$news->comments()->count()}} {{__('Comments:')}}</h3>
 
                             <ol class="comment-list">
                                 @foreach($news->comments()->with('user')->whereNull('parent_id')->get() as $comment)
