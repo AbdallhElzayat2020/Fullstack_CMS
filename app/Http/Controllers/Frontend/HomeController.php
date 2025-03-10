@@ -34,12 +34,30 @@ class HomeController extends Controller
             ->activeNews()
             ->withLocalize()->orderBy('id', 'desc')->take(4)->get();
 
+        $nextPost = News::where('id', '>', $news->id)
+            ->activeNews()
+            ->withLocalize()
+            ->orderBy('id', 'asc')
+            ->first();
+
+        $prevPost = News::where('id', '<', $news->id)
+            ->activeNews()
+            ->withLocalize()
+            ->orderBy('id', 'desc')
+            ->first();
+
         $mostTags = $this->mostTags();
 
         $this->countView($news);
 
 
-        return view('frontend.news-details', compact('news', 'recentNews', 'mostTags'));
+        return view('frontend.news-details', compact(
+            'news',
+            'recentNews',
+            'mostTags',
+            'nextPost',
+            'prevPost'
+        ));
     }
 
     // handle  count of views
@@ -116,14 +134,12 @@ class HomeController extends Controller
             if (Auth::user()->id === $comment->user_id) {
                 $comment->delete();
                 return response(['status' => 'success', 'message' => __('Deleted successfully')]);
-
             }
-            return response(['status' => 'error', 'message' => __('Something went wrong')]);
 
+            return response(['status' => 'error', 'message' => __('Something went wrong')]);
         } catch (\Exception $exception) {
             return response(['status' => 'error', 'message' => __('Something went wrong')]);
         }
-
     }
 
     public function CommentUpdate(Request $request, $id)
@@ -142,5 +158,4 @@ class HomeController extends Controller
 
         return back()->with('success', 'تم تعديل التعليق بنجاح');
     }
-
 }
