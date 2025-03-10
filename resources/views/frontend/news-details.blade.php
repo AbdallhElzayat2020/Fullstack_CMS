@@ -195,7 +195,7 @@
                             <h3 class="comments-title">2 {{__('Comments:')}}</h3>
 
                             <ol class="comment-list">
-                                @foreach($news->comments()->whereNull('parent_id')->get() as $comment)
+                                @foreach($news->comments()->with('user')->whereNull('parent_id')->get() as $comment)
                                     <li class="comment">
 
                                         <aside class="comment-body">
@@ -223,9 +223,11 @@
                                             <div class="reply">
                                                 <a href="#" class="comment-reply-link" data-toggle="modal"
                                                    data-target="#exampleModal-{{$comment->id}}">Reply</a>
-                                                <span>
-                                            <i class="fa fa-trash"></i>
-                                        </span>
+                                                @if(auth()->user()->id === $comment->user_id || auth()->user()->id === $news->user_id)
+                                                    <span class="delete-msg" data-id="{{$comment->id}}">
+                                <i class="fa fa-trash"></i>
+                            </span>
+                                                @endif
                                             </div>
                                         </aside>
 
@@ -258,30 +260,33 @@
                                                             </div>
 
                                                             <div class="reply">
-                                                                <a href="javascript:void(0)" class="comment-reply-link"
-                                                                   data-toggle="modal"
-                                                                   data-target="#exampleModal-{{$comment->id}}">{{__('Reply')}}</a>
-                                                                <span>
-                                                                     <i class="fa fa-trash"></i>
-                                                                </span>
+                                                                @if($loop->last)
+                                                                    <a href="javascript:void(0)"
+                                                                       class="comment-reply-link" data-toggle="modal"
+                                                                       data-target="#exampleModal-{{$comment->id}}">
+                                                                        {{__('Reply')}}
+                                                                    </a>
+                                                                @endif
+                                                                @if(auth()->user()->id === $replay->user_id || auth()->user()->id === $news->user_id)
+                                                                    <span class="delete-msg" data-id="{{$replay->id}}">
+                                                <i class="fa fa-trash"></i>
+                                            </span>
+                                                                @endif
                                                             </div>
                                                         </aside>
                                                     </li>
                                                 </ol>
                                             @endforeach
-
                                         @endif
 
                                         <!-- Modal -->
                                         <div class="comment_modal">
                                             <div class="modal fade" id="exampleModal-{{$comment->id}}" tabindex="-1"
-                                                 aria-labelledby="exampleModalLabel"
-                                                 aria-hidden="true">
+                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Write
-                                                                Your
+                                                            <h5 class="modal-title" id="exampleModalLabel">Write Your
                                                                 Comment</h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
@@ -289,7 +294,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="{{ route('news-comment-replay') }}"
+                                                            <form action="{{ route('news-comment-reply') }}"
                                                                   method="post">
                                                                 @csrf
                                                                 <input type="hidden" name="news_id"
@@ -308,8 +313,6 @@
 
                                     </li>
                                 @endforeach
-
-
                             </ol>
 
                             <div class="comment-respond">
@@ -344,7 +347,7 @@
                     @else
                         <div class="card my-5">
                             <div class="card-body">
-                                <h6 class="p-0">PLease <a class="text-primary" href="{{ route('login') }}">Login</a> to
+                                <h6 class="p-0">Please <a class="text-primary" href="{{ route('login') }}">Login</a> to
                                     Comment in the Post</h6>
                             </div>
                         </div>
@@ -754,3 +757,60 @@
         </div>
     </section>
 @endsection
+
+
+@push('content')
+    <script>
+        $(document).ready(function () {
+            $('.delete-msg').on('click', function (e) {
+                e.preventDefault();
+
+                let id = $(this).data('id');
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You will delete it forever!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            method: 'DELETE',
+                            url: "{{route('news-comment-delete')}}",
+                            data: {
+                                id: id,
+                                _token: $('meta[name="csrf-token"]').attr('content') // CSRF Token
+                            },
+                            success: function (response) {
+                                Swal.fire({
+                                    title: response.status === "success" ? "Deleted!" : "Warning!",
+                                    text: response.message,
+                                    icon: response.status === "success" ? "success" : "warning"
+                                }).then(() => {
+                                    if (response.status === "success") {
+                                        location.reload();
+                                    }
+                                });
+                            },
+                            error: function (xhr) {
+                                let errorMessage = "Something went wrong.";
+                                if (xhr.responseJSON && xhr.responseJSON.message) {
+                                    errorMessage = xhr.responseJSON.message;
+                                }
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: errorMessage,
+                                    icon: "error"
+                                });
+                                console.log(xhr.responseText);
+                            }
+                        });
+                    }
+                });
+            });
+        })
+    </script>
+@endpush

@@ -72,7 +72,7 @@ class HomeController extends Controller
     }
 
 
-    public function handleComment(Request $request)
+    public function handleComment(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'comment' => ['required', 'max:1000', 'string'],
@@ -89,10 +89,10 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function handleReplay(Request $request)
+    public function handleReplay(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'replay' =>  ['required', 'max:1000', 'string'],
+            'replay' => ['required', 'max:1000', 'string'],
         ]);
 
         $comment = new Comment();
@@ -105,6 +105,41 @@ class HomeController extends Controller
         toast('Created successfully', 'success')->width('400px');
 
         return redirect()->back();
+    }
+
+    public function commentDestroy(Request $request)
+    {
+
+        try {
+            $comment = Comment::findOrFail($request->id);
+            if (Auth::user()->id === $comment->user_id) {
+                $comment->delete();
+                return response(['status' => 'success', 'message' => __('Deleted successfully')]);
+
+            }
+            return response(['status' => 'error', 'message' => __('Something went wrong')]);
+
+        } catch (\Exception $exception) {
+            return response(['status' => 'error', 'message' => __('Something went wrong')]);
+        }
+
+    }
+
+    public function CommentUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'comment' => 'required|string',
+        ]);
+
+        $comment = Comment::findOrFail($id);
+
+        if ($comment->user_id !== Auth::id()) {
+            return back()->with('error', 'غير مسموح لك بتعديل هذا التعليق');
+        }
+
+        $comment->update(['comment' => $request->comment]);
+
+        return back()->with('success', 'تم تعديل التعليق بنجاح');
     }
 
 }

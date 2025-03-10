@@ -26,8 +26,10 @@ Route::get('language', LanguageController::class)->name('language');
 Route::get('/news-details/{slug}', [HomeController::class, 'ShowNews'])->name('news-details');
 //News Comment Route
 Route::post('news-comment', [HomeController::class, 'handleComment'])->name('news-comment');
-Route::post('news-comment-replay', [HomeController::class, 'handleReplay'])->name('news-comment-replay');
-
+Route::post('news-comment-reply', [HomeController::class, 'handleReplay'])->name('news-comment-reply');
+//News Details Route
+Route::delete('news-comment-delete', [HomeController::class, 'commentDestroy'])->name('news-comment-delete');
+Route::patch('/news-comment/{id}', [HomeController::class, 'CommentUpdate'])->name('news-comment-update');
 
 
 require __DIR__ . '/auth.php';

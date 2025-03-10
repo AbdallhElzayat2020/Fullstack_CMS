@@ -1,8 +1,18 @@
 <a href="javascript:void(0)" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
 
 <script type="text/javascript" src="{{asset('assets/frontend/js/index.bundle.js')}}"></script>
-
+{{--sweet alert js--}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@stack('content')
 <script>
+
+    // add csrf token in ajax requests
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $(document).ready(function () {
         /* Change Language */
         $('#site-language').on('change', function () {
@@ -26,3 +36,4 @@
         });
     })
 </script>
+

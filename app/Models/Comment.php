@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Comment extends Model
 {
 
+    protected $fillable = [
+        'news_id',
+        'user_id',
+        'parent_id',
+        'comment',
+    ];
 
     public function news(): BelongsTo
     {
@@ -22,7 +28,6 @@ class Comment extends Model
 
     public function replay(): HasMany
     {
-//        return $this->belongsTo(__CLASS__);  // Comment::class
         return $this->hasMany(Comment::class, 'parent_id');  // Comment::class
     }
 }
