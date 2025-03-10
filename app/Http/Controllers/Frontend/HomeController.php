@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\News;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use function App\Helpers\getLanguage;
 
@@ -21,7 +23,7 @@ class HomeController extends Controller
     public function ShowNews(string $slug)
     {
         $news = News::where('slug', $slug)
-            ->with('category')
+            ->with(['category', 'comments'])
             ->activeNews()
             ->withLocalize()
             ->first();
@@ -72,9 +74,37 @@ class HomeController extends Controller
 
     public function handleComment(Request $request)
     {
-      $request->validate([
-          'comment'=>['required','min:']
-      ]);
+        $request->validate([
+            'comment' => ['required', 'max:1000', 'string'],
+        ]);
+        $comment = new Comment();
+        $comment->news_id = $request->news_id;
+        $comment->user_id = Auth::user()->id;
+        $comment->parent_id = $request->parent_id;
+        $comment->comment = $request->comment;
+        $comment->save();
+
+        toast('Created successfully', 'success')->width('400px');
+
+        return redirect()->back();
+    }
+
+    public function handleReplay(Request $request)
+    {
+        $request->validate([
+            'replay' =>  ['required', 'max:1000', 'string'],
+        ]);
+
+        $comment = new Comment();
+        $comment->news_id = $request->news_id;
+        $comment->user_id = Auth::user()->id;
+        $comment->parent_id = $request->parent_id;
+        $comment->comment = $request->replay;
+        $comment->save();
+
+        toast('Created successfully', 'success')->width('400px');
+
+        return redirect()->back();
     }
 
 }
