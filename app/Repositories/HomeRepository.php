@@ -4,10 +4,12 @@ namespace App\Repositories;
 
 use App\Interfaces\HomeRepositoryInterface;
 use App\Models\Comment;
+use App\Models\HomeSectionSetting;
 use App\Models\News;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use function App\Helpers\getLanguage;
 
@@ -15,60 +17,64 @@ class HomeRepository implements HomeRepositoryInterface
 {
     public function index()
     {
+        $HomeSectionOne = Cache::remember('home_section_settings_' . getLanguage(), 60, function () {
+            return HomeSectionSetting::where('language', getLanguage())->first();
+        });
+
+        $allNews = Cache::remember('all_home_news_' . getLanguage(), 60, function () {
+            return News::with(['author', 'category', 'tags'])
+                ->activeNews()
+                ->withLocalize()
+                ->get();
+        });
+
+        $breakingNews = $allNews->where('is_breaking_news', 1)
+            ->sortBy('id')
+            ->take(8);
+
+        $heroSlider = $allNews->where('show_at_slider', 1)
+            ->sortBy('id')
+            ->take(7);
+
+        $recentNews = $allNews->sortByDesc('id')
+            ->take(6);
+
+        $popularNews = $allNews->where('show_at_popular', 1)
+            ->sortByDesc('updated_at')
+            ->take(4);
+
+        $categorySectionOne = $allNews->where('category_id', $HomeSectionOne->category_section_one)
+            ->sortByDesc('id')
+            ->take(8);
+
+        $categorySectionTwo = $allNews->where('category_id', $HomeSectionOne->category_section_two)
+            ->sortByDesc('id')
+            ->take(8);
+
+        $categorySectionThree = $allNews->where('category_id', $HomeSectionOne->category_section_three)
+            ->sortByDesc('id')
+            ->take(6);
+
+        $categorySectionFour = $allNews->where('category_id', $HomeSectionOne->category_section_four)
+            ->sortByDesc('id')
+            ->take(4);
+
+        $mostViewedPosts = $allNews->sortByDesc('views')
+            ->take(3);
 
 
-//        $news = News::with(['author', 'tags', 'category'])
-//            ->where(function ($query) {
-//                $query->where('is_breaking_news', 1)
-//                    ->orWhere('show_at_slider', 1)
-//                    ->orWhere('show_at_popular', 1);
-//            })
-//            ->orWhere(function ($query) {
-//                $query->activeNews();
-//            })
-//            ->activeNews()
-//            ->withLocalize()
-//            ->orderBy('id', 'desc')
-//            ->get();
-//
-//        $breakingNews = $news->where('is_breaking_news', 1)->take(8);
-//        $heroSlider = $news->where('show_at_slider', 1)->take(7);
-//        $popularNews = $news->where('show_at_popular', 1)->take(6);
-//        $recentNews = $news->take(6);
-
-
-
-
-
-
-
-
-
-
-        $breakingNews = News::with('author', 'tags')->where('is_breaking_news', 1)
-            ->activeNews()
-            ->withLocalize()
-            ->orderBy('id', 'asc')
-            ->take(8)->get();
-
-        $heroSlider = News::with('category', 'author')->where('show_at_slider', 1)
-            ->activeNews()
-            ->withLocalize()
-            ->orderBy('id', 'asc')
-            ->take(7)->get();
-
-        $recentNews = News::with(['category', 'author'])
-            ->activeNews()->withLocalize()
-            ->orderBy('id', 'desc')
-            ->take(6)->get();
-
-        $popularNews = News::with(['category', 'author'])
-            ->where('show_at_popular', 1)
-            ->activeNews()->withLocalize()
-            ->orderBy('updated_at', 'DESC')
-            ->take(4)->get();
-
-        return view('frontend.home', compact('breakingNews', 'heroSlider', 'recentNews', 'popularNews'));
+        return view('frontend.home', compact(
+            'breakingNews',
+            'heroSlider',
+            'recentNews',
+            'popularNews',
+            'categorySectionOne',
+            'categorySectionTwo',
+            'categorySectionThree',
+            'categorySectionFour',
+            'HomeSectionOne',
+            'mostViewedPosts'
+        ));
     }
 
     public function ShowNews(string $slug)
