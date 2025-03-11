@@ -15,19 +15,60 @@ class HomeRepository implements HomeRepositoryInterface
 {
     public function index()
     {
-        $breakingNews = News::with('author', 'tags')->where(['is_breaking_news' => 1,])
+
+
+//        $news = News::with(['author', 'tags', 'category'])
+//            ->where(function ($query) {
+//                $query->where('is_breaking_news', 1)
+//                    ->orWhere('show_at_slider', 1)
+//                    ->orWhere('show_at_popular', 1);
+//            })
+//            ->orWhere(function ($query) {
+//                $query->activeNews();
+//            })
+//            ->activeNews()
+//            ->withLocalize()
+//            ->orderBy('id', 'desc')
+//            ->get();
+//
+//        $breakingNews = $news->where('is_breaking_news', 1)->take(8);
+//        $heroSlider = $news->where('show_at_slider', 1)->take(7);
+//        $popularNews = $news->where('show_at_popular', 1)->take(6);
+//        $recentNews = $news->take(6);
+
+
+
+
+
+
+
+
+
+
+        $breakingNews = News::with('author', 'tags')->where('is_breaking_news', 1)
             ->activeNews()
             ->withLocalize()
             ->orderBy('id', 'asc')
             ->take(8)->get();
 
-        $heroSlider = News::with('category','author')->where('show_at_slider', 1)
+        $heroSlider = News::with('category', 'author')->where('show_at_slider', 1)
             ->activeNews()
             ->withLocalize()
             ->orderBy('id', 'asc')
             ->take(7)->get();
 
-        return view('frontend.home', compact('breakingNews', 'heroSlider'));
+        $recentNews = News::with(['category', 'author'])
+            ->activeNews()->withLocalize()
+            ->orderBy('id', 'desc')
+            ->take(6)->get();
+
+        $popularNews = News::with(['category', 'author'])
+            ->where('show_at_popular', 1)
+            ->activeNews()->withLocalize()
+            ->orderBy('updated_at', 'DESC')
+            ->take(4)->get();
+
+        return view('frontend.home', compact('breakingNews', 'heroSlider', 'recentNews', 'popularNews'));
     }
 
     public function ShowNews(string $slug)
