@@ -45,60 +45,65 @@
                                              id="home-{{$language->lang}}" role="tabpanel" aria-labelledby="home-tab2">
                                             <div class="card-body">
 
-                                                <div class="form-group">
-                                                    <label for="category_section_one">{{__('Category Section One')}}</label>
-                                                    <input type="hidden" name="language" value="{{$language->lang}}">
-                                                    <select class="form-control select2" id="category_section_one" name="category_section_one">
-                                                        <option value="">---{{__('select')}}---</option>
-                                                        @foreach($categories as $category)
-                                                            <option value="{{$category->id}}">{{$category->name}}</option>
-                                                        @endforeach
-                                                        @error('category_section_one')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </select>
-                                                </div>
+                                                <form action="{{ route('admin.home-section-setting.update') }}" method="post">
+                                                    @csrf
+                                                    @method('PUT')
 
-                                                <div class="form-group">
-                                                    <label for="category_section_two">{{__('Category Section Two')}}</label>
-                                                    <select class="form-control select2" id="category_section_two" name="category_section_two">
-                                                        <option value="">---{{__('select')}}---</option>
-                                                        @foreach($categories as $category)
-                                                            <option value="{{$category->id}}">{{$category->name}}</option>
-                                                        @endforeach
+                                                    <div class="form-group">
+                                                        <label for="category_section_one">{{__('Category Section One')}}</label>
+                                                        <input type="hidden" name="language" value="{{$language->lang}}">
+                                                        <select class="form-control select2" id="category_section_one" name="category_section_one">
+                                                            <option value="">---{{__('select')}}---</option>
+                                                            @foreach($categories as $category)
+                                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                            @error('category_section_one')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                            @enderror
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="category_section_two">{{__('Category Section Two')}}</label>
+                                                        <select class="form-control select2" id="category_section_two" name="category_section_two">
+                                                            <option value="">---{{__('select')}}---</option>
+                                                            @foreach($categories as $category)
+                                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                            @endforeach
+                                                        </select>
                                                         @error('category_section_two')
-                                                        <div class="text-danger">{{ $message }}</div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                         @enderror
-                                                    </select>
-                                                </div>
+                                                    </div>
 
-                                                <div class="form-group">
-                                                    <label for="category_section_three">{{__('Category Section Three')}}</label>
-                                                    <select class="form-control select2" id="category_section_three" name="category_section_three">
-                                                        <option value="">---{{__('select')}}---</option>
-                                                        @foreach($categories as $category)
-                                                            <option value="{{$category->id}}">{{$category->name}}</option>
-                                                        @endforeach
+                                                    <div class="form-group">
+                                                        <label for="category_section_three">{{__('Category Section Three')}}</label>
+                                                        <select class="form-control select2" id="category_section_three" name="category_section_three">
+                                                            <option value="">---{{__('select')}}---</option>
+                                                            @foreach($categories as $category)
+                                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                            @endforeach
+                                                        </select>
                                                         @error('category_section_three')
-                                                        <div class="text-danger">{{ $message }}</div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                         @enderror
-                                                    </select>
-                                                </div>
+                                                    </div>
 
-                                                <div class="form-group">
-                                                    <label for="category_section_four">{{__('Category Section Four')}}</label>
-                                                    <select class="form-control select2" id="category_section_four" name="category_section_four">
-                                                        <option value="">---{{__('select')}}---</option>
-                                                        @foreach($categories as $category)
-                                                            <option value="{{$category->id}}">{{$category->name}}</option>
-                                                        @endforeach
+                                                    <div class="form-group">
+                                                        <label for="category_section_four">{{__('Category Section Four')}}</label>
+                                                        <select class="form-control select2" id="category_section_four" name="category_section_four">
+                                                            <option value="">---{{__('select')}}---</option>
+                                                            @foreach($categories as $category)
+                                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                            @endforeach
+                                                        </select>
                                                         @error('category_section_four')
-                                                        <div class="text-danger">{{ $message }}</div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                         @enderror
-                                                    </select>
-                                                </div>
+                                                    </div>
 
-                                                <button class="btn-primary btn" type="submit">{{__('Save')}}</button>
+                                                   <button class="btn-primary btn" type="submit">{{__('Save')}}</button>
+                                                </form>
                                             </div>
                                         </div>
                                     @endforeach
@@ -112,4 +117,6 @@
     </section>
 
 @endsection
+
+
 

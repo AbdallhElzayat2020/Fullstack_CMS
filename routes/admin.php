@@ -58,8 +58,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     Route::resource('news', NewsController::class);
 
     /* Home section setting Route */
-
     Route::get('home-section-setting', [HomeSectionSettingController::class, 'index'])->name('home-section-setting.index');
+
+    Route::put('home-section-setting', [HomeSectionSettingController::class, 'update'])->name('home-section-setting.update');
 
 
 });
