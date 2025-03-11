@@ -40,6 +40,7 @@
                                     @foreach($languages as $language )
                                         @php
                                             $categories = App\Models\Category::where('language',$language->lang)->get();
+                                            $homeSectionSetting = App\Models\HomeSectionSetting::where('language',$language->lang)->first();
                                         @endphp
                                         <div class="tab-pane fade show {{$loop->index === 0 ? 'active' : ''}}"
                                              id="home-{{$language->lang}}" role="tabpanel" aria-labelledby="home-tab2">
@@ -52,10 +53,14 @@
                                                     <div class="form-group">
                                                         <label for="category_section_one">{{__('Category Section One')}}</label>
                                                         <input type="hidden" name="language" value="{{$language->lang}}">
-                                                        <select class="form-control select2" id="category_section_one" name="category_section_one">
+                                                        <select  class="form-control select2" id="category_section_one" name="category_section_one">
                                                             <option value="">---{{__('select')}}---</option>
                                                             @foreach($categories as $category)
-                                                                <option value="{{$category->id}}">{{$category->name}}</option>
+
+                                                                <option {{$homeSectionSetting->category_section_one == $category->id ? 'selected' : '' }}
+                                                                        value="{{$category->id}}">
+                                                                    {{$category->name}}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                             @error('category_section_one')
@@ -68,7 +73,10 @@
                                                         <select class="form-control select2" id="category_section_two" name="category_section_two">
                                                             <option value="">---{{__('select')}}---</option>
                                                             @foreach($categories as $category)
-                                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                                <option {{$homeSectionSetting->category_section_two == $category->id ? 'selected' : '' }}
+                                                                    value="{{$category->id}}">
+                                                                    {{$category->name}}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                         @error('category_section_two')
@@ -81,7 +89,8 @@
                                                         <select class="form-control select2" id="category_section_three" name="category_section_three">
                                                             <option value="">---{{__('select')}}---</option>
                                                             @foreach($categories as $category)
-                                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                                <option {{$homeSectionSetting->category_section_three === $category->id ? 'selected' : '' }}
+                                                                    value="{{$category->id}}">{{$category->name}}</option>
                                                             @endforeach
                                                         </select>
                                                         @error('category_section_three')
@@ -94,7 +103,8 @@
                                                         <select class="form-control select2" id="category_section_four" name="category_section_four">
                                                             <option value="">---{{__('select')}}---</option>
                                                             @foreach($categories as $category)
-                                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                                <option {{$homeSectionSetting->category_section_four == $category->id ? 'selected' : '' }}
+                                                                    value="{{$category->id}}">{{$category->name}}</option>
                                                             @endforeach
                                                         </select>
                                                         @error('category_section_four')
