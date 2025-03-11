@@ -3,6 +3,7 @@
 <script type="text/javascript" src="{{asset('assets/frontend/js/index.bundle.js')}}"></script>
 {{--sweet alert js--}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@include('sweetalert::alert')
 @stack('content')
 <script>
 

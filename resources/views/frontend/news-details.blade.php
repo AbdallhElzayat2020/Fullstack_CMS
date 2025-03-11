@@ -22,7 +22,7 @@
                     <ul class="breadcrumbs bg-light mb-4">
                         <li class="breadcrumbs__item">
                             <a href="{{ route('home') }}" class="breadcrumbs__url">
-                                <i class="fa fa-home"></i> {{ _('Home') }}</a>
+                                <i class="fa fa-home"></i> {{ __('Home') }}</a>
                         </li>
                         <li class="breadcrumbs__item">
                             <a href="javascript:void(0)" class="breadcrumbs__url">{{ __('News') }}</a>
@@ -47,7 +47,7 @@
                         <div class="wrap__article-detail-info">
                             <ul class="list-inline d-flex flex-wrap justify-content-start">
                                 <li class="list-inline-item">
-                                    By
+                                    {{__('By')}}
                                     <a href="javascript:void(0)">
                                         {{ $news->author->name }}
                                     </a>
@@ -96,7 +96,7 @@
                                     <li class="list-inline-item">
                                         <a class="btn btn-social-o twitter" href="https://twitter.com/intent/tweet?text={{$news->title}}&url={{url()->current()}}" target="_blank">
                                             <i class="fa fa-twitter"></i>
-                                            <span>twitter</span>
+                                            <span>{{__('twitter')}}</span>
                                         </a>
                                     </li>
 
@@ -235,7 +235,7 @@
 
                                             <div class="reply">
                                                 <a href="#" class="comment-reply-link" data-toggle="modal"
-                                                    data-target="#exampleModal-{{ $comment->id }}">Reply</a>
+                                                    data-target="#exampleModal-{{ $comment->id }}">{{__('Reply')}}</a>
                                                 @if (auth()->user()->id === $comment->user_id || auth()->user()->id === $news->user_id)
                                                     <span class="delete-msg" data-id="{{ $comment->id }}">
                                                         <i class="fa fa-trash"></i>
@@ -297,8 +297,9 @@
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Write Your
-                                                                Comment</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                               {{__('Write Your Comment')}}
+                                                            </h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
@@ -331,13 +332,11 @@
                                     @csrf
 
                                     <p class="comment-notes">
-                                        <span id="email-notes">Your email address will not be published.</span>
-                                        Required fields are marked
-                                        <span class="required">*</span>
+
                                     </p>
 
                                     <p class="comment-form-comment">
-                                        <label for="comment">Comment</label>
+                                        <label for="comment">{{__('Comment')}}</label>
                                         <textarea name="comment" id="comment" cols="45" rows="5" maxlength="65525" required="required"></textarea>
                                         <input type="hidden" name="news_id" value="{{ $news->id }}">
                                         <input type="hidden" name="parent_id" value="">
@@ -355,8 +354,12 @@
                     @else
                         <div class="card my-5">
                             <div class="card-body">
-                                <h6 class="p-0">Please <a class="text-primary" href="{{ route('login') }}">Login</a> to
-                                    Comment in the Post</h6>
+                                <h6 class="p-0">{{__('Please')}}
+                                    <a class="text-primary" href="{{ route('login') }}">
+                                        {{__('Login')}}
+                                    </a>
+                                    {{__('to Comment in the Post')}}
+                                </h6>
                             </div>
                         </div>
                     @endauth
@@ -390,7 +393,7 @@
 
                     <div class="small_add_banner mb-5 pb-4">
                         <div class="small_add_banner_img">
-                            <img src="images/placeholder_large.jpg" alt="adds">
+                            <img src="{{asset('assets/frontend/images/placeholder_large.jpg')}}" alt="adds">
                         </div>
                     </div>
 
@@ -617,27 +620,27 @@
                         </aside>
 
                         <aside class="wrapper__list__article">
-                            <h4 class="border_section">newsletter</h4>
+                            <h4 class="border_section">{{__('newsletter')}}</h4>
                             <!-- Form Subscribe -->
                             <div class="widget__form-subscribe bg__card-shadow">
                                 <h6>
-                                    The most important world news and events of the day.
+                                    {{__('The most important world news and events of the day')}}.
                                 </h6>
-                                <p><small>Get magzrenvi daily newsletter on your inbox.</small></p>
+                                <p><small>{{__('Get magzrenvi daily newsletter on your inbox')}}.</small></p>
                                 <div class="input-group ">
                                     <input type="text" class="form-control" placeholder="Your email address">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">sign up</button>
+                                        <button class="btn btn-primary" type="button">{{__('sign up')}}</button>
                                     </div>
                                 </div>
                             </div>
                         </aside>
 
                         <aside class="wrapper__list__article">
-                            <h4 class="border_section">Advertise</h4>
+                            <h4 class="border_section">{{__('Advertise')}}</h4>
                             <a href="#">
                                 <figure>
-                                    <img src="images/news6.jpg" alt="" class="img-fluid">
+                                    <img src="{{asset('assets/frontend/images/news6.jpg')}}" alt="" class="img-fluid">
                                 </figure>
                             </a>
                         </aside>
@@ -659,13 +662,13 @@
                 let id = $(this).data('id');
 
                 Swal.fire({
-                    title: "Are you sure?",
-                    text: "You will delete it forever!",
+                    title: "{{__('Are you sure?')}}",
+                    text: "{{__('You will delete it forever!')}}",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, delete it!"
+                    confirmButtonText: "{{__('Yes, delete it!')}}"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({

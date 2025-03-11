@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\HomeRepositoryInterface;
 use App\Models\Comment;
 use App\Models\News;
 use App\Models\Tag;
@@ -14,167 +15,55 @@ use function App\Helpers\getLanguage;
 
 class HomeController extends Controller
 {
+    public $news;
+
+    public function __construct(HomeRepositoryInterface $news)
+    {
+        $this->news = $news;
+    }
+
     public function index()
     {
-        $breakingNews = News::with('author', 'tags')->where(['is_breaking_news' => 1,])
-            ->activeNews()->withLocalize()->orderBy('id', 'asc')->take(8)->get();
-        return view('frontend.home', compact('breakingNews'));
+        return $this->news->index();
     }
 
     public function ShowNews(string $slug)
     {
-        $news = News::where('slug', $slug)
-            ->with(['category', 'comments'])
-            ->activeNews()
-            ->withLocalize()
-            ->first();
-
-        $this->countView($news);
-
-        $recentNews = News::with('author')
-            ->where('slug', '!=', $slug)
-            ->activeNews()
-            ->withLocalize()->orderBy('id', 'desc')->take(4)->get();
-
-        $posts = News::where('id', '>', $news->id)
-            ->orWhere('id', '<', $news->id)
-            ->activeNews()
-            ->withLocalize()
-            ->orderBy('id', 'asc')
-            ->get();
-
-        $nextPost = $posts->firstWhere('id', '>', $news->id);
-        $prevPost = $posts->firstWhere('id', '<', $news->id);
-
-
-        $mostTags = $this->mostTags();
-
-        $relatedPosts = News::with('author')
-            ->where('slug', '!=', $news->slug)
-            ->where('category_id', $news->category_id)
-            ->activeNews()
-            ->withLocalize()
-            ->take(4)
-            ->get();
-//        $relatedPosts = News::with('author')->where('slug', '!=', $news->slug)
-//            ->where('category_id', $news->category_id)
-//            ->activeNews()
-//            ->withLocalize()->take(4)->get();
-
-
-        return view('frontend.news-details', compact(
-            'news',
-            'recentNews',
-            'mostTags',
-            'nextPost',
-            'prevPost',
-            'relatedPosts'
-        ));
+        return $this->news->ShowNews($slug);
     }
 
     // handle  count of views
 
-    public function countView($news): void
+    public function countView($news)
     {
-        $ip = request()->ip();
-        $sessionKey = 'viewed_post_' . $ip;
-
-        if (session()->has($sessionKey)) {
-            $postIds = session($sessionKey);
-            if (!in_array($news->id, $postIds, true)) {
-                $postIds[] = $news->id;
-                $news->increment('views');
-            }
-            session([$sessionKey => $postIds]);
-        } else {
-            session([$sessionKey => [$news->id]]);
-            $news->increment('views');
-        }
+        return $this->news->countView($news);
     }
 
-//    public function mostTags(): \Illuminate\Support\Collection
+    public function mostTags(): \Illuminate\Support\Collection
+    {
+        return $this->news->mostTags();
+    }
+//    protected function mostTags()
 //    {
-//        return Tag::select('name', DB::raw('COUNT(*) as count'))
-//            ->where('language', getLanguage())
-//            ->groupBy('name')
-//            ->orderByDesc('count')
-//            ->take(15)
+//        return Tag::withCount('news')
+//            ->orderBy('news_count', 'desc')
+//            ->take(10)
 //            ->get();
 //    }
-    protected function mostTags()
-    {
-        return Tag::withCount('news')
-            ->orderBy('news_count', 'desc')
-            ->take(10)
-            ->get();
-    }
 
 
     public function handleComment(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $request->validate([
-            'comment' => ['required', 'max:1000', 'string'],
-        ]);
-        $comment = new Comment();
-        $comment->news_id = $request->news_id;
-        $comment->user_id = Auth::user()->id;
-        $comment->parent_id = $request->parent_id;
-        $comment->comment = $request->comment;
-        $comment->save();
-
-        toast('Created successfully', 'success')->width('400px');
-
-        return redirect()->back();
+        return $this->news->handleComment($request);
     }
 
     public function handleReplay(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $request->validate([
-            'replay' => ['required', 'max:1000', 'string'],
-        ]);
-
-        $comment = new Comment();
-        $comment->news_id = $request->news_id;
-        $comment->user_id = Auth::user()->id;
-        $comment->parent_id = $request->parent_id;
-        $comment->comment = $request->replay;
-        $comment->save();
-
-        toast('Created successfully', 'success')->width('400px');
-
-        return redirect()->back();
+        return $this->news->handleReplay($request);
     }
 
     public function commentDestroy(Request $request)
     {
-
-        try {
-            $comment = Comment::findOrFail($request->id);
-            if (Auth::user()->id === $comment->user_id) {
-                $comment->delete();
-                return response(['status' => 'success', 'message' => __('Deleted successfully')]);
-            }
-
-            return response(['status' => 'error', 'message' => __('Something went wrong')]);
-        } catch (\Exception $exception) {
-            return response(['status' => 'error', 'message' => __('Something went wrong')]);
-        }
-    }
-
-    public function CommentUpdate(Request $request, $id)
-    {
-        $request->validate([
-            'comment' => 'required|string',
-        ]);
-
-        $comment = Comment::findOrFail($id);
-
-        if ($comment->user_id !== Auth::id()) {
-            return back()->with('error', 'غير مسموح لك بتعديل هذا التعليق');
-        }
-
-        $comment->update(['comment' => $request->comment]);
-
-        return back()->with('success', 'تم تعديل التعليق بنجاح');
+        return $this->news->commentDestroy($request);
     }
 }
