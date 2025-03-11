@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\NewsController;
-
+use App\Http\Controllers\Admin\HomeSectionSettingController;
 
 //============================ Public Admin Routes ============================
 
@@ -56,6 +56,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     Route::get('news-copy/{id}',[NewsController::class, 'copyNews'])->name('news-copy');
 
     Route::resource('news', NewsController::class);
+
+    /* Home section setting Route */
+
+    Route::get('home-section-setting', [HomeSectionSettingController::class, 'index'])->name('home-section-setting.index');
 
 
 });
