@@ -16,8 +16,18 @@ class HomeRepository implements HomeRepositoryInterface
     public function index()
     {
         $breakingNews = News::with('author', 'tags')->where(['is_breaking_news' => 1,])
-            ->activeNews()->withLocalize()->orderBy('id', 'asc')->take(8)->get();
-        return view('frontend.home', compact('breakingNews'));
+            ->activeNews()
+            ->withLocalize()
+            ->orderBy('id', 'asc')
+            ->take(8)->get();
+
+        $heroSlider = News::with('category','author')->where('show_at_slider', 1)
+            ->activeNews()
+            ->withLocalize()
+            ->orderBy('id', 'asc')
+            ->take(7)->get();
+
+        return view('frontend.home', compact('breakingNews', 'heroSlider'));
     }
 
     public function ShowNews(string $slug)
@@ -128,6 +138,7 @@ class HomeRepository implements HomeRepositoryInterface
 
         return redirect()->back();
     }
+
     public function commentDestroy(Request $request)
     {
         try {

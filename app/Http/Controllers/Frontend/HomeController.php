@@ -15,7 +15,7 @@ use function App\Helpers\getLanguage;
 
 class HomeController extends Controller
 {
-    public $news;
+    public HomeRepositoryInterface $news;
 
     public function __construct(HomeRepositoryInterface $news)
     {
@@ -43,14 +43,6 @@ class HomeController extends Controller
     {
         return $this->news->mostTags();
     }
-//    protected function mostTags()
-//    {
-//        return Tag::withCount('news')
-//            ->orderBy('news_count', 'desc')
-//            ->take(10)
-//            ->get();
-//    }
-
 
     public function handleComment(Request $request): \Illuminate\Http\RedirectResponse
     {
