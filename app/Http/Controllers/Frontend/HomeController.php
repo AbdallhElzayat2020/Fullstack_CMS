@@ -29,26 +29,37 @@ class HomeController extends Controller
             ->withLocalize()
             ->first();
 
+        $this->countView($news);
+
         $recentNews = News::with('author')
             ->where('slug', '!=', $slug)
             ->activeNews()
             ->withLocalize()->orderBy('id', 'desc')->take(4)->get();
 
-        $nextPost = News::where('id', '>', $news->id)
+        $posts = News::where('id', '>', $news->id)
+            ->orWhere('id', '<', $news->id)
             ->activeNews()
             ->withLocalize()
             ->orderBy('id', 'asc')
-            ->first();
+            ->get();
 
-        $prevPost = News::where('id', '<', $news->id)
-            ->activeNews()
-            ->withLocalize()
-            ->orderBy('id', 'desc')
-            ->first();
+        $nextPost = $posts->firstWhere('id', '>', $news->id);
+        $prevPost = $posts->firstWhere('id', '<', $news->id);
+
 
         $mostTags = $this->mostTags();
 
-        $this->countView($news);
+        $relatedPosts = News::with('author')
+            ->where('slug', '!=', $news->slug)
+            ->where('category_id', $news->category_id)
+            ->activeNews()
+            ->withLocalize()
+            ->take(4)
+            ->get();
+//        $relatedPosts = News::with('author')->where('slug', '!=', $news->slug)
+//            ->where('category_id', $news->category_id)
+//            ->activeNews()
+//            ->withLocalize()->take(4)->get();
 
 
         return view('frontend.news-details', compact(
@@ -56,7 +67,8 @@ class HomeController extends Controller
             'recentNews',
             'mostTags',
             'nextPost',
-            'prevPost'
+            'prevPost',
+            'relatedPosts'
         ));
     }
 
@@ -80,13 +92,20 @@ class HomeController extends Controller
         }
     }
 
-    public function mostTags(): \Illuminate\Support\Collection
+//    public function mostTags(): \Illuminate\Support\Collection
+//    {
+//        return Tag::select('name', DB::raw('COUNT(*) as count'))
+//            ->where('language', getLanguage())
+//            ->groupBy('name')
+//            ->orderByDesc('count')
+//            ->take(15)
+//            ->get();
+//    }
+    protected function mostTags()
     {
-        return Tag::select('name', DB::raw('COUNT(*) as count'))
-            ->where('language', getLanguage())
-            ->groupBy('name')
-            ->orderByDesc('count')
-            ->take(15)
+        return Tag::withCount('news')
+            ->orderBy('news_count', 'desc')
+            ->take(10)
             ->get();
     }
 

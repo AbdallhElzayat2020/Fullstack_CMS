@@ -87,33 +87,35 @@
                                 <ul class="list-inline">
                                     <span class="share">{{ __('share on:') }}</span>
                                     <li class="list-inline-item">
-                                        <a class="btn btn-social-o facebook" href="#">
+                                        <a class="btn btn-social-o facebook" href="https://www.facebook.com/sharer/sharer.php?u={{url()->current()}}" target="_blank">
                                             <i class="fa fa-facebook-f"></i>
                                             <span>{{ __('facebook') }}</span>
                                         </a>
-
                                     </li>
+
                                     <li class="list-inline-item">
-                                        <a class="btn btn-social-o twitter" href="#">
+                                        <a class="btn btn-social-o twitter" href="https://twitter.com/intent/tweet?text={{$news->title}}&url={{url()->current()}}" target="_blank">
                                             <i class="fa fa-twitter"></i>
                                             <span>twitter</span>
                                         </a>
                                     </li>
+
                                     <li class="list-inline-item">
-                                        <a class="btn btn-social-o whatsapp" href="#">
+                                        <a class="btn btn-social-o whatsapp" href="https://wa.me/?text={{$news->title}}%20{{url()->current()}}" target="_blank">
                                             <i class="fa fa-whatsapp"></i>
                                             <span>{{ __('whatsapp') }}</span>
                                         </a>
                                     </li>
+
                                     <li class="list-inline-item">
-                                        <a class="btn btn-social-o telegram" href="#">
+                                        <a class="btn btn-social-o telegram" href="https://t.me/share/url?url={{url()->current()}}&text={{$news->title}}" target="_blank">
                                             <i class="fa fa-telegram"></i>
                                             <span>{{ __('telegram') }}</span>
                                         </a>
                                     </li>
 
                                     <li class="list-inline-item">
-                                        <a class="btn btn-linkedin-o linkedin" href="#">
+                                        <a class="btn btn-linkedin-o linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url={{url()->current()}}&title={{$news->title}}" target="_blank">
                                             <i class="fa fa-linkedin"></i>
                                             <span>{{ __('linkedin') }}</span>
                                         </a>
@@ -395,169 +397,50 @@
 
                     <div class="clearfix"></div>
 
-                    <div class="related-article">
-                        <h4>
-                            you may also like
-                        </h4>
+                    @if (count($relatedPosts) > 0)
+                        <div class="related-article">
+                            <h4>
+                                {{ __('you may also like') }}
+                            </h4>
 
-                        <div class="article__entry-carousel-three">
-                            <div class="item">
-                                <!-- Post Article -->
-                                <div class="article__entry">
-                                    <div class="article__image">
-                                        <a href="#">
-                                            <img src="images/newsimage5.png" alt="" class="img-fluid">
-                                        </a>
+                            <div class="article__entry-carousel-three">
+                                @foreach ($relatedPosts as $post)
+                                    <div class="item">
+                                        <!-- Post Article -->
+                                        <div class="article__entry">
+                                            <div class="article__image">
+                                                <a href="#">
+                                                    <img src="{{ asset($post->image) }}" alt="{{ $post->title }}"
+                                                        class="img-fluid">
+                                                </a>
+                                            </div>
+                                            <div class="article__content">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item">
+                                                        <span class="text-primary">
+                                                            {{ __('by') }} {{ $post->author->name }}
+                                                        </span>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <span>
+                                                            {{ date('M d, Y', strtotime($post->created_at)) }}
+                                                        </span>
+                                                    </li>
+
+                                                </ul>
+                                                <h5>
+                                                    <a href="{{ route('news-details', $post->slug) }}">
+                                                        {{ $post->title }}
+                                                    </a>
+                                                </h5>
+
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="article__content">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <span class="text-primary">
-                                                    by david hall
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <span>
-                                                    descember 09, 2016
-                                                </span>
-                                            </li>
-
-                                        </ul>
-                                        <h5>
-                                            <a href="#">
-                                                Maecenas accumsan tortor ut velit pharetra mollis.
-                                            </a>
-                                        </h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <!-- Post Article -->
-                                <div class="article__entry">
-                                    <div class="article__image">
-                                        <a href="#">
-                                            <img src="images/newsimage6.png" alt="" class="img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="article__content">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <span class="text-primary">
-                                                    by david hall
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <span>
-                                                    descember 09, 2016
-                                                </span>
-                                            </li>
-
-                                        </ul>
-                                        <h5>
-                                            <a href="#">
-                                                Maecenas accumsan tortor ut velit pharetra mollis.
-                                            </a>
-                                        </h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <!-- Post Article -->
-                                <div class="article__entry">
-                                    <div class="article__image">
-                                        <a href="#">
-                                            <img src="images/newsimage7.png" alt="" class="img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="article__content">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <span class="text-primary">
-                                                    by david hall
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <span>
-                                                    descember 09, 2016
-                                                </span>
-                                            </li>
-
-                                        </ul>
-                                        <h5>
-                                            <a href="#">
-                                                Maecenas accumsan tortor ut velit pharetra mollis.
-                                            </a>
-                                        </h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <!-- Post Article -->
-                                <div class="article__entry">
-                                    <div class="article__image">
-                                        <a href="#">
-                                            <img src="images/newsimage8.png" alt="" class="img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="article__content">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <span class="text-primary">
-                                                    by david hall
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <span>
-                                                    descember 09, 2016
-                                                </span>
-                                            </li>
-
-                                        </ul>
-                                        <h5>
-                                            <a href="#">
-                                                Maecenas accumsan tortor ut velit pharetra mollis.
-                                            </a>
-                                        </h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <!-- Post Article -->
-                                <div class="article__entry">
-                                    <div class="article__image">
-                                        <a href="#">
-                                            <img src="images/newsimage9.png" alt="" class="img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="article__content">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <span class="text-primary">
-                                                    by david hall
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <span>
-                                                    descember 09, 2016
-                                                </span>
-                                            </li>
-
-                                        </ul>
-                                        <h5>
-                                            <a href="#">
-                                                Maecenas accumsan tortor ut velit pharetra mollis.
-                                            </a>
-                                        </h5>
-
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
-                    </div>
+                    @endif
 
                 </div>
                 <div class="col-md-4">
@@ -665,16 +548,15 @@
                                     @endif
                                 @endforeach
 
-
                             </div>
                         </aside>
 
                         <!-- social media -->
                         <aside class="wrapper__list__article">
-                            <h4 class="border_section">stay conected</h4>
+                            <h4 class="border_section">{{__('stay conected')}}</h4>
                             <!-- widget Social media -->
                             <div class="wrap__social__media">
-                                <a href="#" target="_blank">
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{url()->current()}}" target="_blank">
                                     <div class="social__media__widget facebook">
                                         <span class="social__media__widget-icon">
                                             <i class="fa fa-facebook"></i>
