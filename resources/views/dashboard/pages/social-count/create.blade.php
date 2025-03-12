@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="col-md-6 col-lg-12">
                                     <div class="form-group">
-                                        <label>Pick Your Color</label>
+                                        <label>{{__('Pick Your Color')}}</label>
                                         <div class="input-group colorpickerinput">
                                             <input name="color" type="text" class="form-control">
                                             <div class="input-group-append">
@@ -89,6 +89,9 @@
                                                     <i class="fas fa-fill-drip"></i>
                                                 </div>
                                             </div>
+                                            @error('color')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -99,6 +102,17 @@
                                         <input required type="text" class="form-control" id="button_text"
                                                name="button_text">
                                         @error('button_text')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-lg-12">
+                                    <div class="form-group">
+                                        <label for="url">{{__('Link URL')}}</label>
+                                        <input required type="text" class="form-control" id="url"
+                                               name="url">
+                                        @error('url')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

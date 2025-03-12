@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminStoreSocialCount;
 use App\Models\Language;
+use App\Models\SocialCount;
 use Illuminate\Http\Request;
 
 class SocialController extends Controller
@@ -29,9 +31,21 @@ class SocialController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AdminStoreSocialCount $request)
     {
-        //
+        $socialCount = new SocialCount();
+        $socialCount->language = $request->language;
+        $socialCount->name = $request->name;
+        $socialCount->icon = $request->icon;
+        $socialCount->fan_count = $request->fan_count;
+        $socialCount->fan_type = $request->fan_type;
+        $socialCount->url = $request->url;
+        $socialCount->button_text = $request->button_text;
+        $socialCount->color = $request->color;
+        $socialCount->status = $request->status;
+        $socialCount->save();
+        toast('Created successfully', 'success')->width('400px');
+        return to_route('admin.social-count.index');
     }
 
     /**
