@@ -540,48 +540,26 @@
                         </aside>
 
                         <aside class="wrapper__list__article">
-                            <h4 class="border_section">stay conected</h4>
+                            <h4 class="border_section">{{__('stay conected')}}</h4>
                             <!-- widget Social media -->
                             <div class="wrap__social__media">
-                                <a href="#" target="_blank">
-                                    <div class="social__media__widget facebook">
-                                            <span class="social__media__widget-icon">
-                                                <i class="fa fa-facebook"></i>
+                                @foreach($socialCount as $socialLink)
+                                    <a href="#" target="_blank" class="mt-2">
+                                        <div class="social__media__widget mt-3"
+                                             style="background-color: {{$socialLink->color}}">
+                                            <span class="social__media__widget-icon p-2">
+                                                <i class="{{$socialLink->icon}}" style="font-size: 18px"></i>
                                             </span>
-                                        <span class="social__media__widget-counter">
-                                                19,243 fans
+                                            <span class="social__media__widget-counter">
+                                               {{$socialLink->fan_count}}   {{$socialLink->fan_type}}
                                             </span>
-                                        <span class="social__media__widget-name">
-                                                like
+                                            <span class="social__media__widget-name">
+                                                {{$socialLink->button_text}}
                                             </span>
-                                    </div>
-                                </a>
-                                <a href="#" target="_blank">
-                                    <div class="social__media__widget twitter">
-                                            <span class="social__media__widget-icon">
-                                                <i class="fa fa-twitter"></i>
-                                            </span>
-                                        <span class="social__media__widget-counter">
-                                                2.076 followers
-                                            </span>
-                                        <span class="social__media__widget-name">
-                                                follow
-                                            </span>
-                                    </div>
-                                </a>
-                                <a href="#" target="_blank">
-                                    <div class="social__media__widget youtube">
-                                            <span class="social__media__widget-icon">
-                                                <i class="fa fa-youtube"></i>
-                                            </span>
-                                        <span class="social__media__widget-counter">
-                                                15,200 followers
-                                            </span>
-                                        <span class="social__media__widget-name">
-                                                subscribe
-                                            </span>
-                                    </div>
-                                </a>
+                                        </div>
+                                    </a>
+                                @endforeach
+
 
                             </div>
                         </aside>
@@ -591,82 +569,13 @@
                             <div class="blog-tags p-0">
                                 <ul class="list-inline">
 
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #property
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #sea
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #programming
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #sea
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #property
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #life style
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #technology
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #framework
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #sport
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #game
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #wfh
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #sport
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #game
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #wfh
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">
-                                            #framework
-                                        </a>
-                                    </li>
-
+                                    @foreach ($mostTags as $tag)
+                                        <li class="list-inline-item">
+                                            <a href="#">
+                                                #{{ $tag->name }} ({{ $tag->count }})
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </aside>

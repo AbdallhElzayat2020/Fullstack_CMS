@@ -6,6 +6,7 @@ use App\Interfaces\HomeRepositoryInterface;
 use App\Models\Comment;
 use App\Models\HomeSectionSetting;
 use App\Models\News;
+use App\Models\SocialCount;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,7 +63,10 @@ class HomeRepository implements HomeRepositoryInterface
         $mostViewedPosts = $allNews->sortByDesc('views')
             ->take(3);
 
+        $socialCount = SocialCount::where(['status' => 'active', 'language' => getLanguage()])
+            ->get();
 
+        $mostTags = $this->mostTags();
         return view('frontend.home', compact(
             'breakingNews',
             'heroSlider',
@@ -73,7 +77,9 @@ class HomeRepository implements HomeRepositoryInterface
             'categorySectionThree',
             'categorySectionFour',
             'HomeSectionOne',
-            'mostViewedPosts'
+            'mostViewedPosts',
+            'socialCount',
+            'mostTags'
         ));
     }
 

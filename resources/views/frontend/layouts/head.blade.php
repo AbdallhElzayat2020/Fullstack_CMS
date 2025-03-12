@@ -15,4 +15,5 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ asset('assets/frontend/css/styles.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/modules/fontawesome/css/all.min.css') }}">
 </head>
