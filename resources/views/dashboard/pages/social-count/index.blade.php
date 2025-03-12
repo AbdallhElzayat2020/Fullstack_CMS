@@ -74,10 +74,12 @@
                                                             </td>
 
                                                             <td>
+
                                                                 <a href="{{ route('admin.social-count.edit',$link->id) }}"
                                                                    class="btn btn-primary">
                                                                     <i class="fas fa-edit"></i>
                                                                 </a>
+
                                                                 <a href="{{ route('admin.social-count.destroy',$link->id) }}"
                                                                    class="delete-item btn btn-danger">
                                                                     <i class="fas fa-trash-alt"></i>

@@ -49,14 +49,6 @@ class SocialController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
@@ -91,6 +83,15 @@ class SocialController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+        try {
+            $link = SocialCount::findOrFail($id);
+            $link->delete();
+
+            return response(['status' => 'success', 'message' => __('Deleted successfully')]);
+        } catch (\Exception $exception) {
+            return response(['status' => 'error', 'message' => __('Something went wrong')]);
+        }
+
     }
 }
