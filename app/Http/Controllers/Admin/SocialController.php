@@ -61,7 +61,9 @@ class SocialController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $socialCount = SocialCount::findOrFail($id);
+        $languages = Language::all();
+        return view('dashboard.pages.social-count.edit', compact('socialCount', 'languages'));
     }
 
     /**
@@ -69,7 +71,19 @@ class SocialController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $socialCount = SocialCount::findOrFail($id);
+        $socialCount->language = $request->language;
+        $socialCount->name = $request->name;
+        $socialCount->icon = $request->icon;
+        $socialCount->fan_count = $request->fan_count;
+        $socialCount->fan_type = $request->fan_type;
+        $socialCount->url = $request->url;
+        $socialCount->button_text = $request->button_text;
+        $socialCount->color = $request->color;
+        $socialCount->status = $request->status;
+        $socialCount->save();
+        toast('Created successfully', 'success')->width('400px');
+        return to_route('admin.social-count.index');
     }
 
     /**
