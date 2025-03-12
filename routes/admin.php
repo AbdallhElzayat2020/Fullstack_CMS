@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\HomeSectionSettingController;
+use App\Http\Controllers\Admin\SocialController;
 
 //============================ Public Admin Routes ============================
 
@@ -51,9 +52,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     /* News Route */
     Route::get('fetch-news-category', [NewsController::class, 'fetchCategory'])->name('fetch-news-category');
 
-    Route::get('toggle-news-status',[NewsController::class, 'toggleNewsStatus'])->name('toggle-news-status');
+    Route::get('toggle-news-status', [NewsController::class, 'toggleNewsStatus'])->name('toggle-news-status');
 
-    Route::get('news-copy/{id}',[NewsController::class, 'copyNews'])->name('news-copy');
+    Route::get('news-copy/{id}', [NewsController::class, 'copyNews'])->name('news-copy');
 
     Route::resource('news', NewsController::class);
 
@@ -62,5 +63,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     Route::put('home-section-setting', [HomeSectionSettingController::class, 'update'])->name('home-section-setting.update');
 
+    /* Social Count Route */
+    Route::resource('social-count', SocialController::class);
 
 });

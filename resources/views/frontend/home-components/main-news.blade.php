@@ -504,7 +504,6 @@
                                                         <img src="{{$mostViewNews->image}}" class="img-fluid" alt="">
                                                     </a>
                                                 </div>
-
                                                 <div class="card__post__body ">
                                                     <div class="card__post__content">
 
