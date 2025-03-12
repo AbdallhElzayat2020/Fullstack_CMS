@@ -4,30 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminHomesectionSettingRequest;
+use App\Interfaces\AdminHomeSectionRepositoryInterface;
 use App\Models\HomeSectionSetting;
 use App\Models\Language;
 use Illuminate\Http\Request;
 
 class HomeSectionSettingController extends Controller
 {
+    public $section;
+    public function __construct(AdminHomeSectionRepositoryInterface $section)
+    {
+        $this->section = $section;
+    }
     public function index()
     {
-        $languages = Language::all();
-        return view('dashboard.pages.home-section-setting.index', compact('languages'));
+        return $this->section->index();
     }
 
     public function update(AdminHomesectionSettingRequest $request): \Illuminate\Http\RedirectResponse
     {
-        HomeSectionSetting::updateOrCreate([
-            'language' => $request->language,
-            'category_section_one' => $request->category_section_one,
-            'category_section_two' => $request->category_section_two,
-            'category_section_three' => $request->category_section_three,
-            'category_section_four' => $request->category_section_four,
-
-        ]);
-
-        toast('Updated successfully', 'success')->width('400px');
-        return redirect()->back();
+        return $this->section->update($request);
     }
 }
