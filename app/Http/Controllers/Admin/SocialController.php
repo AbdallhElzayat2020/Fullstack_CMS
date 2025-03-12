@@ -22,7 +22,8 @@ class SocialController extends Controller
      */
     public function create()
     {
-        //
+        $languages = Language::all();
+        return view('dashboard.pages.social-count.create', compact('languages'));
     }
 
     /**

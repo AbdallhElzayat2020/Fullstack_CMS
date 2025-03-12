@@ -19,6 +19,8 @@
     <link rel="shortcut icon" href="{{asset('assets/dashboard/img/stisla-fill.svg')}}" type="image/x-icon">
     <link rel="stylesheet"
           href="{{asset('assets/dashboard/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/dashboard/modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/dashboard/css/bootstrap-iconpicker.min.css')}}">
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/components.css') }}">

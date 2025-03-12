@@ -14,9 +14,12 @@
     src="{{asset('assets/dashboard/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('assets/dashboard/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script>
 <script src="{{asset('assets/dashboard/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
+<script src="{{asset('assets/dashboard/modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')}}"></script>
+<script src="{{asset('assets/dashboard/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
 
 <!-- Page Specific JS File -->
 <script src="{{asset('assets/dashboard/js/page/modules-datatables.js')}}"></script>
+
 
 
 <!-- Template JS File -->
