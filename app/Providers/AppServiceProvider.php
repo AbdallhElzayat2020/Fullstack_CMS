@@ -7,12 +7,14 @@ use App\Interfaces\AdminLanguageRepositoryInterface;
 use App\Interfaces\AdminNewsRepositoryInterface;
 use App\Interfaces\AdminProfileRepositoryInterface;
 use App\Interfaces\AdminRepositoryInterface;
+use App\Interfaces\AdminSocialCountRepositoryInterface;
 use App\Interfaces\HomeRepositoryInterface;
 use App\Repositories\AdminCategoriesRepository;
 use App\Repositories\AdminLanguageRepository;
 use App\Repositories\AdminNewsRepository;
 use App\Repositories\AdminProfileRepository;
 use App\Repositories\AdminRepository;
+use App\Repositories\AdminSocialCountRepository;
 use App\Repositories\HomeRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -38,5 +40,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminCategoriesRepositoryInterface::class, AdminCategoriesRepository::class);
         $this->app->bind(AdminNewsRepositoryInterface::class, AdminNewsRepository::class);
         $this->app->bind(HomeRepositoryInterface::class, HomeRepository::class);
+        $this->app->bind(AdminSocialCountRepositoryInterface::class, AdminSocialCountRepository::class);
     }
 }
