@@ -26,8 +26,16 @@
                                     <div class="form-group">
                                         <img width="200" class="my-3" src="{{asset($ad->home_top_bar_ad)}}" alt="">
                                         <label for="home_top_bar_ad">{{__('Top Bar Ad')}}</label>
-                                        <input  type="file"  class="form-control" id="home_top_bar_ad" name="home_top_bar_ad">
+                                        <input type="file" class="form-control" id="home_top_bar_ad"
+                                               name="home_top_bar_ad">
                                         @error('home_top_bar_ad')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                        <label class="mt-3" for="home_top_bar_ad">{{__('Top Bar Ad Url')}}</label>
+                                        <input type="text" value="{{$ad->home_top_bar_ad_url}}" class="form-control" id="home_top_bar_ad_url"
+                                               name="home_top_bar_ad_url">
+                                        @error('home_top_bar_ad_url')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
@@ -43,12 +51,23 @@
 
                                 <div class="col-md-6 col-lg-12">
                                     <div class="form-group">
-                                        <img width="200" class="my-3" src="{{asset($ad->home_middle_ad)}}" alt="">
+                                        @if($ad->home_middle_ad)
+                                            <img width="200" class="my-3" src="{{asset($ad->home_middle_ad)}}" alt="">
+                                        @endif
                                         <label for="home_middle_ad">{{__('Middle Bar Ad')}}</label>
-                                        <input  type="file" class="form-control" id="home_middle_ad" name="home_middle_ad">
+                                        <input type="file" class="form-control" id="home_middle_ad"
+                                               name="home_middle_ad">
                                         @error('home_middle_ad')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
+
+                                        <label class="mt-3" for="home_middle_ad_url">{{__('Middle Bar Ad Url')}}</label>
+                                        <input type="text" value="{{$ad->home_middle_ad_url}}" class="form-control" id="home_middle_ad_url"
+                                               name="home_middle_ad_url">
+                                        @error('home_middle_ad_url')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                         <label class="custom-switch mt-2">
                                             <input value="1" name="home_middle_ad_status"
                                                    {{$ad->home_middle_ad_status == 1 ? 'checked' : ''}}
@@ -59,15 +78,24 @@
                                     </div>
                                 </div>
 
-                                <h6 class="mb-3 text-primary">News View Page Ads</h6>
+                                <h6 class="mb-3 text-primary">{{__('News View Page Ads')}}</h6>
                                 <div class="col-md-6 col-lg-12">
                                     <div class="form-group">
                                         <img width="200" class="my-3" src="{{asset($ad->view_page_ad)}}" alt="">
                                         <label for="view_page_ad">{{__('Bottom Ad')}}</label>
-                                        <input  type="file" class="form-control" id="view_page_ad" name="view_page_ad">
+                                        <input type="file" class="form-control" id="view_page_ad" name="view_page_ad">
                                         @error('view_page_ad')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
+
+                                        <label class="mt-3"
+                                               for="view_page_ad_url">{{__('News View Page Ads Url')}}</label>
+                                        <input type="text" value="{{$ad->view_page_ad_url}}" class="form-control" id="view_page_ad_url"
+                                               name="view_page_ad_url">
+                                        @error('view_page_ad_url')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                         <label class="custom-switch mt-2">
                                             <input value="1" name="view_page_status"
                                                    {{$ad->view_page_status == 1 ? 'checked' : ''}}
@@ -84,10 +112,18 @@
                                     <div class="form-group">
                                         <img width="200" class="my-3" src="{{asset($ad->news_page_ad)}}" alt="">
                                         <label for="news_page_ad">{{__('Bottom Ad')}}</label>
-                                        <input  type="file" class="form-control" id="news_page_ad" name="news_page_ad">
+                                        <input type="file" class="form-control" id="news_page_ad" name="news_page_ad">
                                         @error('news_page_ad')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
+
+                                        <label class="mt-3" for="news_page_ad_url">{{__('Bottom Ad Url')}}</label>
+                                        <input type="text" value="{{$ad->news_page_ad_url}}" class="form-control" id="news_page_ad_url"
+                                               name="news_page_ad_url">
+                                        @error('news_page_ad_url')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                         <label class="custom-switch mt-2">
                                             <input value="1" name="news_page_ad_status"
                                                    {{$ad->news_page_ad_status == 1 ? 'checked' : ''}}
@@ -103,10 +139,18 @@
                                     <div class="form-group">
                                         <img width="200" class="my-3" src="{{asset($ad->side_bar_ad)}}" alt="">
                                         <label for="side_bar_ad">{{__('Sidebar Ad')}}</label>
-                                        <input  type="file" class="form-control" id="side_bar_ad" name="side_bar_ad">
+                                        <input type="file" class="form-control" id="side_bar_ad" name="side_bar_ad">
                                         @error('side_bar_ad')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
+
+                                        <label class="mt-3" for="side_bar_ad_url">{{__('Sidebar Ad Url')}}</label>
+                                        <input type="text" value="{{$ad->side_bar_ad_url}}" class="form-control" id="side_bar_ad_url"
+                                               name="side_bar_ad_url">
+                                        @error('side_bar_ad_url')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                         <label class="custom-switch mt-2">
                                             <input value="1" name="side_bar_ad_status"
                                                    {{$ad->side_bar_ad_status == 1 ? 'checked' : ''}}

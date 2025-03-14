@@ -408,11 +408,13 @@
                         </div>
                     </div>
                     @if($ad->view_page_status)
-                        <div class="small_add_banner mb-5 pb-4">
-                            <div class="small_add_banner_img">
-                                <img src="{{asset($ad->view_page_ad)}}" alt="adds">
+                        <a href="{{$ad->view_page_ad_url}}">
+                            <div class="small_add_banner mb-5 pb-4">
+                                <div class="small_add_banner_img">
+                                    <img src="{{asset($ad->view_page_ad)}}" alt="adds">
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     @endif
 
                     <div class="clearfix"></div>
@@ -630,14 +632,16 @@
                         </aside>
 
                         @if($ad->side_bar_ad_status == 1)
-                            <aside class="wrapper__list__article">
-                                <h4 class="border_section">{{__('Advertise')}}</h4>
-                                <a href="javascript:;">
-                                    <figure>
-                                        <img src="{{asset($ad->side_bar_ad)}}" alt="" class="img-fluid">
-                                    </figure>
-                                </a>
-                            </aside>
+                            <a href="{{$ad->side_bar_ad_url}}">
+                                <aside class="wrapper__list__article">
+                                    <h4 class="border_section">{{__('Advertise')}}</h4>
+                                    <a href="javascript:;">
+                                        <figure>
+                                            <img src="{{asset($ad->side_bar_ad)}}" alt="" class="img-fluid">
+                                        </figure>
+                                    </a>
+                                </aside>
+                            </a>
                         @endif
                     </div>
                 </div>

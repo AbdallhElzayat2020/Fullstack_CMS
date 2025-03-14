@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Ad;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,8 +18,9 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $this->call([
-            AdminSeeder::class,
-            LanguageSeeder::class,
+//            AdminSeeder::class,
+            AdminAdSeeder::class,
+//            LanguageSeeder::class,
         ]);
 
 //        User::factory()->create([
