@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\HomeSectionSettingController;
 use App\Http\Controllers\Admin\SocialController;
-
+use App\Http\Controllers\Admin\AdController;
 //============================ Public Admin Routes ============================
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], function () {
@@ -65,5 +65,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     /* Social Count Route */
     Route::resource('social-count', SocialController::class);
+
+    /* Advertisement Route */
+    Route::resource('ads', AdController::class);
 
 });

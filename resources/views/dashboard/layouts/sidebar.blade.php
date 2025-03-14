@@ -40,6 +40,12 @@
             </li>
 
             <li>
+                <a class="nav-link" href="{{ route('admin.ads.index') }}"><i class="far fa-square"></i>
+                    <span>Advertisement</span>
+                </a>
+            </li>
+
+            <li>
                 <a class="nav-link" href="{{ route('admin.social-count.index') }}"><i class="far fa-square"></i>
                     <span>Social Count</span>
                 </a>
@@ -50,6 +56,7 @@
                     <span>Languages</span>
                 </a>
             </li>
+
 
 
             {{--            <li><a class="nav-link" href=""><i class="far fa-square"></i> <span>Blank Page</span></a></li>--}}
