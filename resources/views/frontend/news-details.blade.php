@@ -559,45 +559,23 @@
                             <h4 class="border_section">{{__('stay conected')}}</h4>
                             <!-- widget Social media -->
                             <div class="wrap__social__media">
-                                <a href="https://www.facebook.com/sharer/sharer.php?u={{url()->current()}}" target="_blank">
-                                    <div class="social__media__widget facebook">
-                                        <span class="social__media__widget-icon">
-                                            <i class="fa fa-facebook"></i>
-                                        </span>
-                                        <span class="social__media__widget-counter">
-                                            19,243 fans
-                                        </span>
-                                        <span class="social__media__widget-name">
-                                            like
-                                        </span>
-                                    </div>
-                                </a>
-                                <a href="#" target="_blank">
-                                    <div class="social__media__widget twitter">
-                                        <span class="social__media__widget-icon">
-                                            <i class="fa fa-twitter"></i>
-                                        </span>
-                                        <span class="social__media__widget-counter">
-                                            2.076 followers
-                                        </span>
-                                        <span class="social__media__widget-name">
-                                            follow
-                                        </span>
-                                    </div>
-                                </a>
-                                <a href="#" target="_blank">
-                                    <div class="social__media__widget youtube">
-                                        <span class="social__media__widget-icon">
-                                            <i class="fa fa-youtube"></i>
-                                        </span>
-                                        <span class="social__media__widget-counter">
-                                            15,200 followers
-                                        </span>
-                                        <span class="social__media__widget-name">
-                                            subscribe
-                                        </span>
-                                    </div>
-                                </a>
+                                @foreach($socialCount as $socialLink)
+                                    <a href="#" target="_blank" class="mt-2">
+                                        <div class="social__media__widget mt-3"
+                                             style="background-color: {{$socialLink->color}}">
+                                            <span class="social__media__widget-icon p-2">
+                                                <i class="{{$socialLink->icon}}" style="font-size: 18px"></i>
+                                            </span>
+                                            <span class="social__media__widget-counter">
+                                               {{$socialLink->fan_count}}   {{$socialLink->fan_type}}
+                                            </span>
+                                            <span class="social__media__widget-name">
+                                                {{$socialLink->button_text}}
+                                            </span>
+                                        </div>
+                                    </a>
+                                @endforeach
+
 
                             </div>
                         </aside>
@@ -609,8 +587,8 @@
                                 <ul class="list-inline">
                                     @foreach ($mostTags as $tag)
                                         <li class="list-inline-item">
-                                            <a href="#">
-                                                #{{ $tag->name }} ({{ $tag->count }})
+                                            <a href="{{ route('news',['tag'=> $tag->name]) }}">
+                                                #{{$tag->name}} ({{$tag->count}})
                                             </a>
                                         </li>
                                     @endforeach

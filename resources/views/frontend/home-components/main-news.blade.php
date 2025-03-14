@@ -571,8 +571,8 @@
 
                                     @foreach ($mostTags as $tag)
                                         <li class="list-inline-item">
-                                            <a href="#">
-                                                #{{ $tag->name }} ({{ $tag->count }})
+                                            <a href="{{ route('news',['tag'=> $tag->name]) }}">
+                                                #{{$tag->name}} ({{$tag->count}})
                                             </a>
                                         </li>
                                     @endforeach

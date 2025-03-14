@@ -8,14 +8,11 @@
                     <!-- Breadcrumb -->
                     <ul class="breadcrumbs bg-light mb-4">
                         <li class="breadcrumbs__item">
-                            <a href="index.html" class="breadcrumbs__url">
-                                <i class="fa fa-home"></i> Home</a>
+                            <a href="{{ route('home') }}" class="breadcrumbs__url">
+                                <i class="fa fa-home"></i> {{__('Home')}}</a>
                         </li>
                         <li class="breadcrumbs__item">
-                            <a href="index.html" class="breadcrumbs__url">News</a>
-                        </li>
-                        <li class="breadcrumbs__item breadcrumbs__item--current">
-                            World
+                            <a href="javascript:;" class="breadcrumbs__url">{{__('News')}}</a>
                         </li>
                     </ul>
                 </div>
@@ -37,7 +34,8 @@
                                     <select name="category">
                                         <option value="">{{__('All')}}</option>
                                         @foreach($categories as $category)
-                                            <option @selected(old('category', request()->category) == $category->slug) value="{{$category->slug}}">{{$category->name}}</option>
+                                            <option
+                                                @selected(old('category', request()->category) === $category->slug) value="{{$category->slug}}">{{$category->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -123,7 +121,7 @@
                                             <div class="card__post card__post-list">
                                                 <div class="image-sm">
                                                     <a href="{{ route('news-details',$post->slug) }}">
-                                                        <img src="{{asset($post->image)}}" class="img-fluid" alt="">
+                                                        <img src="{{asset($post->image)}}" class="img-fluid" alt="{{$post->title}}">
                                                     </a>
                                                 </div>
 
@@ -165,7 +163,7 @@
                                         <div class="article__entry">
                                             <div class="article__image">
                                                 <a href="{{ route('news-details',$post->slug) }}">
-                                                    <img src="{{asset($post->image)}}" class="img-fluid" alt="">
+                                                    <img src="{{asset($post->image)}}" class="img-fluid" alt="{{$post->title}}">
                                                 </a>
                                             </div>
                                             <div class="article__content">
@@ -215,8 +213,8 @@
 
                                     @foreach($mostTags as $tag)
                                         <li class="list-inline-item">
-                                            <a href="#">
-                                                #{{$tag->name}}
+                                            <a href="{{ route('news',['tag'=> $tag->name]) }}">
+                                                #{{$tag->name}} ({{$tag->count}})
                                             </a>
                                         </li>
                                     @endforeach
@@ -242,7 +240,7 @@
                             </div>
                         </aside>
 
-                        <aside class="wrapper__list__article">
+                        <aside class="wrapper__list__article mt-3">
                             <h4 class="border_section">Advertise</h4>
                             <a href="#">
                                 <figure>

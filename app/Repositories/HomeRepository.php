@@ -85,6 +85,8 @@ class HomeRepository implements HomeRepositoryInterface
 
     public function ShowNews(string $slug)
     {
+
+
         $news = News::where('slug', $slug)
             ->with(['category', 'comments'])
             ->activeNews()
@@ -103,6 +105,9 @@ class HomeRepository implements HomeRepositoryInterface
             ->activeNews()
             ->withLocalize()
             ->orderBy('id', 'asc')
+            ->get();
+
+        $socialCount = SocialCount::where(['status' => 'active', 'language' => getLanguage()])
             ->get();
 
         $nextPost = $posts->firstWhere('id', '>', $news->id);
@@ -125,7 +130,8 @@ class HomeRepository implements HomeRepositoryInterface
             'mostTags',
             'nextPost',
             'prevPost',
-            'relatedPosts'
+            'relatedPosts',
+            'socialCount'
         ));
     }
 

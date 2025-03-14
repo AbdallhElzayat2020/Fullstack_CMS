@@ -51,6 +51,12 @@ class NewsSearchRepository implements NewsSearchRepositoryInterface
             });
         });
 
+        $news->when($request->has('tag'), function (Builder $query) use ($request) {
+            $query->whereHas('tags', function (Builder $query) use ($request) {
+                $query->where('name', $request->tag);
+            });
+        });
+
         $news->when($request->has('search'), function (Builder $query) use ($request) {
 
             $query->where(function (Builder $query) use ($request) {
