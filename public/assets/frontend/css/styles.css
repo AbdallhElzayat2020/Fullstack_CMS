@@ -17963,8 +17963,44 @@ body.offcanvas-active {
 
 
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
 
+.pagination .disabled > span {
+    color: black;
+    float: left;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border: 1px solid #eee;
+    margin: 0 4px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    text-align: center;
+    line-height: 34px;
+}
 
+.pagination .page-item > span {
+    color: black;
+    float: left;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border: 1px solid #eee;
+    margin: 0 4px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    text-align: center;
+    line-height: 34px;
+}
 
+.pagination .page-item > a {
+    text-align: center;
+}
 
 /*  */

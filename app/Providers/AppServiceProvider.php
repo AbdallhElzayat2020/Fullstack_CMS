@@ -9,6 +9,7 @@ use App\Interfaces\AdminProfileRepositoryInterface;
 use App\Interfaces\AdminRepositoryInterface;
 use App\Interfaces\AdminSocialCountRepositoryInterface;
 use App\Interfaces\HomeRepositoryInterface;
+use App\Interfaces\NewsSearchRepositoryInterface;
 use App\Repositories\AdminCategoriesRepository;
 use App\Repositories\AdminLanguageRepository;
 use App\Repositories\AdminNewsRepository;
@@ -16,7 +17,9 @@ use App\Repositories\AdminProfileRepository;
 use App\Repositories\AdminRepository;
 use App\Repositories\AdminSocialCountRepository;
 use App\Repositories\HomeRepository;
+use App\Repositories\NewsSearchRepository;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+
     }
 
     /**
@@ -33,6 +36,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // pagination
+        Paginator::useBootstrap();
+
         //Admin Repository Interface
         $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
         $this->app->bind(AdminProfileRepositoryInterface::class, AdminProfileRepository::class);
@@ -41,5 +47,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminNewsRepositoryInterface::class, AdminNewsRepository::class);
         $this->app->bind(HomeRepositoryInterface::class, HomeRepository::class);
         $this->app->bind(AdminSocialCountRepositoryInterface::class, AdminSocialCountRepository::class);
+        $this->app->bind(NewsSearchRepositoryInterface::class, NewsSearchRepository::class);
     }
 }
