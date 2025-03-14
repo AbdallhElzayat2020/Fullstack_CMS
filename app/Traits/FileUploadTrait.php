@@ -10,6 +10,9 @@ trait FileUploadTrait
 {
 
 
+
+
+
     public function handleFileUpload(Request $request, $fileName, $oldPath = null, $dir = 'uploads'): ?string
     {
         if (!$request->hasFile($fileName)) {

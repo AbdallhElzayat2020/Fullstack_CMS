@@ -6,5 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ad extends Model
 {
-    //
+    protected $fillable = [
+        'id',
+        'home_top_bar_ad',
+        'home_top_bar_ad_status',
+        'home_middle_ad',
+        'home_middle_ad_status',
+        'view_page_ad',
+        'view_page_status',
+        'news_page_ad',
+        'news_page_ad_status',
+        'side_bar_ad',
+        'side_bar_ad_status',
+    ];
 }
