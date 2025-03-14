@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\NewsSearchRepositoryInterface;
+use App\Models\Category;
 use App\Models\News;
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
@@ -32,25 +33,47 @@ class NewsSearchRepository implements NewsSearchRepositoryInterface
                 ->get();
         });
 
-        $news = [];
-        if ($request->has('search')) {
 
-            $news = News::with('author', 'category')->where(function (Builder $query) use ($request) {
+//        if ($request->has('search')) {
+//            $news = News::with('author', 'category')
+//
+//            })
+//            ->activeNews()
+//                ->withLocalize()
+//                ->paginate(8)->withQueryString();
+//        }
+
+        $news = News::query();
+
+        $news->when($request->has('category') && !empty($request->category), function (Builder $query) use ($request) {
+            $query->whereHas('category', function (Builder $query) use ($request) {
+                $query->where('slug', $request->category);
+            });
+        });
+
+        $news->when($request->has('search'), function (Builder $query) use ($request) {
+
+            $query->where(function (Builder $query) use ($request) {
 
                 $query->where('title', 'LIKE', '%' . $request->search . '%')
                     ->orWhere('description', 'LIKE', '%' . $request->search . '%');
 
             })->orWhereHas('category', function (Builder $query) use ($request) {
+
                 $query->where('name', 'LIKE', '%' . $request->search . '%');
+            });
+        });
 
-            })->activeNews()
-                ->withLocalize()
-                ->paginate(8)->withQueryString();
-        }
+
+        $news = $news->activeNews()->withLocalize()->paginate(10)->withQueryString();
+
+
         $mostTags = $this->mostTags();
-        $recentNews = $allNews->sortByDesc('id')
-            ->take(4);
+        $recentNews = $allNews->sortByDesc('id');
 
-        return view('frontend.news', compact('news', 'recentNews', 'mostTags'));
+        $categories = Category::where(['status' => 'active', 'language' => getLanguage()])
+            ->get();
+
+        return view('frontend.news', compact('news', 'recentNews', 'mostTags', 'categories'));
     }
 }

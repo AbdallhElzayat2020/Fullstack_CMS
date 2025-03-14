@@ -34,14 +34,11 @@
                                            placeholder="Type here">
                                 </div>
                                 <div class="col-lg-4">
-                                    <select>
-                                        <option value="#">Select Category</option>
-                                        <option value="#">Category 1</option>
-                                        <option value="#">Category 2</option>
-                                        <option value="#">Category 3</option>
-                                        <option value="#">Category 4</option>
-                                        <option value="#">Category 5</option>
-                                        <option value="#">Category 6</option>
+                                    <select name="category">
+                                        <option value="">{{__('All')}}</option>
+                                        @foreach($categories as $category)
+                                            <option @selected(old('category', request()->category) == $category->slug) value="{{$category->slug}}">{{$category->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-lg-3">
@@ -52,7 +49,9 @@
                     </div>
 
                     <aside class="wrapper__list__article ">
-                        <h4 class="border_section">{{__('Category title')}}</h4>
+                        @if(request()->has('category'))
+                            <h4 class="border_section">{{__('Category')}}: {{request()->category}}</h4>
+                        @endif
 
                         <div class="row">
                             @forelse($news as $key=> $post)
