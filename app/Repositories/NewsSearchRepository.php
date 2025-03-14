@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\NewsSearchRepositoryInterface;
+use App\Models\Ad;
 use App\Models\Category;
 use App\Models\News;
 use App\Models\Tag;
@@ -33,16 +34,7 @@ class NewsSearchRepository implements NewsSearchRepositoryInterface
                 ->get();
         });
 
-
-//        if ($request->has('search')) {
-//            $news = News::with('author', 'category')
-//
-//            })
-//            ->activeNews()
-//                ->withLocalize()
-//                ->paginate(8)->withQueryString();
-//        }
-
+        $ad = Ad::first();
         $news = News::query();
 
         $news->when($request->has('category') && !empty($request->category), function (Builder $query) use ($request) {
@@ -80,6 +72,6 @@ class NewsSearchRepository implements NewsSearchRepositoryInterface
         $categories = Category::where(['status' => 'active', 'language' => getLanguage()])
             ->get();
 
-        return view('frontend.news', compact('news', 'recentNews', 'mostTags', 'categories'));
+        return view('frontend.news', compact('news', 'recentNews', 'mostTags', 'categories','ad'));
     }
 }

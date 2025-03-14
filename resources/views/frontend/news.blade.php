@@ -121,7 +121,8 @@
                                             <div class="card__post card__post-list">
                                                 <div class="image-sm">
                                                     <a href="{{ route('news-details',$post->slug) }}">
-                                                        <img src="{{asset($post->image)}}" class="img-fluid" alt="{{$post->title}}">
+                                                        <img src="{{asset($post->image)}}" class="img-fluid"
+                                                             alt="{{$post->title}}">
                                                     </a>
                                                 </div>
 
@@ -163,7 +164,8 @@
                                         <div class="article__entry">
                                             <div class="article__image">
                                                 <a href="{{ route('news-details',$post->slug) }}">
-                                                    <img src="{{asset($post->image)}}" class="img-fluid" alt="{{$post->title}}">
+                                                    <img src="{{asset($post->image)}}" class="img-fluid"
+                                                         alt="{{$post->title}}">
                                                 </a>
                                             </div>
                                             <div class="article__content">
@@ -255,16 +257,18 @@
             </div>
 
         </div>
-        <div class="large_add_banner mb-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="large_add_banner_img">
-                            <img src="images/placeholder_large.jpg" alt="adds">
+        @if($ad->news_page_ad_status == 1)
+            <div class="large_add_banner mb-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="large_add_banner_img">
+                                <img src="{{asset($ad->news_page_ad)}}" alt="adds">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </section>
 @endsection

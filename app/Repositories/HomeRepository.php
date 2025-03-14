@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\HomeRepositoryInterface;
+use App\Models\Ad;
 use App\Models\Comment;
 use App\Models\HomeSectionSetting;
 use App\Models\News;
@@ -36,6 +37,8 @@ class HomeRepository implements HomeRepositoryInterface
         $heroSlider = $allNews->where('show_at_slider', 1)
             ->sortBy('id')
             ->take(7);
+
+        $ad = Ad::first();
 
         $recentNews = $allNews->sortByDesc('id')
             ->take(6);
@@ -79,7 +82,8 @@ class HomeRepository implements HomeRepositoryInterface
             'HomeSectionOne',
             'mostViewedPosts',
             'socialCount',
-            'mostTags'
+            'mostTags',
+            'ad',
         ));
     }
 
@@ -124,6 +128,8 @@ class HomeRepository implements HomeRepositoryInterface
             ->take(4)
             ->get();
 
+        $ad = Ad::first();
+
         return view('frontend.news-details', compact(
             'news',
             'recentNews',
@@ -131,7 +137,8 @@ class HomeRepository implements HomeRepositoryInterface
             'nextPost',
             'prevPost',
             'relatedPosts',
-            'socialCount'
+            'socialCount',
+            'ad',
         ));
     }
 
