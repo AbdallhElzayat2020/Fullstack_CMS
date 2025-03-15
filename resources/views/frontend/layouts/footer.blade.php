@@ -8,7 +8,8 @@
                         <div class="col-md-4">
                             <div class="widget__footer">
                                 <figure class="image-logo">
-                                    <img style="width: 100px!important; height: 100px!important;" src="{{asset($footerInfo->logo)}}" alt="" class="logo-footer">
+                                    <img style="width: 100px!important; height: 100px!important;"
+                                         src="{{asset($footerInfo->logo)}}" alt="" class="logo-footer">
                                 </figure>
 
                                 <p style="overflow-wrap: break-word;">
@@ -63,22 +64,11 @@
 
                                 </div>
                                 <ul class="list-unstyled option-content is-hidden">
-                                    <li>
-                                        <a href="#">medical research</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">healthy living</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">mental health</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">virus corona</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">children \'s health</a>
-                                    </li>
-
+                                    @foreach($footerGridTwo as $link)
+                                        <li>
+                                            <a href="{{$link->$link}}">{{$link->name}}</a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>

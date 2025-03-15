@@ -12,45 +12,65 @@ class AdminLanguageRepository implements AdminLanguageRepositoryInterface
 
     public function index()
     {
-        $languages = Language::all();
-        return view('dashboard.pages.Language.index', compact('languages'));
+        try {
+            $languages = Language::all();
+            return view('dashboard.pages.Language.index', compact('languages'));
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function create()
     {
-        return view('dashboard.pages.Language.create');
+        try {
+            return view('dashboard.pages.Language.create');
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function Store(AdminLanguageStoreRequest $request)
     {
-        $language = new Language();
-        $language->name = $request->name;
-        $language->lang = $request->lang;
-        $language->slug = $request->slug;
-        $language->status = $request->status;
-        $language->default = $request->default;
-        $language->save();
-        toast('Created successfully', 'success')->width('400px');
-        return to_route('admin.language.index');
+        try {
+            $language = new Language();
+            $language->name = $request->name;
+            $language->lang = $request->lang;
+            $language->slug = $request->slug;
+            $language->status = $request->status;
+            $language->default = $request->default;
+            $language->save();
+            toast('Created successfully', 'success')->width('400px');
+            return to_route('admin.language.index');
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function edit(string $id)
     {
-        $language = Language::findOrFail($id);
-        return view('dashboard.pages.Language.edit', compact('language'));
+        try {
+            $language = Language::findOrFail($id);
+            return view('dashboard.pages.Language.edit', compact('language'));
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function update(AdminLanguageUpdateRequest $request, string $id)
     {
-        $language = Language::findOrFail($id);
-        $language->name = $request->name;
-        $language->lang = $request->lang;
-        $language->slug = $request->slug;
-        $language->status = $request->status;
-        $language->default = $request->default;
-        $language->save();
-        toast('Updated successfully', 'success')->width('400px');
-        return to_route('admin.language.index');
+        try {
+            $language = Language::findOrFail($id);
+            $language->name = $request->name;
+            $language->lang = $request->lang;
+            $language->slug = $request->slug;
+            $language->status = $request->status;
+            $language->default = $request->default;
+            $language->save();
+            toast('Updated successfully', 'success')->width('400px');
+            return to_route('admin.language.index');
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function destroy(string $id)

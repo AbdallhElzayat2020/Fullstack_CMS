@@ -3,16 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\FooterStoreGridTwoRequest;
+use App\Interfaces\AdminFooterRepositoryGridTwoInterface;
 
 class FooterGridTwoController extends Controller
 {
+    public $gridTwo;
+
+    public function __construct(AdminFooterRepositoryGridTwoInterface $gridTwo)
+    {
+        $this->gridTwo = $gridTwo;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return $this->gridTwo->index();
     }
 
     /**
@@ -20,23 +28,15 @@ class FooterGridTwoController extends Controller
      */
     public function create()
     {
-        //
+        return $this->gridTwo->create();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FooterStoreGridTwoRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return $this->gridTwo->store($request);
     }
 
     /**
@@ -44,15 +44,15 @@ class FooterGridTwoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return $this->gridTwo->edit($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(FooterStoreGridTwoRequest $request, string $id)
     {
-        //
+        return $this->gridTwo->update($request, $id);
     }
 
     /**
@@ -60,6 +60,6 @@ class FooterGridTwoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return $this->gridTwo->destroy($id);
     }
 }

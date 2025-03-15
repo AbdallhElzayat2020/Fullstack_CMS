@@ -11,6 +11,10 @@
         'status'=>'active',
          'language'=> \App\Helpers\getLanguage()
     ])->get();
+        $footerGridTwo= \App\Models\FooterGridTwo::where([
+        'status'=>'active',
+         'language'=> \App\Helpers\getLanguage()
+    ])->get();
 @endphp
         <!-- Header news -->
 @include('frontend.layouts.header')

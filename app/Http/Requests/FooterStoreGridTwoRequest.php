@@ -11,7 +11,7 @@ class FooterStoreGridTwoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class FooterStoreGridTwoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'language' => ['required'],
+            'link' => ['required', 'max:255'],
+            'status' => ['required', 'in:active,inactive'],
         ];
     }
 }

@@ -23,21 +23,33 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
 
     public function index()
     {
-        $languages = Language::all();
-        return view('dashboard.pages.news.index', compact('languages'));
+        try {
+            $languages = Language::all();
+            return view('dashboard.pages.news.index', compact('languages'));
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function fetchCategory(Request $request)
     {
-        $categories = Category::where('language', $request->lang)->get();
+        try {
+            $categories = Category::where('language', $request->lang)->get();
 
-        return response()->json($categories);
+            return response()->json($categories);
+        }catch (\Exception $exception){
+            return response()->json(['error' => $exception->getMessage()]);
+        }
     }
 
     public function create()
     {
-        $languages = Language::all();
-        return view('dashboard.pages.news.create', compact('languages'));
+        try {
+            $languages = Language::all();
+            return view('dashboard.pages.news.create', compact('languages'));
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function toggleNewsStatus(Request $request)
@@ -58,117 +70,133 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
     {
         //dd($request->all());
         // Handle Image
-        $imagePath = $this->handleFileUpload($request, 'image', '');
-        $news = new News();
-        $news->language = $request->language;
-        $news->category_id = $request->category_id;
-        $news->author_id = Auth::guard('admin')->user()->id;
-        $news->image = $imagePath;
-        $news->title = $request->title;
+        try {
+            $imagePath = $this->handleFileUpload($request, 'image', '');
+            $news = new News();
+            $news->language = $request->language;
+            $news->category_id = $request->category_id;
+            $news->author_id = Auth::guard('admin')->user()->id;
+            $news->image = $imagePath;
+            $news->title = $request->title;
 
-        $news->slug = Str::slug($request->title);
-        $news->description = $request->description;
-        $news->meta_title = $request->meta_title;
-        $news->meta_description = $request->meta_description;
-        $news->is_breaking_news = $request->is_breaking_news == 1 ? 1 : 0;
-        $news->show_at_slider = $request->show_at_slider == 1 ? 1 : 0;
-        $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
-        $news->status = $request->status;
-        $news->save();
-        $tags = explode(',', $request->tags);
-        $tagIds = [];
-        foreach ($tags as $tag) {
-            $tag = trim($tag);
-            $item = new Tag();
-            $item->name = $tag;
-            $item->language = $news->language;
-            $item->save();
+            $news->slug = Str::slug($request->title);
+            $news->description = $request->description;
+            $news->meta_title = $request->meta_title;
+            $news->meta_description = $request->meta_description;
+            $news->is_breaking_news = $request->is_breaking_news == 1 ? 1 : 0;
+            $news->show_at_slider = $request->show_at_slider == 1 ? 1 : 0;
+            $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
+            $news->status = $request->status;
+            $news->save();
+            $tags = explode(',', $request->tags);
+            $tagIds = [];
+            foreach ($tags as $tag) {
+                $tag = trim($tag);
+                $item = new Tag();
+                $item->name = $tag;
+                $item->language = $news->language;
+                $item->save();
 
-            $tagIds[] = $item->id;
+                $tagIds[] = $item->id;
+            }
+            $news->tags()->attach($tagIds);
+
+            toast(__('Created successfully'), 'success')->width('400px');
+            return to_route('admin.news.index');
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
         }
-        $news->tags()->attach($tagIds);
-
-        toast(__('Created successfully'), 'success')->width('400px');
-        return to_route('admin.news.index');
     }
 
     public function edit($id)
     {
-        $news = News::findOrFail($id);
-        $languages = Language::all();
-        $categories = Category::where('language', $news->language)->get();
+        try {
+            $news = News::findOrFail($id);
+            $languages = Language::all();
+            $categories = Category::where('language', $news->language)->get();
 
-        $tags = implode(',', $news->tags->pluck('name')->toArray());
-        $news->tags = $tags;
+            $tags = implode(',', $news->tags->pluck('name')->toArray());
+            $news->tags = $tags;
 
-        return view('dashboard.pages.news.edit', compact('news', 'languages', 'categories', 'tags'));
+            return view('dashboard.pages.news.edit', compact('news', 'languages', 'categories', 'tags'));
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function update(AdminUpdateNewsRequest $request, $id): \Illuminate\Http\RedirectResponse
     {
-        $news = News::findOrFail($id);
+        try {
+            $news = News::findOrFail($id);
 
-        // ✅ Handle Image Upload (Keep old image if no new one uploaded)
-        $imagePath = $news->image;
-        if ($request->hasFile('image')) {
-            $imagePath = $this->handleFileUpload($request, 'image');
-        }
-        $news->image = $imagePath;
+            // ✅ Handle Image Upload (Keep old image if no new one uploaded)
+            $imagePath = $news->image;
+            if ($request->hasFile('image')) {
+                $imagePath = $this->handleFileUpload($request, 'image');
+            }
+            $news->image = $imagePath;
 
-        // ✅ Update News
-        $news->language = $request->language;
-        $news->category_id = $request->category_id;
-        $news->title = $request->title;
-        $news->slug = Str::slug($request->title);
-        $news->description = $request->description;
-        $news->meta_title = $request->meta_title;
-        $news->meta_description = $request->meta_description;
-        $news->is_breaking_news = $request->is_breaking_news ? 1 : 0;
-        $news->show_at_slider = $request->show_at_slider ? 1 : 0;
-        $news->show_at_popular = $request->show_at_popular ? 1 : 0;
-        $news->status = $request->status;
-        $news->save();
+            // ✅ Update News
+            $news->language = $request->language;
+            $news->category_id = $request->category_id;
+            $news->title = $request->title;
+            $news->slug = Str::slug($request->title);
+            $news->description = $request->description;
+            $news->meta_title = $request->meta_title;
+            $news->meta_description = $request->meta_description;
+            $news->is_breaking_news = $request->is_breaking_news ? 1 : 0;
+            $news->show_at_slider = $request->show_at_slider ? 1 : 0;
+            $news->show_at_popular = $request->show_at_popular ? 1 : 0;
+            $news->status = $request->status;
+            $news->save();
 
-        /// Handle Tags
-        $tags = explode(',', $request->tags);
-        $tagsIds = [];
-        // loop tags array
-        foreach ($tags as $tag) {
-            $tag = trim($tag);
-            $existTag = Tag::where('name', $tag)
-                ->where('language', $news->language)
-                ->first();
-            if ($existTag) {
-                $tagsIds[] = $existTag->id;
-            } else {
-                $newTag = Tag::create([
-                    'name' => $tag,
-                    'language' => $news->language,
-                ]);
-                $tagsIds[] = $newTag->id;
+            /// Handle Tags
+            $tags = explode(',', $request->tags);
+            $tagsIds = [];
+            // loop tags array
+            foreach ($tags as $tag) {
+                $tag = trim($tag);
+                $existTag = Tag::where('name', $tag)
+                    ->where('language', $news->language)
+                    ->first();
+                if ($existTag) {
+                    $tagsIds[] = $existTag->id;
+                } else {
+                    $newTag = Tag::create([
+                        'name' => $tag,
+                        'language' => $news->language,
+                    ]);
+                    $tagsIds[] = $newTag->id;
+                }
+
             }
 
+            $news->tags()->sync($tagsIds);
+
+            toast(__('updated successfully'), 'success')->width('400px');
+            return to_route('admin.news.index');
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
         }
-
-        $news->tags()->sync($tagsIds);
-
-        toast(__('updated successfully'), 'success')->width('400px');
-        return to_route('admin.news.index');
     }
 
     public function destroy($id)
     {
-        DB::beginTransaction();
         try {
-            $news = News::findOrFail($id);
-            $news->tags()->delete();
-            $news->delete();
-            $this->deleteFile($news->image);
-            DB::commit();
-            return response(['status' => 'success', 'message' => __('Deleted successfully')]);
+            DB::beginTransaction();
+            try {
+                $news = News::findOrFail($id);
+                $news->tags()->delete();
+                $news->delete();
+                $this->deleteFile($news->image);
+                DB::commit();
+                return response(['status' => 'success', 'message' => __('Deleted successfully')]);
 
-        } catch (Exception $exception) {
-            DB::rollBack();
+            } catch (Exception $exception) {
+                DB::rollBack();
+                return response(['status' => 'error', 'message' => __('Something went wrong')]);
+            }
+        }catch (\Exception $exception){
             return response(['status' => 'error', 'message' => __('Something went wrong')]);
         }
     }
@@ -178,11 +206,15 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
      * */
     public function copyNews($id)
     {
-        $news = News::findOrFail($id);
+        try {
+            $news = News::findOrFail($id);
 
-        $copyNews = $news->replicate();
-        $copyNews->save();
-        toast(__('Copied successfully'), 'success')->width('400px');
-        return to_route('admin.news.index');
+            $copyNews = $news->replicate();
+            $copyNews->save();
+            toast(__('Copied successfully'), 'success')->width('400px');
+            return to_route('admin.news.index');
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 }

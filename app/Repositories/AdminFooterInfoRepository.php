@@ -14,36 +14,39 @@ class AdminFooterInfoRepository implements AdminFooterInfoRepositoryInterface
 
     public function index()
     {
-        $languages = Language::where('status', 'active')->get();
-        $footerInfo = AdminFooterInfo::all();
-        return view('dashboard.pages.footerInfo.index', compact('languages', 'footerInfo'));
-    }
-
-    public function create()
-    {
-        // TODO: Implement create() method.
+        try {
+            $languages = Language::where('status', 'active')->get();
+            $footerInfo = AdminFooterInfo::all();
+            return view('dashboard.pages.footerInfo.index', compact('languages', 'footerInfo'));
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function store($request)
     {
-        $request->validate([
-            'logo' => ['nullable', 'image', 'max:3000'],
-            'description' => ['required', 'string', 'max:300'],
-            'copyright' => ['required', 'string', 'max:255'],
-        ]);
+        try {
+            $request->validate([
+                'logo' => ['nullable', 'image', 'max:3000'],
+                'description' => ['required', 'string', 'max:300'],
+                'copyright' => ['required', 'string', 'max:255'],
+            ]);
 
-        $footerInfo = AdminFooterInfo::where('language', $request->language)->first();
+            $footerInfo = AdminFooterInfo::where('language', $request->language)->first();
 
-        $imagePath = $this->handleFileUpload($request, 'logo', !empty($footerInfo->logo) ? $footerInfo->logo : '');
-        AdminFooterInfo::updateOrCreate([
-            'language' => $request->language,
-        ], [
-            'logo' => !empty($imagePath) ? $imagePath : $footerInfo->logo,
-            'description' => $request->description,
-            'copyright' => $request->copyright,
-        ]);
-        toast('Updated successfully', 'success')->width('400px');
-        return redirect()->back();
+            $imagePath = $this->handleFileUpload($request, 'logo', !empty($footerInfo->logo) ? $footerInfo->logo : '');
+            AdminFooterInfo::updateOrCreate([
+                'language' => $request->language,
+            ], [
+                'logo' => !empty($imagePath) ? $imagePath : $footerInfo->logo,
+                'description' => $request->description,
+                'copyright' => $request->copyright,
+            ]);
+            toast('Updated successfully', 'success')->width('400px');
+            return redirect()->back();
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
 
     }
 

@@ -12,33 +12,45 @@ class AdminSubscriberRepository implements AdminSubscriberRepositoryInterface
 {
     public function index()
     {
-        $subscribers = Subscriber::all();
+        try {
+            $subscribers = Subscriber::all();
 
-        return view('dashboard.pages.subscribers.index', compact('subscribers'));
+            return view('dashboard.pages.subscribers.index', compact('subscribers'));
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function delete($id)
     {
-        Subscriber::findOrFail($id)->delete();
+        try {
+            Subscriber::findOrFail($id)->delete();
 
-        return response()->json(['status' => 'success', 'message' => __('deleted successfully!')]);
+            return response()->json(['status' => 'success', 'message' => __('deleted successfully!')]);
+        }catch (\Exception $exception){
+            return response()->json(['status' => 'error', 'message' => $exception->getMessage()]);
+        }
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'subject' => ['required', 'max:255'],
-            'message' => ['required', 'min:5'],
-        ]);
-        /*
-         * Send Email fir Users subscribers
-         */
+        try {
+            $request->validate([
+                'subject' => ['required', 'max:255'],
+                'message' => ['required', 'min:5'],
+            ]);
+            /*
+             * Send Email fir Users subscribers
+             */
 
-        $users = Subscriber::pluck('email')->toArray();
+            $users = Subscriber::pluck('email')->toArray();
 
-        Mail::to($users)->send(new AdminNewsLetter($request->subject, $request->message));
+            Mail::to($users)->send(new AdminNewsLetter($request->subject, $request->message));
 
-        toast('Mail Send successfully', 'success')->width('400px');
-        return redirect()->back();
+            toast('Mail Send successfully', 'success')->width('400px');
+            return redirect()->back();
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 }

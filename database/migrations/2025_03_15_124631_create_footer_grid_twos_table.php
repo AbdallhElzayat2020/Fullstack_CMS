@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('footer_grid_twos', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('language');
+            $table->text('link');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

@@ -12,55 +12,75 @@ class AdminSocialCountRepository implements AdminSocialCountRepositoryInterface
 {
     public function index()
     {
-        $languages = Language::where('status', 'active')->get();
-        return view('dashboard.pages.social-count.index', compact('languages'));
+        try {
+            $languages = Language::where('status', 'active')->get();
+            return view('dashboard.pages.social-count.index', compact('languages'));
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function create()
     {
-        $languages = Language::where('status', 'active')->get();
-        return view('dashboard.pages.social-count.create', compact('languages'));
+        try {
+            $languages = Language::where('status', 'active')->get();
+            return view('dashboard.pages.social-count.create', compact('languages'));
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function store(AdminStoreSocialCount $request)
     {
-        $socialCount = new SocialCount();
-        $socialCount->language = $request->language;
-        $socialCount->name = $request->name;
-        $socialCount->icon = $request->icon;
-        $socialCount->fan_count = $request->fan_count;
-        $socialCount->fan_type = $request->fan_type;
-        $socialCount->url = $request->url;
-        $socialCount->button_text = $request->button_text;
-        $socialCount->color = $request->color;
-        $socialCount->status = $request->status;
-        $socialCount->save();
-        toast('Created successfully', 'success')->width('400px');
-        return to_route('admin.social-count.index');
+        try {
+            $socialCount = new SocialCount();
+            $socialCount->language = $request->language;
+            $socialCount->name = $request->name;
+            $socialCount->icon = $request->icon;
+            $socialCount->fan_count = $request->fan_count;
+            $socialCount->fan_type = $request->fan_type;
+            $socialCount->url = $request->url;
+            $socialCount->button_text = $request->button_text;
+            $socialCount->color = $request->color;
+            $socialCount->status = $request->status;
+            $socialCount->save();
+            toast('Created successfully', 'success')->width('400px');
+            return to_route('admin.social-count.index');
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function edit(string $id)
     {
-        $socialCount = SocialCount::findOrFail($id);
-        $languages = Language::all();
-        return view('dashboard.pages.social-count.edit', compact('socialCount', 'languages'));
+        try {
+            $socialCount = SocialCount::findOrFail($id);
+            $languages = Language::all();
+            return view('dashboard.pages.social-count.edit', compact('socialCount', 'languages'));
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function update(Request $request, string $id)
     {
-        $socialCount = SocialCount::findOrFail($id);
-        $socialCount->language = $request->language;
-        $socialCount->name = $request->name;
-        $socialCount->icon = $request->icon;
-        $socialCount->fan_count = $request->fan_count;
-        $socialCount->fan_type = $request->fan_type;
-        $socialCount->url = $request->url;
-        $socialCount->button_text = $request->button_text;
-        $socialCount->color = $request->color;
-        $socialCount->status = $request->status;
-        $socialCount->save();
-        toast('Created successfully', 'success')->width('400px');
-        return to_route('admin.social-count.index');
+        try {
+            $socialCount = SocialCount::findOrFail($id);
+            $socialCount->language = $request->language;
+            $socialCount->name = $request->name;
+            $socialCount->icon = $request->icon;
+            $socialCount->fan_count = $request->fan_count;
+            $socialCount->fan_type = $request->fan_type;
+            $socialCount->url = $request->url;
+            $socialCount->button_text = $request->button_text;
+            $socialCount->color = $request->color;
+            $socialCount->status = $request->status;
+            $socialCount->save();
+            toast('Created successfully', 'success')->width('400px');
+            return to_route('admin.social-count.index');
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
     }
 
     public function destroy(string $id)

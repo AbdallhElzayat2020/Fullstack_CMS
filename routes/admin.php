@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\FooterGridTwoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -87,4 +88,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     /* Footer Grid One Route */
     Route::resource('footer-grid-one', FooterGridOneController::class);
+
+    /* Footer Grid Two Route */
+    Route::resource('footer-grid-two', FooterGridTwoController::class);
 });
