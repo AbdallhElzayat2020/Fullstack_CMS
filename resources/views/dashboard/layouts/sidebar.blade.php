@@ -67,6 +67,7 @@
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Footer Setting</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.social-link.index') }}">Social Links</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.footer-info.index') }}">Footer Info</a></li>
                 </ul>
             </li>
 

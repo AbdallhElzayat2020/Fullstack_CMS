@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\SocialController;
 use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminFooterSocialController;
-
+use App\Http\Controllers\Admin\AdminFooterInfoController;
 
 
 
@@ -81,5 +81,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     /* Social Link Route */
     Route::resource('social-link', AdminFooterSocialController::class);
+
+    /* Footer Info Route */
+    Route::resource('footer-info', AdminFooterInfoController::class);
 
 });

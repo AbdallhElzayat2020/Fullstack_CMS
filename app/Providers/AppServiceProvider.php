@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Interfaces\AdminCategoriesRepositoryInterface;
+use App\Interfaces\AdminFooterInfoRepositoryInterface;
+use App\Interfaces\AdminHomeSectionRepositoryInterface;
 use App\Interfaces\AdminLanguageRepositoryInterface;
 use App\Interfaces\AdminNewsRepositoryInterface;
 use App\Interfaces\AdminProfileRepositoryInterface;
@@ -13,6 +15,8 @@ use App\Interfaces\AdminSubscriberRepositoryInterface;
 use App\Interfaces\HomeRepositoryInterface;
 use App\Interfaces\NewsSearchRepositoryInterface;
 use App\Repositories\AdminCategoriesRepository;
+use App\Repositories\AdminFooterInfoRepository;
+use App\Repositories\AdminHomeSectionRepository;
 use App\Repositories\AdminLanguageRepository;
 use App\Repositories\AdminNewsRepository;
 use App\Repositories\AdminProfileRepository;
@@ -50,9 +54,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminCategoriesRepositoryInterface::class, AdminCategoriesRepository::class);
         $this->app->bind(AdminNewsRepositoryInterface::class, AdminNewsRepository::class);
         $this->app->bind(HomeRepositoryInterface::class, HomeRepository::class);
+        $this->app->bind(AdminHomeSectionRepositoryInterface::class, AdminHomeSectionRepository::class);
         $this->app->bind(AdminSocialCountRepositoryInterface::class, AdminSocialCountRepository::class);
         $this->app->bind(NewsSearchRepositoryInterface::class, NewsSearchRepository::class);
         $this->app->bind(AdminSubscriberRepositoryInterface::class, AdminSubscriberRepository::class);
         $this->app->bind(AdminSocialLInkRepositoryInterface::class, AdminSocialLInkRepository::class);
+        $this->app->bind(AdminFooterInfoRepositoryInterface::class, AdminFooterInfoRepository::class);
     }
 }

@@ -12,13 +12,13 @@ class AdminSocialCountRepository implements AdminSocialCountRepositoryInterface
 {
     public function index()
     {
-        $languages = Language::all();
+        $languages = Language::where('status', 'active')->get();
         return view('dashboard.pages.social-count.index', compact('languages'));
     }
 
     public function create()
     {
-        $languages = Language::all();
+        $languages = Language::where('status', 'active')->get();
         return view('dashboard.pages.social-count.create', compact('languages'));
     }
 

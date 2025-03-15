@@ -19,8 +19,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
 //            AdminSeeder::class,
-            AdminAdSeeder::class,
+//            AdminAdSeeder::class,
 //            LanguageSeeder::class,
+            FooterInfoSeeder::class,
         ]);
 
 //        User::factory()->create([
