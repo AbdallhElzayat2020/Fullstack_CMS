@@ -17,31 +17,16 @@
 
                                 <div class="social__media mt-4">
                                     <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <a href="#" class="btn btn-social rounded text-white facebook">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="btn btn-social rounded text-white twitter">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="btn btn-social rounded text-white whatsapp">
-                                                <i class="fa fa-whatsapp"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="btn btn-social rounded text-white telegram">
-                                                <i class="fa fa-telegram"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#" class="btn btn-social rounded text-white linkedin">
-                                                <i class="fa fa-linkedin"></i>
-                                            </a>
-                                        </li>
+
+                                        @foreach($socialLinks as $link)
+
+                                            <li class="list-inline-item">
+                                                <a href="{{$link->url}}" class="btn btn-social rounded text-white ">
+                                                    <i style="font-size: 20px" class="{{$link->icon}}"></i>
+                                                </a>
+                                            </li>
+                                        @endforeach
+
                                     </ul>
                                 </div>
                             </div>
@@ -148,7 +133,9 @@
                         <div class="col-md-12">
                             <div class="border-top-1 bg__footer-bottom-section">
                                 <p class="text-white text-center">
-                                    Copyright © 2025 Development By <a class="text-warning bold" href="https://abdallh-elzayat.me" target="_blank">
+                                    Copyright © 2025 Development By <a class="text-warning bold"
+                                                                       href="https://abdallh-elzayat.me"
+                                                                       target="_blank">
                                         Abdallh Elzayat</a></p>
 
                             </div>

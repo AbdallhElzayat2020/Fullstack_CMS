@@ -3,7 +3,9 @@
 
 @include('frontend.layouts.head')
 <body>
-
+@php
+    $socialLinks = \App\Models\FooterSocial::where('status', 'active')->get();
+ @endphp
 <!-- Header news -->
 @include('frontend.layouts.header')
 <!-- End Header news -->
