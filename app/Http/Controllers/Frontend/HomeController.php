@@ -51,4 +51,9 @@ class HomeController extends Controller
     {
         return $this->news->commentDestroy($request);
     }
+
+    public function newsLetter(Request $request)
+    {
+        return $this->news->newsLetter($request);
+    }
 }

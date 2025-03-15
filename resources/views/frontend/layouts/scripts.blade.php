@@ -35,6 +35,51 @@
                 },
             });
         });
+
+        /*Subscribe newsLetter*/
+
+        $('.newsletter-form').on('submit', function (e) {
+            e.preventDefault();
+            let email = $('#newsletter-email').val();
+            $.ajax({
+                method: 'POST',
+                url: "{{route('news-letter')}}",
+                data: $(this).serialize(),
+                beforeSend: function () {
+                    $('.newsletter-button').text('{{__('Sending...')}}');
+                    $('.newsletter-button').attr('disabled', true);
+                },
+                success: function (data) {
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: data.message,
+                        });
+                        $('.newsletter-form')[0].reset();
+                        $('.newsletter-button').text('{{__('Sing up')}}');
+                        $('.newsletter-button').attr('disabled', false);
+                    }
+                }, error: function (data) {
+                    $('.newsletter-button').text('{{__('Sing up')}}');
+                    $('.newsletter-button').attr('disabled', false);
+                    if (data.status === 422) {
+                        let errors = data.responseJSON.errors;
+                        for (let key in errors) {
+                            if (errors.hasOwnProperty(key)) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: errors[key][0],
+                                });
+                            }
+                        }
+                    }
+                }
+            });
+        });
     })
+
+
 </script>
 

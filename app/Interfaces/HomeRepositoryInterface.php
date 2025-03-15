@@ -16,5 +16,7 @@ interface HomeRepositoryInterface
     public function handleReplay(Request $request): \Illuminate\Http\RedirectResponse;
     public function commentDestroy(Request $request);
 
+    public function newsLetter(Request $request);
+
 
 }

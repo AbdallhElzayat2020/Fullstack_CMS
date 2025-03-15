@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\HomeSectionSetting;
 use App\Models\News;
 use App\Models\SocialCount;
+use App\Models\Subscriber;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -218,5 +219,22 @@ class HomeRepository implements HomeRepositoryInterface
         } catch (\Exception $exception) {
             return response(['status' => 'error', 'message' => __('Something went wrong')]);
         }
+    }
+
+    public function newsLetter(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email', 'max:255', 'unique:subscribers,email'],
+        ], [
+            'email.unique' => __('email is already subscribed !')
+        ]);
+
+        $subscriber = new Subscriber();
+        $subscriber->email = $request->email;
+        $subscriber->save();
+
+        return response(['status' => 'success', 'message' => __('Subscribed successfully')]);
+
+
     }
 }

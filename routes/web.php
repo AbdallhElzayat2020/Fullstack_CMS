@@ -28,6 +28,7 @@ Route::get('/news-details/{slug}', [HomeController::class, 'ShowNews'])->name('n
 
 //News Details Route
 Route::get('/news', [NewsController::class, 'news'])->name('news');
+
 //News Comment Route
 Route::post('news-comment', [HomeController::class, 'handleComment'])->name('news-comment');
 
@@ -36,6 +37,9 @@ Route::post('news-comment-reply', [HomeController::class, 'handleReplay'])->name
 Route::delete('news-comment-delete', [HomeController::class, 'commentDestroy'])->name('news-comment-delete');
 
 Route::patch('/news-comment/{id}', [HomeController::class, 'CommentUpdate'])->name('news-comment-update');
+
+/* Form newsLetter Route */
+Route::post('news-letter', [HomeController::class, 'newsLetter'])->name('news-letter');
 
 
 require __DIR__ . '/auth.php';
