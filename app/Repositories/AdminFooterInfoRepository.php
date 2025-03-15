@@ -15,7 +15,8 @@ class AdminFooterInfoRepository implements AdminFooterInfoRepositoryInterface
     public function index()
     {
         $languages = Language::where('status', 'active')->get();
-        return view('dashboard.pages.footerInfo.index', compact('languages'));
+        $footerInfo = AdminFooterInfo::all();
+        return view('dashboard.pages.footerInfo.index', compact('languages', 'footerInfo'));
     }
 
     public function create()
@@ -26,7 +27,7 @@ class AdminFooterInfoRepository implements AdminFooterInfoRepositoryInterface
     public function store($request)
     {
         $request->validate([
-            'logo' => ['required', 'image', 'max:3000'],
+            'logo' => ['nullable', 'image', 'max:3000'],
             'description' => ['required', 'string', 'max:300'],
             'copyright' => ['required', 'string', 'max:255'],
         ]);

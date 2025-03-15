@@ -12,7 +12,6 @@
                 <div class="card card-primary">
                     <div class="card-header">
                         <h4>{{__('Footer Info settings')}}</h4>
-
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-12">
@@ -32,8 +31,8 @@
                                 <div class="tab-content tab-bordered" id="myTab3Content">
                                     @foreach($languages as $language )
                                         @php
-                                            $categories = App\Models\Category::where('language',$language->lang)->get();
-                                            $homeSectionSetting = App\Models\HomeSectionSetting::where('language',$language->lang)->first();
+
+                                            $footerInfo = App\Models\AdminFooterInfo::where('language',$language->lang)->first();
                                         @endphp
                                         <div class="tab-pane fade show {{$loop->index === 0 ? 'active' : ''}}"
                                              id="home-{{$language->lang}}" role="tabpanel" aria-labelledby="home-tab2">
@@ -44,6 +43,8 @@
                                                     @csrf
 
                                                     <div class="form-group">
+                                                        <img src="{{asset($footerInfo->logo)}}" style="width: 200px" alt="">
+                                                        <br>
                                                         <label for="logo">{{__('Logo')}}</label>
                                                         <input type="file" class="form-control" name="logo" id="logo">
                                                         <input type="hidden" class="form-control"
@@ -56,7 +57,7 @@
                                                     <div class="form-group">
                                                         <label for="description">{{__('Short Description')}}</label>
                                                         <textarea class="form-control" type="text" name="description"
-                                                                  id="description"></textarea>
+                                                                  id="description">{{$footerInfo->description}}</textarea>
                                                         @error('description')
                                                         <p class="text-danger">{{ $message }}</p>
                                                         @enderror
@@ -64,7 +65,7 @@
 
                                                     <div class="form-group">
                                                         <label for="copyright">{{__('Copyright Text')}}</label>
-                                                        <input class="form-control" type="text" name="copyright"
+                                                        <input value="{{$footerInfo->copyright}}" class="form-control" type="text" name="copyright"
                                                                id="copyright">
                                                         @error('copyright')
                                                         <p class="text-danger">{{ $message }}</p>

@@ -8,21 +8,22 @@
                         <div class="col-md-4">
                             <div class="widget__footer">
                                 <figure class="image-logo">
-                                    <img src="{{asset('assets/frontend/images/logo2.png')}}" alt="" class="logo-footer">
+                                    <img style="width: 100px!important; height: 100px!important;" src="{{asset($footerInfo->logo)}}" alt="" class="logo-footer">
                                 </figure>
 
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius magnam harum iure
-                                    officia laudantium impedit voluptatem.</p>
+                                <p style="overflow-wrap: break-word;">
+                                    {!! $footerInfo->description !!}
+                                </p>
 
 
                                 <div class="social__media mt-4">
                                     <ul class="list-inline">
 
-                                        @foreach($socialLinks as $link)
+                                        @foreach($socialLinks as $gridOne)
 
                                             <li class="list-inline-item">
-                                                <a href="{{$link->url}}" class="btn btn-social rounded text-white ">
-                                                    <i style="font-size: 20px" class="{{$link->icon}}"></i>
+                                                <a href="{{$gridOne->url}}" class="btn btn-social rounded text-white ">
+                                                    <i style="font-size: 20px" class="{{$gridOne->icon}}"></i>
                                                 </a>
                                             </li>
                                         @endforeach
@@ -42,24 +43,13 @@
                                 </div>
 
                                 <ul class="list-unstyled option-content is-hidden">
-                                    <li>
-                                        <a href="#">celebity news</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">movies</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">tv news</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">music news</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">life style</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">entertainment video</a>
-                                    </li>
+                                    @foreach($footerGridOne as $link)
+
+                                        <li>
+                                            <a href="{{$link->$link}}">{{$link->name}}</a>
+                                        </li>
+                                    @endforeach
+
                                 </ul>
                             </div>
                         </div>
@@ -133,10 +123,11 @@
                         <div class="col-md-12">
                             <div class="border-top-1 bg__footer-bottom-section">
                                 <p class="text-white text-center">
-                                    Copyright © 2025 Development By <a class="text-warning bold"
-                                                                       href="https://abdallh-elzayat.me"
-                                                                       target="_blank">
-                                        Abdallh Elzayat</a></p>
+                                    {{$footerInfo->copyright}}
+                                    <a class="text-warning bold" href="https://abdallh-elzayat.me" target="_blank">
+                                        {{__('Abdallh Elzayat')}}
+                                    </a>
+                                </p>
 
                             </div>
 

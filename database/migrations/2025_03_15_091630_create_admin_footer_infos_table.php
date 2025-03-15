@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('admin_footer_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('logo');
+            $table->string('logo')->nullable();
             $table->text('description');
             $table->string('copyright');
             $table->string('language');

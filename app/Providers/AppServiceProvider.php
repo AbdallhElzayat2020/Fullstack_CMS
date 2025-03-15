@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Interfaces\AdminCategoriesRepositoryInterface;
 use App\Interfaces\AdminFooterInfoRepositoryInterface;
+use App\Interfaces\AdminFooterRepositoryGridOneInterface;
 use App\Interfaces\AdminHomeSectionRepositoryInterface;
 use App\Interfaces\AdminLanguageRepositoryInterface;
 use App\Interfaces\AdminNewsRepositoryInterface;
@@ -16,6 +17,7 @@ use App\Interfaces\HomeRepositoryInterface;
 use App\Interfaces\NewsSearchRepositoryInterface;
 use App\Repositories\AdminCategoriesRepository;
 use App\Repositories\AdminFooterInfoRepository;
+use App\Repositories\AdminFooterRepositoryGridOne;
 use App\Repositories\AdminHomeSectionRepository;
 use App\Repositories\AdminLanguageRepository;
 use App\Repositories\AdminNewsRepository;
@@ -60,5 +62,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminSubscriberRepositoryInterface::class, AdminSubscriberRepository::class);
         $this->app->bind(AdminSocialLInkRepositoryInterface::class, AdminSocialLInkRepository::class);
         $this->app->bind(AdminFooterInfoRepositoryInterface::class, AdminFooterInfoRepository::class);
+        $this->app->bind(AdminFooterRepositoryGridOneInterface::class, AdminFooterRepositoryGridOne::class);
     }
 }

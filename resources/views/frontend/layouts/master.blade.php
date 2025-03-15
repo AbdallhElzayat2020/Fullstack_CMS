@@ -3,10 +3,16 @@
 
 @include('frontend.layouts.head')
 <body>
+{{--Global Variables--}}
 @php
     $socialLinks = \App\Models\FooterSocial::where('status', 'active')->get();
- @endphp
-<!-- Header news -->
+    $footerInfo = \App\Models\AdminFooterInfo::where('language', \App\Helpers\getLanguage())->first();
+    $footerGridOne= \App\Models\FooterGrid::where([
+        'status'=>'active',
+         'language'=> \App\Helpers\getLanguage()
+    ])->get();
+@endphp
+        <!-- Header news -->
 @include('frontend.layouts.header')
 <!-- End Header news -->
 
