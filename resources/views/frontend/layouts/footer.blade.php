@@ -148,7 +148,7 @@
                         <div class="col-md-12">
                             <div class="border-top-1 bg__footer-bottom-section">
                                 <p class="text-white text-center">
-                                    Copyright © 2025 Development By <a href="https://abdallh-elzayat.me" target="_blank">
+                                    Copyright © 2025 Development By <a class="text-warning bold" href="https://abdallh-elzayat.me" target="_blank">
                                         Abdallh Elzayat</a></p>
 
                             </div>

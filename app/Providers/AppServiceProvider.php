@@ -8,6 +8,7 @@ use App\Interfaces\AdminNewsRepositoryInterface;
 use App\Interfaces\AdminProfileRepositoryInterface;
 use App\Interfaces\AdminRepositoryInterface;
 use App\Interfaces\AdminSocialCountRepositoryInterface;
+use App\Interfaces\AdminSocialLInkRepositoryInterface;
 use App\Interfaces\AdminSubscriberRepositoryInterface;
 use App\Interfaces\HomeRepositoryInterface;
 use App\Interfaces\NewsSearchRepositoryInterface;
@@ -17,6 +18,7 @@ use App\Repositories\AdminNewsRepository;
 use App\Repositories\AdminProfileRepository;
 use App\Repositories\AdminRepository;
 use App\Repositories\AdminSocialCountRepository;
+use App\Repositories\AdminSocialLInkRepository;
 use App\Repositories\AdminSubscriberRepository;
 use App\Repositories\HomeRepository;
 use App\Repositories\NewsSearchRepository;
@@ -51,5 +53,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminSocialCountRepositoryInterface::class, AdminSocialCountRepository::class);
         $this->app->bind(NewsSearchRepositoryInterface::class, NewsSearchRepository::class);
         $this->app->bind(AdminSubscriberRepositoryInterface::class, AdminSubscriberRepository::class);
+        $this->app->bind(AdminSocialLInkRepositoryInterface::class, AdminSocialLInkRepository::class);
     }
 }

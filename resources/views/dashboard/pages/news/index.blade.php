@@ -84,12 +84,12 @@
                                                                     <span class="custom-switch-indicator"></span>
                                                                 </label>
 
-                                                                {{--                                                                @if($newsItem->is_breaking_news === 1)--}}
-                                                                {{--                                                                    <span--}}
-                                                                {{--                                                                        class="badge badge-success">{{__('Yes')}}</span>--}}
-                                                                {{--                                                                @else--}}
-                                                                {{--                                                                    <span class="badge badge-danger">{{__('No')}}</span>--}}
-                                                                {{--                                                                @endif--}}
+{{--                                                                                                                                @if($newsItem->is_breaking_news === 1)--}}
+{{--                                                                                                                                    <span--}}
+{{--                                                                                                                                        class="badge badge-success">{{__('Yes')}}</span>--}}
+{{--                                                                                                                                @else--}}
+{{--                                                                                                                                    <span class="badge badge-danger">{{__('No')}}</span>--}}
+{{--                                                                                                                                @endif--}}
                                                             </td>
 
                                                             <td>

@@ -11,6 +11,12 @@ use App\Http\Controllers\Admin\HomeSectionSettingController;
 use App\Http\Controllers\Admin\SocialController;
 use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
+use App\Http\Controllers\Admin\AdminFooterSocialController;
+
+
+
+
+
 //============================ Public Admin Routes ============================
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], function () {
@@ -70,7 +76,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     /* Advertisement Route */
     Route::resource('ads', AdController::class);
 
-    /* Advertisement Route */
+    /* Subscribers Route */
     Route::resource('subscribers', AdminSubscriberController::class);
+
+    /* Social Link Route */
+    Route::resource('social-link', AdminFooterSocialController::class);
 
 });
