@@ -49,19 +49,4 @@ class AdminFooterInfoRepository implements AdminFooterInfoRepositoryInterface
         }
 
     }
-
-    public function edit($id)
-    {
-        // TODO: Implement edit() method.
-    }
-
-    public function update($request)
-    {
-        dd($request->all());
-    }
-
-    public function destroy($id)
-    {
-        // TODO: Implement destroy() method.
-    }
 }

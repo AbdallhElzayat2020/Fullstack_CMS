@@ -56,4 +56,9 @@ class HomeController extends Controller
     {
         return $this->news->newsLetter($request);
     }
+
+    public function about()
+    {
+        return $this->news->about();
+    }
 }

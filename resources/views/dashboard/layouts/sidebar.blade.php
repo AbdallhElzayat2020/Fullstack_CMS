@@ -22,14 +22,19 @@
                 </a>
             </li>
 
-
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>News</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.news.index') }}">All News</a></li>
                     <li><a class="nav-link" href="bootstrap-badge.html">Badge</a></li>
-                    <li><a class="nav-link" href="bootstrap-breadcrumb.html">Breadcrumb</a></li>
-                    <li><a class="nav-link" href="bootstrap-buttons.html">Buttons</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Pages</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('admin.about.index') }}">About Page</a></li>
+                    <li><a class="nav-link" href="bootstrap-badge.html">Badge</a></li>
                 </ul>
             </li>
 
@@ -64,16 +69,16 @@
             </li>
 
             <li class="dropdown">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Footer Setting</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Footer Setting</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.social-link.index') }}">Social Links</a></li>
                     <li><a class="nav-link" href="{{ route('admin.footer-info.index') }}">Footer Info</a></li>
                     <li><a class="nav-link" href="{{ route('admin.footer-grid-one.index') }}">Footer Grid One</a></li>
                     <li><a class="nav-link" href="{{ route('admin.footer-grid-two.index') }}">Footer Grid Two</a></li>
-                    <li><a class="nav-link" href="{{ route('admin.footer-grid-three.index') }}">Footer Grid Three</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.footer-grid-three.index') }}">Footer Grid Three</a>
+                    </li>
                 </ul>
             </li>
-
 
 
             {{--            <li><a class="nav-link" href=""><i class="far fa-square"></i> <span>Blank Page</span></a></li>--}}

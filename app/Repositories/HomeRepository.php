@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\HomeRepositoryInterface;
+use App\Models\About;
 use App\Models\Ad;
 use App\Models\Comment;
 use App\Models\HomeSectionSetting;
@@ -87,7 +88,7 @@ class HomeRepository implements HomeRepositoryInterface
                 'mostTags',
                 'ad',
             ));
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
@@ -146,7 +147,7 @@ class HomeRepository implements HomeRepositoryInterface
                 'socialCount',
                 'ad',
             ));
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
@@ -168,7 +169,7 @@ class HomeRepository implements HomeRepositoryInterface
                 session([$sessionKey => [$news->id]]);
                 $news->increment('views');
             }
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
@@ -182,7 +183,7 @@ class HomeRepository implements HomeRepositoryInterface
                 ->orderByDesc('count')
                 ->take(15)
                 ->get();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
@@ -203,7 +204,7 @@ class HomeRepository implements HomeRepositoryInterface
             toast('Created successfully', 'success')->width('400px');
 
             return redirect()->back();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
@@ -225,7 +226,7 @@ class HomeRepository implements HomeRepositoryInterface
             toast('Created successfully', 'success')->width('400px');
 
             return redirect()->back();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
@@ -259,10 +260,14 @@ class HomeRepository implements HomeRepositoryInterface
             $subscriber->save();
 
             return response(['status' => 'success', 'message' => __('Subscribed successfully')]);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return response(['status' => 'error', 'message' => __('Something went wrong')]);
         }
+    }
 
-
+    public function about()
+    {
+        $about = About::where('language', getLanguage())->first();
+        return view('frontend.about', compact('about'));
     }
 }

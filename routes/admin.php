@@ -15,9 +15,8 @@ use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminFooterSocialController;
 use App\Http\Controllers\Admin\AdminFooterInfoController;
-use  App\Http\Controllers\Admin\FooterGridOneController;
-
-
+use App\Http\Controllers\Admin\FooterGridOneController;
+use App\Http\Controllers\Admin\AboutController;
 
 //============================ Public Admin Routes ============================
 
@@ -92,5 +91,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     /* Footer Grid Two Route */
     Route::resource('footer-grid-two', FooterGridTwoController::class);
 
+    /* Footer Grid Three Route */
     Route::resource('footer-grid-three', FooterGridThreeController::class);
+
+    /* About Route */
+    Route::get('about', [AboutController::class, 'index'])->name('about.index');
+
+    Route::put('about', [AboutController::class, 'update'])->name('about.update');
+
+
 });
