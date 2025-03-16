@@ -151,7 +151,7 @@ class HomeRepository implements HomeRepositoryInterface
         }
     }
 
-    public function countView($news): \Illuminate\Http\RedirectResponse
+    public function countView($news)
     {
         try {
             $ip = request()->ip();
@@ -173,7 +173,7 @@ class HomeRepository implements HomeRepositoryInterface
         }
     }
 
-    public function mostTags(): \Illuminate\Support\Collection
+    public function mostTags()
     {
         try {
             return Tag::select('name', DB::raw('COUNT(*) as count'))
@@ -187,7 +187,7 @@ class HomeRepository implements HomeRepositoryInterface
         }
     }
 
-    public function handleComment(Request $request): \Illuminate\Http\RedirectResponse
+    public function handleComment(Request $request)
     {
         try {
             $request->validate([
@@ -208,7 +208,7 @@ class HomeRepository implements HomeRepositoryInterface
         }
     }
 
-    public function handleReplay(Request $request): \Illuminate\Http\RedirectResponse
+    public function handleReplay(Request $request)
     {
         try {
             $request->validate([

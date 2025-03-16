@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\FooterGridThreeController;
 use App\Http\Controllers\Admin\FooterGridTwoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
@@ -34,13 +35,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], f
     Route::get('reset-password/{token}', [AdminAuthController::class, 'resetPassword'])->name('reset-password');
 
     Route::post('reset-password', [AdminAuthController::class, 'handleResetPassword'])->name('reset-password.send');
-
 });
 
 //============================ Protected Admin Routes ============================
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function () {
 
-//    Home Dashboard Route
+    //    Home Dashboard Route
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::post('logout', [AdminAuthController::class, 'logout'])->name('logout');
@@ -91,4 +91,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     /* Footer Grid Two Route */
     Route::resource('footer-grid-two', FooterGridTwoController::class);
+
+    Route::resource('footer-grid-three', FooterGridThreeController::class);
 });

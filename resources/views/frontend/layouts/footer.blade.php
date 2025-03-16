@@ -83,22 +83,12 @@
                                 </div>
 
                                 <ul class="list-unstyled option-content is-hidden">
-                                    <li>
-                                        <a href="#">merkets</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">technology</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">features</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">property</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">business leaders</a>
-                                    </li>
+                                    @foreach($footerGridThree as $link)
 
+                                        <li>
+                                            <a href="{{$link->link}}">{{$link->name}}</a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>

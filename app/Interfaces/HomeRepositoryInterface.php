@@ -11,9 +11,9 @@ interface HomeRepositoryInterface
     public function ShowNews(string $slug);
 
     public function countView($news);
-    public function mostTags(): \Illuminate\Support\Collection;
-    public function handleComment(Request $request): \Illuminate\Http\RedirectResponse;
-    public function handleReplay(Request $request): \Illuminate\Http\RedirectResponse;
+    public function mostTags();
+    public function handleComment(Request $request);
+    public function handleReplay(Request $request);
     public function commentDestroy(Request $request);
 
     public function newsLetter(Request $request);
