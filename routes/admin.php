@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\AdminFooterInfoController;
 use App\Http\Controllers\Admin\FooterGridOneController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\ContactMessageController;
 //============================ Public Admin Routes ============================
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], function () {
@@ -101,6 +102,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     /* Contact Route */
     Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
     Route::put('contact', [ContactController::class, 'update'])->name('contact.update');
+
+    /* Contact Messages Route */
+    Route::get('contact-message', [ContactMessageController::class, 'index'])->name('contact-message.index');
+    Route::post('contact-send-replay', [ContactMessageController::class, 'sendReplay'])->name('contact.replay-send');
 
 
 });

@@ -10,6 +10,7 @@ use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\HomeSectionSetting;
 use App\Models\News;
+use App\Models\RecivedMail;
 use App\Models\SocialCount;
 use App\Models\Subscriber;
 use App\Models\Tag;
@@ -297,12 +298,18 @@ class HomeRepository implements HomeRepositoryInterface
 
             Mail::to($toMail->email)->send(new ContactMail($subject, $message, $email));
 
-            toast(__('Mail sent successfully'), 'success')->width('400px');
-            return redirect()->back();
+            $contact = new RecivedMail();
+            $contact->email = $email;
+            $contact->subject = $subject;
+            $contact->message = $message;
+            $contact->save();
+
         } catch (\Exception $exception) {
             toast(__($exception->getMessage()))->width('400px');
-
         }
+
+        toast(__('Mail sent successfully'), 'success')->width('400px');
+        return redirect()->back();
 
     }
 }

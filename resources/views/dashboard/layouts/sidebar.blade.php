@@ -57,6 +57,12 @@
             </li>
 
             <li>
+                <a class="nav-link" href="{{ route('admin.contact-message.index') }}"><i class="far fa-square"></i>
+                    <span>Contact Messages</span>
+                </a>
+            </li>
+
+            <li>
                 <a class="nav-link" href="{{ route('admin.language.index') }}"><i class="far fa-square"></i>
                     <span>Languages</span>
                 </a>
