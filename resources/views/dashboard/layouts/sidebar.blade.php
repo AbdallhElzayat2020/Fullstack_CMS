@@ -58,7 +58,10 @@
 
             <li>
                 <a class="nav-link" href="{{ route('admin.contact-message.index') }}"><i class="far fa-square"></i>
-                    <span>Contact Messages</span>
+                    <span>Contact Messages </span>
+                   @if($unReadMessages > 0)
+                        <i class="badge bg-danger text-white mx-1" >{{$unReadMessages}}</i>
+                   @endif
                 </a>
             </li>
 

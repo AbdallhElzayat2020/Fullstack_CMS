@@ -13,7 +13,9 @@ class ContactMessageController extends Controller
 {
     public function index()
     {
+        RecivedMail::query()->update(['seen' => 1]);
         $messages = RecivedMail::all();
+
         return view('dashboard.pages.contact-message.index', compact('messages'));
     }
 

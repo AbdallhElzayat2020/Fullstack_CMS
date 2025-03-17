@@ -2,29 +2,33 @@
 <html lang="en">
 @include('dashboard.layouts.head')
 
+@php
+    $unReadMessages = \App\Models\RecivedMail::where('seen', 0)->count();
+@endphp
+
 <body>
-    <div id="app">
-        <div class="main-wrapper main-wrapper-1">
-            <!-- navbar -->
-            <div class="navbar-bg"></div>
-            @include('dashboard.layouts.header')
+<div id="app">
+    <div class="main-wrapper main-wrapper-1">
+        <!-- navbar -->
+        <div class="navbar-bg"></div>
+        @include('dashboard.layouts.header')
 
-            <!-- sidebar -->
-            @include('dashboard.layouts.sidebar')
+        <!-- sidebar -->
+        @include('dashboard.layouts.sidebar')
 
-            <!-- Main Content -->
-            <div class="main-content">
+        <!-- Main Content -->
+        <div class="main-content">
 
-                @yield('content')
+            @yield('content')
 
-            </div>
-
-            @include('dashboard.layouts.footer')
         </div>
-    </div>
 
-    <!-- General JS Scripts -->
-    @include('dashboard.layouts.scripts')
+        @include('dashboard.layouts.footer')
+    </div>
+</div>
+
+<!-- General JS Scripts -->
+@include('dashboard.layouts.scripts')
 
 </body>
 

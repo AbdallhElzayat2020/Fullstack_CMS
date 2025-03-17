@@ -1,17 +1,17 @@
 @extends('dashboard.layouts.master')
-@section('title','Social Links Page')
+@section('title','Contact Messages')
 
 @section('content')
 
     <section class="section">
         <div class="section-header">
-            <h1>{{__('Social Links')}}</h1>
+            <h1>{{__('Contact Messages')}}</h1>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h4>{{__('All Contact')}}</h4>
+                        <h4>{{__('All Contact Messages')}}</h4>
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-12">
