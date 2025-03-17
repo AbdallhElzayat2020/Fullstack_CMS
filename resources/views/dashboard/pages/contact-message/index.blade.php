@@ -25,6 +25,7 @@
                                             <th>{{__('Email')}}</th>
                                             <th>{{__('Subject')}}</th>
                                             <th>{{__('Message')}}</th>
+                                            <th>{{__('Replied')}}</th>
                                             <th>{{__('Action')}}</th>
                                         </tr>
                                         </thead>
@@ -35,6 +36,13 @@
                                                 <td>{{$message->email}}</td>
                                                 <td>{{$message->subject}}</td>
                                                 <td>{{$message->message}}</td>
+                                                <td>
+                                                    @if($message->replied == 1)
+                                                        <i style="font-size: 18px" class="fas fa-check text-success"></i>
+                                                    @else
+                                                        <i style="font-size: 18px" class="fas fa-times text-danger"></i>
+                                                    @endif
+                                                </td>
 
                                                 {{--                                                <td>--}}
                                                 {{--                                                    @if($link->status === 'active')--}}
@@ -90,6 +98,7 @@
                                 <label for="">{{__('Subject')}}</label>
                                 <input type="text" name="subject" class="form-control">
                                 <input type="hidden" name="email" value="{{$message->email}}" class="form-control">
+                                <input type="hidden" name="message_id" value="{{$message->id}}" class="form-control">
                                 @error('subject')
                                 <p class="text-danger">
                                     {{$message}}
@@ -137,7 +146,8 @@
                     "sortable": false,
                     "targets": [1]
                 }
-            ]
+            ],
+            "order": [[0, 'desc']]
         });
 
     </script>

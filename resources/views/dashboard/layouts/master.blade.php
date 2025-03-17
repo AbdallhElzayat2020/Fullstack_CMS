@@ -3,7 +3,7 @@
 @include('dashboard.layouts.head')
 
 @php
-    $unReadMessages = \App\Models\RecivedMail::where('seen', 0)->count();
+    $unReadMessages = \App\Models\RecivedMail::where('seen', 0)->orderBy('DESC')->count();
 @endphp
 
 <body>

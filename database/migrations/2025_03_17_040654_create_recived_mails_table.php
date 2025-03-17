@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('subject');
             $table->longText('message');
             $table->boolean('seen')->default(0);
+            $table->boolean('replied')->default(0);
             $table->timestamps();
         });
     }

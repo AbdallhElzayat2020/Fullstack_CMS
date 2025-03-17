@@ -35,6 +35,10 @@ class ContactMessageController extends Controller
 
             Mail::to($email)->send(new ContactMail($subject, $message, $fromEmail->email));
 
+            $makeReplied = RecivedMail::find($request->message_id);
+            $makeReplied->replied = 1;
+            $makeReplied->save();
+
             toast(__('Mail sent successfully!'), 'success');
 
             return redirect()->back();
