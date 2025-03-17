@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\AdminFooterSocialController;
 use App\Http\Controllers\Admin\AdminFooterInfoController;
 use App\Http\Controllers\Admin\FooterGridOneController;
 use App\Http\Controllers\Admin\AboutController;
-
+use App\Http\Controllers\Admin\ContactController;
 //============================ Public Admin Routes ============================
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], function () {
@@ -96,8 +96,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     /* About Route */
     Route::get('about', [AboutController::class, 'index'])->name('about.index');
-
     Route::put('about', [AboutController::class, 'update'])->name('about.update');
+
+    /* Contact Route */
+    Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::put('contact', [ContactController::class, 'update'])->name('contact.update');
 
 
 });

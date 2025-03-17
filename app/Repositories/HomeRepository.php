@@ -6,6 +6,7 @@ use App\Interfaces\HomeRepositoryInterface;
 use App\Models\About;
 use App\Models\Ad;
 use App\Models\Comment;
+use App\Models\Contact;
 use App\Models\HomeSectionSetting;
 use App\Models\News;
 use App\Models\SocialCount;
@@ -269,5 +270,11 @@ class HomeRepository implements HomeRepositoryInterface
     {
         $about = About::where('language', getLanguage())->first();
         return view('frontend.about', compact('about'));
+    }
+
+    public function contact()
+    {
+        $contact = Contact::where('language', getLanguage())->first();
+        return view('frontend.contact', compact('contact'));
     }
 }

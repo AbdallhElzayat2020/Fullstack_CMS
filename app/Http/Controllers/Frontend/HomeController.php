@@ -61,4 +61,9 @@ class HomeController extends Controller
     {
         return $this->news->about();
     }
+
+    public function contact()
+    {
+        return $this->news->contact();
+    }
 }
