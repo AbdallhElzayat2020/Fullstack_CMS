@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\HomeRepositoryInterface;
+use App\Mail\ContactMail;
 use App\Models\About;
 use App\Models\Ad;
 use App\Models\Comment;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use function App\Helpers\getLanguage;
 
 class HomeRepository implements HomeRepositoryInterface
@@ -276,5 +278,31 @@ class HomeRepository implements HomeRepositoryInterface
     {
         $contact = Contact::where('language', getLanguage())->first();
         return view('frontend.contact', compact('contact'));
+    }
+
+    public function handleContactForm($request)
+    {
+        $request->validate([
+            'email' => ['required', 'email', 'max:255'],
+            'subject' => ['required', 'max:255', 'string'],
+            'message' => ['required', 'max:1000', 'string'],
+        ]);
+
+        /* Send Mail */
+        try {
+            $toMail = Contact::where('language', 'en')->first();
+            $subject = $request->subject;
+            $message = $request->message;
+            $email = $request->email;
+
+            Mail::to($toMail->email)->send(new ContactMail($subject, $message, $email));
+
+            toast(__('Mail sent successfully'), 'success')->width('400px');
+            return redirect()->back();
+        } catch (\Exception $exception) {
+            toast(__($exception->getMessage()))->width('400px');
+
+        }
+
     }
 }

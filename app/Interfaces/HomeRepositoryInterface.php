@@ -18,5 +18,13 @@ interface HomeRepositoryInterface
 
     public function newsLetter(Request $request);
 
+    public function about();
+
+    public function contact();
+
+    public function handleContactForm($request);
+
+
+
 
 }

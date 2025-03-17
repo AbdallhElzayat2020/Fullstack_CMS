@@ -44,7 +44,10 @@ Route::post('news-letter', [HomeController::class, 'newsLetter'])->name('news-le
 /* About Route */
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
+/* contact Route */
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::post('/contact', [HomeController::class, 'handleContactForm'])->name('contact.submit');
+
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
