@@ -109,6 +109,13 @@
                 </ul>
             </li>
 
+            <li class="{{\App\Helpers\setSidebarActive(['admin.settings.*'])}}">
+                <a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="far fa-square"></i>
+                    <span>{{__('Settings')}}</span>
+                </a>
+            </li>
+
+
 
         </ul>
     </aside>

@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Interfaces\AdminAboutRepositoryInterface;
 use App\Interfaces\AdminCategoriesRepositoryInterface;
+use App\Interfaces\AdminContactMessageRepositoryInterface;
+use App\Interfaces\AdminContactRepositoryInterface;
 use App\Interfaces\AdminFooterInfoRepositoryInterface;
 use App\Interfaces\AdminFooterRepositoryGridOneInterface;
 use App\Interfaces\AdminFooterRepositoryGridThreeInterface;
@@ -13,13 +15,17 @@ use App\Interfaces\AdminLanguageRepositoryInterface;
 use App\Interfaces\AdminNewsRepositoryInterface;
 use App\Interfaces\AdminProfileRepositoryInterface;
 use App\Interfaces\AdminRepositoryInterface;
+use App\Interfaces\AdminSettingRepositoryInterface;
 use App\Interfaces\AdminSocialCountRepositoryInterface;
 use App\Interfaces\AdminSocialLInkRepositoryInterface;
 use App\Interfaces\AdminSubscriberRepositoryInterface;
 use App\Interfaces\HomeRepositoryInterface;
 use App\Interfaces\NewsSearchRepositoryInterface;
+use App\Models\Setting;
 use App\Repositories\AdminAboutRepository;
 use App\Repositories\AdminCategoriesRepository;
+use App\Repositories\AdminContactMessageRepository;
+use App\Repositories\AdminContactRepository;
 use App\Repositories\AdminFooterInfoRepository;
 use App\Repositories\AdminFooterRepositoryGridOne;
 use App\Repositories\AdminFooterRepositoryGridThree;
@@ -29,11 +35,13 @@ use App\Repositories\AdminLanguageRepository;
 use App\Repositories\AdminNewsRepository;
 use App\Repositories\AdminProfileRepository;
 use App\Repositories\AdminRepository;
+use App\Repositories\AdminSettingRepository;
 use App\Repositories\AdminSocialCountRepository;
 use App\Repositories\AdminSocialLInkRepository;
 use App\Repositories\AdminSubscriberRepository;
 use App\Repositories\HomeRepository;
 use App\Repositories\NewsSearchRepository;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 
@@ -72,5 +80,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminFooterRepositoryGridTwoInterface::class, AdminFooterRepositoryGridTwo::class);
         $this->app->bind(AdminFooterRepositoryGridThreeInterface::class, AdminFooterRepositoryGridThree::class);
         $this->app->bind(AdminAboutRepositoryInterface::class, AdminAboutRepository::class);
+        $this->app->bind(AdminContactRepositoryInterface::class, AdminContactRepository::class);
+        $this->app->bind(AdminContactMessageRepositoryInterface::class, AdminContactMessageRepository::class);
+        $this->app->bind(AdminSettingRepositoryInterface::class, AdminSettingRepository::class);
+
+        /* Fetch Setting for ALl Project */
+        $setting = Setting::pluck('value', 'key')->toArray();
+//        $setting = Setting::all()->pluck('value')->toArray();
+
+        View::composer('*', function ($view) use ($setting) {
+            $view->with('setting', $setting);
+        });
     }
 }

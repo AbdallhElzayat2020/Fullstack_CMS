@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\FooterGridThreeController;
 use App\Http\Controllers\Admin\FooterGridTwoController;
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -107,5 +108,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     Route::get('contact-message', [ContactMessageController::class, 'index'])->name('contact-message.index');
     Route::post('contact-send-replay', [ContactMessageController::class, 'sendReplay'])->name('contact.replay-send');
 
+    /* Settings Route */
+    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::put('general-setting', [SettingController::class, 'updateGeneralSetting'])->name('general-setting.update');
 
 });
