@@ -8,4 +8,7 @@ interface AdminSettingRepositoryInterface
 
     public function updateGeneralSetting($request);
 
+    public function updateSeoSetting($request);
+
+    public function updateAppearanceSetting($request);
 }

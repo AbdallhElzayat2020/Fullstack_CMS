@@ -6,14 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminStoreNewsRequest;
 use App\Http\Requests\AdminUpdateNewsRequest;
 use App\Interfaces\AdminNewsRepositoryInterface;
-use App\Models\Category;
-use App\Models\Language;
-use App\Models\News;
-use App\Models\Tag;
+
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+
 
 class NewsController extends Controller
 {

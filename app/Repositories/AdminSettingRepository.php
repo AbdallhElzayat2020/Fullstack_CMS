@@ -45,4 +45,45 @@ class AdminSettingRepository implements AdminSettingRepositoryInterface
 
         return redirect()->back();
     }
+
+    public function updateSeoSetting($request): \Illuminate\Http\RedirectResponse
+    {
+//        dd($request->all());
+
+        Setting::updateOrCreate(
+            ['key' => 'site_seo_title'],
+            ['value' => $request->site_seo_title]
+        );
+
+        Setting::updateOrCreate(
+            ['key' => 'site_seo_description'],
+            ['value' => $request->site_seo_description]
+        );
+
+        Setting::updateOrCreate(
+            ['key' => 'site_seo_keywords'],
+            ['value' => $request->site_seo_keywords]
+        );
+
+        toast(__('updated successfully'), 'success');
+
+        return redirect()->back();
+
+    }
+
+    public function updateAppearanceSetting($request)
+    {
+        $request->validate([
+            'site_color' => ['required', 'max:50'],
+        ]);
+
+        Setting::updateOrCreate(
+            ['key' => 'site_color'],
+            ['value' => $request->site_color]
+        );
+
+        toast(__('updated successfully'), 'success');
+
+        return redirect()->back();
+    }
 }

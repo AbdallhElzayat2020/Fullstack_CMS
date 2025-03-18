@@ -85,11 +85,13 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminSettingRepositoryInterface::class, AdminSettingRepository::class);
 
         /* Fetch Setting for ALl Project */
+
         $setting = Setting::pluck('value', 'key')->toArray();
-//        $setting = Setting::all()->pluck('value')->toArray();
 
         View::composer('*', function ($view) use ($setting) {
             $view->with('setting', $setting);
         });
+
+
     }
 }

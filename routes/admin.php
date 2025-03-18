@@ -111,5 +111,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     /* Settings Route */
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::put('general-setting', [SettingController::class, 'updateGeneralSetting'])->name('general-setting.update');
+    Route::put('seo-setting', [SettingController::class, 'updateSeoSetting'])->name('seo-setting.update');
+    Route::put('appearance-setting', [SettingController::class, 'updateAppearanceSetting'])->name('appearance-setting.update');
+
 
 });

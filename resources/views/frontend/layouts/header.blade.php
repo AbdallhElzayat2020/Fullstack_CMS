@@ -48,7 +48,6 @@
     </div>
     <!-- End Navbar Top  -->
 
-
     <!-- Navbar  -->
     <!-- Navbar menu  -->
     <div class="navigation-wrap navigation-shadow bg-white">
@@ -61,7 +60,7 @@
                 </div>
                 <figure class="mb-0 mx-auto">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/frontend/images/logo1.png') }}" alt=""
+                        <img src="{{ asset($setting['site_logo']) }}" alt=""
                              class="img-fluid logo">
                     </a>
                 </figure>

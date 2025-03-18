@@ -15,7 +15,7 @@ use function App\Helpers\getLanguage;
 
 class NewsSearchRepository implements NewsSearchRepositoryInterface
 {
-    public function mostTags(): \Illuminate\Http\RedirectResponse
+    public function mostTags()
     {
         try {
             return Tag::select('name', DB::raw('COUNT(*) as count'))
