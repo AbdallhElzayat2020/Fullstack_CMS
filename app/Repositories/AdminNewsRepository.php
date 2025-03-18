@@ -124,7 +124,7 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
         }
     }
 
-    public function update(AdminUpdateNewsRequest $request, $id): \Illuminate\Http\RedirectResponse
+    public function update(AdminUpdateNewsRequest $request, $id)
     {
         try {
             $news = News::findOrFail($id);
