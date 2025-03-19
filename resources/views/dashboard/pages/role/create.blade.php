@@ -29,55 +29,29 @@
                                 @enderror
                             </div>
 
-
                             <hr>
+                            @foreach($permissions as $groupName => $permission)
+                                <div class="form-group">
+                                    <h6>{{$groupName}}</h6>
 
-                            <div class="form-group">
-                                <h6>{{__('Category Permissions')}}</h6>
+                                    <div class="row">
+                                        @foreach($permission as $item)
+                                            <div class="col-md-3">
+                                                <label class="custom-switch mt-2">
+                                                    <input value="{{$item->name}}" type="checkbox" name="permissions[]"
+                                                           class="custom-switch-input">
+                                                    <span class="custom-switch-indicator"></span>
+                                                    <span
+                                                        class="custom-switch-description">{{$item->name}}</span>
+                                                </label>
+                                            </div>
+                                        @endforeach
 
-                                <div class="row">
 
-                                    <div class="col-md-3">
-                                        <label class="custom-switch mt-2">
-                                            <input type="checkbox" name="custom-switch-checkbox"
-                                                   class="custom-switch-input">
-                                            <span class="custom-switch-indicator"></span>
-                                            <span
-                                                class="custom-switch-description">Show Category</span>
-                                        </label>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <label class="custom-switch mt-2">
-                                            <input type="checkbox" name="custom-switch-checkbox"
-                                                   class="custom-switch-input">
-                                            <span class="custom-switch-indicator"></span>
-                                            <span
-                                                class="custom-switch-description">Add Category</span>
-                                        </label>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <label class="custom-switch mt-2">
-                                            <input type="checkbox" name="custom-switch-checkbox"
-                                                   class="custom-switch-input">
-                                            <span class="custom-switch-indicator"></span>
-                                            <span
-                                                class="custom-switch-description">Delete Category</span>
-                                        </label>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <label class="custom-switch mt-2">
-                                            <input type="checkbox" name="custom-switch-checkbox"
-                                                   class="custom-switch-input">
-                                            <span class="custom-switch-indicator"></span>
-                                            <span
-                                                class="custom-switch-description">Delete Category</span>
-                                        </label>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
+
 
                             <button class="btn btn-primary" type="submit">{{__('Create')}}</button>
 

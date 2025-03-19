@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\AdminRoles_PermissionRepositoryInterface;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class AdminRoles_PermissionRepository implements AdminRoles_PermissionRepositoryInterface
@@ -15,7 +16,8 @@ class AdminRoles_PermissionRepository implements AdminRoles_PermissionRepository
 
     public function create()
     {
-        return view('dashboard.pages.role.create');
+        $permissions = Permission::all()->groupBy('group_name');
+        return view('dashboard.pages.role.create', compact('permissions'));
     }
 
     public function store($request)
