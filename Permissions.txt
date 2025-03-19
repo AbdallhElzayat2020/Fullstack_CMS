@@ -1,0 +1,11 @@
+Hi there,
+
+here is a quick note about lecture  
+
+( Optional ) Role Management - How to Create Roles
+
+( Optional ) Role Management - How to Create Permissions and Assign it
+
+as you can guess by the name of the lecture this two are optional. If you already worked with (Laravel Permission ) package then you don’t have to watch this to lectures. but if you didn’t work with this package before please do watch the lectures it will help you a lot.
+
+Thanks.

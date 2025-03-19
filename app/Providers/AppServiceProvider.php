@@ -15,6 +15,7 @@ use App\Interfaces\AdminLanguageRepositoryInterface;
 use App\Interfaces\AdminNewsRepositoryInterface;
 use App\Interfaces\AdminProfileRepositoryInterface;
 use App\Interfaces\AdminRepositoryInterface;
+use App\Interfaces\AdminRoles_PermissionRepositoryInterface;
 use App\Interfaces\AdminSettingRepositoryInterface;
 use App\Interfaces\AdminSocialCountRepositoryInterface;
 use App\Interfaces\AdminSocialLInkRepositoryInterface;
@@ -35,6 +36,7 @@ use App\Repositories\AdminLanguageRepository;
 use App\Repositories\AdminNewsRepository;
 use App\Repositories\AdminProfileRepository;
 use App\Repositories\AdminRepository;
+use App\Repositories\AdminRoles_PermissionRepository;
 use App\Repositories\AdminSettingRepository;
 use App\Repositories\AdminSocialCountRepository;
 use App\Repositories\AdminSocialLInkRepository;
@@ -83,6 +85,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminContactRepositoryInterface::class, AdminContactRepository::class);
         $this->app->bind(AdminContactMessageRepositoryInterface::class, AdminContactMessageRepository::class);
         $this->app->bind(AdminSettingRepositoryInterface::class, AdminSettingRepository::class);
+        $this->app->bind(AdminRoles_PermissionRepositoryInterface::class, AdminRoles_PermissionRepository::class);
 
         /* Fetch Setting for ALl Project */
 

@@ -48,7 +48,6 @@ class AdminSettingRepository implements AdminSettingRepositoryInterface
 
     public function updateSeoSetting($request): \Illuminate\Http\RedirectResponse
     {
-//        dd($request->all());
 
         Setting::updateOrCreate(
             ['key' => 'site_seo_title'],

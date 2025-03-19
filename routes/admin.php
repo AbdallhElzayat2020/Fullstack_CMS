@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\FooterGridThreeController;
 use App\Http\Controllers\Admin\FooterGridTwoController;
+use App\Http\Controllers\Admin\RolePermissionController;
 use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Admin\FooterGridOneController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ContactMessageController;
+
 //============================ Public Admin Routes ============================
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], function () {
@@ -106,13 +108,21 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     /* Contact Messages Route */
     Route::get('contact-message', [ContactMessageController::class, 'index'])->name('contact-message.index');
+
     Route::post('contact-send-replay', [ContactMessageController::class, 'sendReplay'])->name('contact.replay-send');
 
     /* Settings Route */
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+
     Route::put('general-setting', [SettingController::class, 'updateGeneralSetting'])->name('general-setting.update');
+
     Route::put('seo-setting', [SettingController::class, 'updateSeoSetting'])->name('seo-setting.update');
+
     Route::put('appearance-setting', [SettingController::class, 'updateAppearanceSetting'])->name('appearance-setting.update');
 
+    /* Roles and Permission Route*/
+    Route::get('role',[RolePermissionController::class, 'index'])->name('role.index');
+    Route::get('role-create',[RolePermissionController::class, 'create'])->name('role.create');
+    Route::get('role-store',[RolePermissionController::class, 'store'])->name('role.store');
 
 });
