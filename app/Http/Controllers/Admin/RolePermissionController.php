@@ -29,4 +29,10 @@ class RolePermissionController extends Controller
     {
         return $this->roles->store($request);
     }
+
+    public function edit($id)
+    {
+        return $this->roles->edit($id);
+    }
+
 }

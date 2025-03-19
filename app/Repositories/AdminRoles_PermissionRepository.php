@@ -11,7 +11,8 @@ class AdminRoles_PermissionRepository implements AdminRoles_PermissionRepository
 
     public function index()
     {
-        return view('dashboard.pages.role.index');
+        $roles = Role::all();
+        return view('dashboard.pages.role.index', compact('roles'));
     }
 
     public function create()
@@ -20,14 +21,24 @@ class AdminRoles_PermissionRepository implements AdminRoles_PermissionRepository
         return view('dashboard.pages.role.create', compact('permissions'));
     }
 
-    public function store($request)
+    public function store($request): \Illuminate\Http\RedirectResponse
     {
-        dd($request->all());
+        $request->validate([
+            'role_name' => ['required', 'max:255', 'unique:permissions,name'],
+        ]);
+        /* Create Role */
+        $role = Role::create(['guard_name' => 'admin', 'name' => $request->role_name]);
+
+        /* assign permission to the role */
+        $role->syncPermissions($request->permissions);
+
+        toast(__('Role Created Successfully'), 'success');
+        return to_route('admin.role.index');
     }
 
     public function edit($id)
     {
-        // TODO: Implement edit() method.
+
     }
 
     public function update($request)

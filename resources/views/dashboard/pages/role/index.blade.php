@@ -26,15 +26,33 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th>{{__('Category Name')}}</th>
-                                        <th>{{__('Language')}}</th>
-                                        <th>{{__('Status')}}</th>
-                                        <th>{{__('Show In Nav')}}</th>
+                                        <th>{{__('Role Name')}}</th>
+                                        <th>{{__('Permissions')}}</th>
                                         <th>{{__('Action')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
+                                    @foreach($roles as $key => $role)
+                                        <tr>
+                                            <td class="text-center">{{ $key + 1 }}</td>
+                                            <td>{{ $role->name }}</td>
+                                            <td>
+                                                @foreach($role->permissions as $permission)
+                                                    <span class="badge badge-primary">{{ $permission->name }}</span>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                <a href=""
+                                                   class="btn btn-primary">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href=""
+                                                   class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
 

@@ -123,6 +123,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     /* Roles and Permission Route*/
     Route::get('role',[RolePermissionController::class, 'index'])->name('role.index');
     Route::get('role-create',[RolePermissionController::class, 'create'])->name('role.create');
-    Route::get('role-store',[RolePermissionController::class, 'store'])->name('role.store');
+    Route::post('role-create',[RolePermissionController::class, 'store'])->name('role.store');
+    Route::post('role/{id}/edit',[RolePermissionController::class, 'edit'])->name('role.edit');
 
 });
