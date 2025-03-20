@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Language;
+use App\Models\Setting;
 use Illuminate\Support\Str;
 
 /* Format Tags */
@@ -67,4 +68,11 @@ function setSidebarActive(array $routes): ?string
         }
     }
     return '';
+}
+
+function getSetting($key)
+{
+    return Setting::where('key', $key)->first()->value;
+
+
 }

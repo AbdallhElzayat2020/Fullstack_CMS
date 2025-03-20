@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>News Letter Mail</title>
+    <title>Create User Mail</title>
     <style media="all" type="text/css">
         @media all {
             .btn-primary table td:hover {
@@ -120,9 +120,12 @@
                         <td class="wrapper"
                             style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; box-sizing: border-box; padding: 24px;"
                             valign="top">
-                            <p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">
-                                {!! $body  !!}
+                            <p>Hello There </p>
+                            <p>
+                                T{{__('his is your login Credentials')}}
                             </p>
+                            <p>{{__('Email')}}: {{$mail}}</p>
+                            <p>{{__('Password')}}: {{$password}}</p>
                         </td>
                     </tr>
                     <!-- END MAIN CONTENT AREA -->
