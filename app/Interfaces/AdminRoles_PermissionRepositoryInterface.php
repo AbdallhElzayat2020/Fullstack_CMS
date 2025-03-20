@@ -12,7 +12,7 @@ interface AdminRoles_PermissionRepositoryInterface
 
     public function edit($id);
 
-    public function update($request);
+    public function update($request, $id);
 
     public function destroy($request);
 }

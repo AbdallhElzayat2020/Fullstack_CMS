@@ -35,4 +35,8 @@ class RolePermissionController extends Controller
         return $this->roles->edit($id);
     }
 
+    public function update(Request $request, $id)
+    {
+        return $this->roles->update($request, $id);
+    }
 }

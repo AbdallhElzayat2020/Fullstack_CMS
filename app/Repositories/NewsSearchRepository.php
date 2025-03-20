@@ -32,7 +32,7 @@ class NewsSearchRepository implements NewsSearchRepositoryInterface
     public function news(Request $request)
     {
         try {
-            $allNews = Cache::remember('all_home_news_' . getLanguage(), 60, function () {
+            $allNews = Cache::remember('all_home_news_' . getLanguage(), 60, callback: function () {
                 return News::with(['author', 'category', 'tags'])
                     ->activeNews()
                     ->withLocalize()
@@ -69,7 +69,6 @@ class NewsSearchRepository implements NewsSearchRepositoryInterface
 
 
             $news = $news->activeNews()->withLocalize()->paginate(10)->withQueryString();
-
 
             $mostTags = $this->mostTags();
             $recentNews = $allNews->sortByDesc('id');

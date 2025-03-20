@@ -16,14 +16,14 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('admin.role.store') }}" method="post">
+                        <form action="{{ route('admin.role.update',$role->id) }}" method="post">
                             @csrf
-                            @method('post')
-
+                            @method('put')
 
                             <div class="form-group">
                                 <label for="role_name">{{__('Role Name')}}</label>
-                                <input type="text" class="form-control" name="role_name" id="role_name">
+                                <input type="text" value="{{$role->name}}" class="form-control" name="role_name"
+                                       id="role_name">
                                 @error('role_name')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -38,7 +38,12 @@
                                         @foreach($permission as $item)
                                             <div class="col-md-3">
                                                 <label class="custom-switch mt-2">
-                                                    <input value="{{$item->name}}" type="checkbox" name="permissions[]"
+                                                    <input value="{{$item->name}}"
+
+                                                           {{in_array($item->name , $rolesPermission) ? 'checked' : ''}}
+
+                                                           type="checkbox"
+                                                           name="permissions[]"
                                                            class="custom-switch-input">
                                                     <span class="custom-switch-indicator"></span>
                                                     <span
@@ -51,7 +56,7 @@
                             @endforeach
 
 
-                            <button class="btn btn-primary" type="submit">{{__('Create')}}</button>
+                            <button class="btn btn-primary" type="submit">{{__('Update')}}</button>
 
                         </form>
                     </div>
