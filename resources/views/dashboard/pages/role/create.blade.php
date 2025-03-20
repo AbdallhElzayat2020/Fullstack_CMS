@@ -1,18 +1,18 @@
 @extends('dashboard.layouts.master')
-@section('title','Create Social Link')
+@section('title','Create Roles and Permission ')
 
 @section('content')
 
     <section class="section">
         <div class="section-header">
-            <h1>{{__('Social Link')}}</h1>
+            <h1>{{__('Roles')}}</h1>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-primary">
 
                     <div class="card-header">
-                        <h4>{{__('Create Social Link')}}</h4>
+                        <h4>{{__('Create Roles and Permission')}}</h4>
                     </div>
 
                     <div class="card-body">

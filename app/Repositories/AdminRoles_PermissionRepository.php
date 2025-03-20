@@ -29,6 +29,7 @@ class AdminRoles_PermissionRepository implements AdminRoles_PermissionRepository
         $request->validate([
             'role_name' => ['required', 'max:60', 'unique:permissions,name'],
         ]);
+
         /* Create Role with Multi Guard */
         $role = Role::create(['guard_name' => 'admin', 'name' => $request->role_name]);
 
@@ -54,7 +55,6 @@ class AdminRoles_PermissionRepository implements AdminRoles_PermissionRepository
 
     public function update($request, $id)
     {
-//        dd($request->all());
         $request->validate([
             'role_name' => ['required', 'max:60', 'unique:permissions,name'],
         ]);

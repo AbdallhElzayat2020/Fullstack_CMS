@@ -133,6 +133,11 @@
                            href="{{ route('admin.role.index') }}">{{__('Roles and Permission')}}
                         </a>
                     </li>
+                    <li class="{{\App\Helpers\setSidebarActive(['admin.role-users.*'])}}">
+                        <a class="nav-link"
+                           href="{{ route('admin.role-users.index') }}">{{__('Role Users')}}
+                        </a>
+                    </li>
                 </ul>
 
             </li>

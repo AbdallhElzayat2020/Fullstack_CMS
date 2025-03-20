@@ -21,6 +21,14 @@ use App\Http\Controllers\Admin\FooterGridOneController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\RoleUserController;
+
+
+
+
+
+
+
 
 //============================ Public Admin Routes ============================
 
@@ -120,11 +128,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     Route::put('appearance-setting', [SettingController::class, 'updateAppearanceSetting'])->name('appearance-setting.update');
 
-    /* Roles and Permission Route*/
-    Route::get('role',[RolePermissionController::class, 'index'])->name('role.index');
-    Route::get('role-create',[RolePermissionController::class, 'create'])->name('role.create');
-    Route::post('role-create',[RolePermissionController::class, 'store'])->name('role.store');
-    Route::get('role/{id}/edit',[RolePermissionController::class, 'edit'])->name('role.edit');
-    Route::put('role/{id}/edit',[RolePermissionController::class, 'update'])->name('role.update');
+    /* Roles and Permission Routes */
+    Route::get('role', [RolePermissionController::class, 'index'])->name('role.index');
+    Route::get('role-create', [RolePermissionController::class, 'create'])->name('role.create');
+    Route::post('role-create', [RolePermissionController::class, 'store'])->name('role.store');
+    Route::get('role/{id}/edit', [RolePermissionController::class, 'edit'])->name('role.edit');
+    Route::put('role/{id}/edit', [RolePermissionController::class, 'update'])->name('role.update');
     Route::delete('role/{id}/destroy', [RolePermissionController::class, 'destroy'])->name('role.destroy');
+
+    /* Admin User Routes */
+    Route::resource('role-users', RoleUserController::class);
 });
