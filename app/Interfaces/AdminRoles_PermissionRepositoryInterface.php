@@ -14,5 +14,5 @@ interface AdminRoles_PermissionRepositoryInterface
 
     public function update($request, $id);
 
-    public function destroy($request);
+    public function destroy($id);
 }

@@ -70,8 +70,17 @@ class AdminRoles_PermissionRepository implements AdminRoles_PermissionRepository
 
     }
 
-    public function destroy($request)
+    public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        try {
+            $role = Role::findOrFail($id);
+            if ($role->name=== 'Super Admin'){
+                return response(['status' => 'error', 'message' => __('can not be deleted')]);
+            }
+            $role->delete();
+            return response(['status' => 'success', 'message' => __('Deleted successfully')]);
+        } catch (\Exception $exception) {
+            return response(['status' => 'error', 'message' => __('can not be deleted')]);
+        }
     }
 }

@@ -39,4 +39,9 @@ class RolePermissionController extends Controller
     {
         return $this->roles->update($request, $id);
     }
+
+    public function destroy($id)
+    {
+        return $this->roles->destroy($id);
+    }
 }

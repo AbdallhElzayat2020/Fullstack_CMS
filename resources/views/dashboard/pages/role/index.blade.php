@@ -46,8 +46,8 @@
                                                    class="btn btn-primary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <a href=""
-                                                   class="btn btn-danger">
+                                                <a href="{{ route('admin.role.destroy',$role->id) }}"
+                                                   class="btn delete-item btn-danger">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                             </td>
