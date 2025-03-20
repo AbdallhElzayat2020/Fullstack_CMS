@@ -22,8 +22,17 @@
 
                             <div class="form-group">
                                 <label for="name">{{__('User Name')}}</label>
-                                <input type="text" class="form-control" name="name" id="name">
+                                <input value="{{old('name')}}" type="text" class="form-control" name="name" id="name">
                                 @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">{{__('Email')}}</label>
+                                <input type="email" value="{{old('email')}}" class="form-control" name="email"
+                                       id="email">
+                                @error('email')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>

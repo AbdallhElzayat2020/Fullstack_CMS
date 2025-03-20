@@ -23,8 +23,9 @@ class AdminRoleUserStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:admins,email'],
             'password' => ['required', 'string', 'max:255', 'min:8', 'confirmed'],
-//            'password_confirmation' => ['required', 'string', 'max:255', 'min:8','same:password'],
+            'password_confirmation' => ['required', 'same:password'],
             'role' => ['required', 'string'],
         ];
     }

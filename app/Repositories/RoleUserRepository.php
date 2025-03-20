@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 
 use App\Interfaces\RoleUserRepositoryInterface;
+use App\Models\Admin;
+use App\Models\User;
 use Spatie\Permission\Models\Role;
 
 class RoleUserRepository implements RoleUserRepositoryInterface
@@ -22,6 +24,17 @@ class RoleUserRepository implements RoleUserRepositoryInterface
 
     public function store($request)
     {
-dd($request->all());
+        $user = new Admin();
+        $user->image = '';
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        /* Assign role to user */
+        $user->assignRole($request->role);
+        toast(__('Created Successfully'), 'success');
+        return to_route('admin.role-users.index');
     }
+
 }
