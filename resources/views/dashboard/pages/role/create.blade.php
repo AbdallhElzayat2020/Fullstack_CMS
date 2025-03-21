@@ -32,8 +32,7 @@
                             <hr>
                             @foreach($permissions as $groupName => $permission)
                                 <div class="form-group">
-                                    <h6>{{$groupName}}</h6>
-
+                                    <h6 class="my-2 text-primary">{{$groupName}}</h6>
                                     <div class="row">
                                         @foreach($permission as $item)
                                             <div class="col-md-3">
@@ -48,6 +47,7 @@
                                         @endforeach
                                     </div>
                                 </div>
+                                <hr>
                             @endforeach
 
 

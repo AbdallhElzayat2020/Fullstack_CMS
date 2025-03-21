@@ -38,16 +38,16 @@
                                             <td>{{ $role->name }}</td>
                                             <td>
                                                 @foreach($role->permissions as $permission)
-                                                    <span class="badge badge-primary">{{ $permission->name }}</span>
+                                                    <span class="badge badge-primary my-1 ">{{ $permission->name }}</span>
                                                 @endforeach
                                             </td>
-                                            <td>
+                                            <td class="d-flex">
                                                 <a href="{{ route('admin.role.edit',$role->id) }}"
-                                                   class="btn btn-primary">
+                                                   class="btn btn-primary mx-1">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <a href="{{ route('admin.role.destroy',$role->id) }}"
-                                                   class="btn delete-item btn-danger">
+                                                   class="btn delete-item btn-danger mx-1">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                             </td>
