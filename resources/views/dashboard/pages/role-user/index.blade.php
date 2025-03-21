@@ -26,25 +26,45 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th>{{__('Role Name')}}</th>
-                                        <th>{{__('Permissions')}}</th>
+                                        <th>{{__('Name')}}</th>
+                                        <th>{{__('Email')}}</th>
+                                        <th>{{__('Role')}}</th>
                                         <th>{{__('Action')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($admins as $key=> $admin)
+                                        <tr>
+                                            <td>
+                                                {{$key+1}}
+                                            </td>
+                                            <td>
+                                                {{$admin->name}}
+                                            </td>
+                                            <td>
+                                                {{$admin->email}}
+                                            </td>
+                                            <td>
+                                               <span class="badge badge-primary">
+                                                    {{$admin->getRoleNames()->first()}}
+                                               </span>
+                                            </td>
+                                            <td>
+                                                @if($admin->getRoleNames()->first() !== 'Super Admin')
 
-{{--                                    <tr>--}}
-{{--                                        <td>--}}
-{{--                                            <a href=""--}}
-{{--                                               class="btn btn-primary">--}}
-{{--                                                <i class="fas fa-edit"></i>--}}
-{{--                                            </a>--}}
-{{--                                            <a href=""--}}
-{{--                                               class="btn delete-item btn-danger">--}}
-{{--                                                <i class="fas fa-trash"></i>--}}
-{{--                                            </a>--}}
-{{--                                        </td>--}}
-{{--                                    </tr>--}}
+                                                    <a href="{{ route('admin.role-users.edit',$admin->id) }}"
+                                                       class="btn btn-primary">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a href="{{ route('admin.role-users.destroy',$admin->id) }}"
+                                                       class="btn delete-item btn-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                @endif
+
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
                                     </tbody>
                                 </table>
