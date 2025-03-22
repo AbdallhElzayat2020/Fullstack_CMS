@@ -45,6 +45,7 @@ use App\Repositories\AdminSubscriberRepository;
 use App\Repositories\HomeRepository;
 use App\Repositories\NewsSearchRepository;
 use App\Repositories\RoleUserRepository;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
@@ -90,14 +91,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminRoles_PermissionRepositoryInterface::class, AdminRoles_PermissionRepository::class);
         $this->app->bind(RoleUserRepositoryInterface::class, RoleUserRepository::class);
 
-        /* Fetch Setting for ALl Project */
 
+        /* Fetch Setting for ALl Project */
         $setting = Setting::pluck('value', 'key')->toArray();
 
         View::composer('*', function ($view) use ($setting) {
             $view->with('setting', $setting);
         });
 
-
+        /* Assign a Super Admin */
+        Gate::before(static function ($user, $ability) {
+            return $user->hasRole('Super Admin') ? true : null;
+        });
     }
 }

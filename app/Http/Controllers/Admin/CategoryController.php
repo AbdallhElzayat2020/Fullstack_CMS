@@ -6,16 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminStoreCategoryRequest;
 use App\Http\Requests\AdminUpdateCategoryRequest;
 use App\Interfaces\AdminCategoriesRepositoryInterface;
-use App\Models\Category;
-use App\Models\Language;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class CategoryController extends Controller
+class CategoryController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     */
+
 
     public $category;
 
@@ -23,6 +20,18 @@ class CategoryController extends Controller
     {
         $this->category = $category;
     }
+
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('category show,admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('category create,admin'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('category edit,admin'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('category delete,admin'), only: ['destroy']),
+        ];
+    }
+
 
     public function index()
     {
@@ -68,4 +77,6 @@ class CategoryController extends Controller
     {
         return $this->category->destroy($id);
     }
+
+
 }

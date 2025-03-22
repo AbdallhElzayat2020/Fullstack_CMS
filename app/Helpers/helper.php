@@ -73,6 +73,11 @@ function setSidebarActive(array $routes): ?string
 function getSetting($key)
 {
     return Setting::where('key', $key)->first()->value;
-
-
 }
+
+function hasPermission(array $permission)
+{
+    return auth()->guard('admin')->user()->hasAnyPermission($permission);
+}
+
+

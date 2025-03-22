@@ -24,12 +24,6 @@ use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\RoleUserController;
 
 
-
-
-
-
-
-
 //============================ Public Admin Routes ============================
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], function () {
@@ -48,7 +42,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], f
     Route::post('reset-password', [AdminAuthController::class, 'handleResetPassword'])->name('reset-password.send');
 });
 
-//============================ Protected Admin Routes ============================
+/*============================ Protected Admin Routes ============================ */
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function () {
 
     //    Home Dashboard Route
