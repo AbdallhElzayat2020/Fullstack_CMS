@@ -8,6 +8,8 @@ use App\Interfaces\AdminSocialCountRepositoryInterface;
 use App\Models\Language;
 use App\Models\SocialCount;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class SocialController extends Controller
 {
@@ -19,6 +21,16 @@ class SocialController extends Controller
     public function __construct(AdminSocialCountRepositoryInterface $social)
     {
         $this->social = $social;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('show social count', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('create social count', 'admin'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('update social count', 'admin'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('delete social count', 'admin'), only: ['destroy']),
+        ];
     }
 
     public function index()
@@ -55,7 +67,7 @@ class SocialController extends Controller
      */
     public function update(Request $request, string $id)
     {
-     return $this->social->update($request, $id);
+        return $this->social->update($request, $id);
     }
 
     /**

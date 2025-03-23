@@ -29,7 +29,7 @@ class CategoryController extends Controller implements HasMiddleware
             new Middleware(PermissionMiddleware::using('category create,admin'), only: ['create', 'store']),
             new Middleware(PermissionMiddleware::using('category edit,admin'), only: ['edit', 'update']),
             new Middleware(PermissionMiddleware::using('category delete,admin'), only: ['destroy']),
-        ];
+        ]; 
     }
 
 

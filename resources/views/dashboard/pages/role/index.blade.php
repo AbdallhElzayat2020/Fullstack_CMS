@@ -49,14 +49,17 @@
                                             </td>
                                             <td class="d-flex">
                                                 @if($role->name !== 'Super Admin')
+
                                                     <a href="{{ route('admin.role.edit',$role->id) }}"
                                                        class="btn btn-primary mx-1">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
+
                                                     <a href="{{ route('admin.role.destroy',$role->id) }}"
                                                        class="btn delete-item btn-danger mx-1">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
+
                                                 @endif
                                             </td>
                                         </tr>

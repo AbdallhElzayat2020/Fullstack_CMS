@@ -26,7 +26,7 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
         try {
             $languages = Language::all();
             return view('dashboard.pages.news.index', compact('languages'));
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
@@ -37,7 +37,7 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
             $categories = Category::where('language', $request->lang)->get();
 
             return response()->json($categories);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return response()->json(['error' => $exception->getMessage()]);
         }
     }
@@ -47,7 +47,7 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
         try {
             $languages = Language::all();
             return view('dashboard.pages.news.create', compact('languages'));
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
@@ -88,6 +88,8 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
             $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
             $news->status = $request->status;
             $news->save();
+
+            //  Handle Tags
             $tags = explode(',', $request->tags);
             $tagIds = [];
             foreach ($tags as $tag) {
@@ -103,7 +105,7 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
 
             toast(__('Created successfully'), 'success')->width('400px');
             return to_route('admin.news.index');
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
@@ -119,7 +121,7 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
             $news->tags = $tags;
 
             return view('dashboard.pages.news.edit', compact('news', 'languages', 'categories', 'tags'));
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
@@ -175,7 +177,7 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
 
             toast(__('updated successfully'), 'success')->width('400px');
             return to_route('admin.news.index');
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
@@ -196,7 +198,7 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
                 DB::rollBack();
                 return response(['status' => 'error', 'message' => __('Something went wrong')]);
             }
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return response(['status' => 'error', 'message' => __('Something went wrong')]);
         }
     }
@@ -213,7 +215,7 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
             $copyNews->save();
             toast(__('Copied successfully'), 'success')->width('400px');
             return to_route('admin.news.index');
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return redirect()->back()->withErrors([$exception->getMessage()]);
         }
     }
