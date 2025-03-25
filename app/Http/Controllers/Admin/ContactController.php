@@ -7,10 +7,11 @@ use App\Interfaces\AdminContactRepositoryInterface;
 use App\Models\Contact;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class ContactController extends Controller
+class ContactController extends Controller implements HasMiddleware
 {
     public $contact;
 

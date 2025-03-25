@@ -76,10 +76,20 @@ function getSetting($key)
 }
 
 /* Check Permission */
-function hasPermission(array $permissions)
+function canAccess(array $permissions)
 {
-    return auth()->guard('admin')->user()->hasAnyPermission($permissions);
+    $permission = auth()->guard('admin')->user()->hasAnyPermission($permissions);
+    $role = auth()->guard('admin')->user()->hasRole('Super Admin');
+
+    if ($permission || $role) {
+        return true;
+    }
+    return false;
 }
 
 /* check is it SuperAdmin */
+function isSuperAdmin()
+{
+    return auth()->guard('admin')->user()->hasRole('Super Admin');
+}
 

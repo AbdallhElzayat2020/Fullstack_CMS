@@ -8,10 +8,11 @@ use App\Interfaces\AdminSocialCountRepositoryInterface;
 use App\Models\Language;
 use App\Models\SocialCount;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class SocialController extends Controller
+class SocialController extends Controller implements HasMiddleware
 {
     /**
      * Display a listing of the resource.

@@ -16,7 +16,7 @@
 
             <li class="menu-header">{{__('Startket')}}</li>
 
-            @if(\App\Helpers\hasPermission(['category show','category create','category edit','category delete']))
+            @if(\App\Helpers\canAccess(['category show','category create','category edit','category delete']) )
 
                 <li class="{{\App\Helpers\setSidebarActive(['admin.categories.*'])}}">
                     <a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="far fa-square"></i>
@@ -26,36 +26,57 @@
 
             @endif
 
-            <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.news.*'])}} ">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>{{__('News')}}</span></a>
-                <ul class="dropdown-menu">
-                    <li class="{{\App\Helpers\setSidebarActive(['admin.news.*'])}}">
-                        <a class="nav-link " href="{{ route('admin.news.index') }}">{{__('All News')}}</a>
-                    </li>
-                </ul>
-            </li>
+            @if(\App\Helpers\canAccess(['show news']) )
+                <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.news.*'])}} ">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>{{__('News')}}</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{\App\Helpers\setSidebarActive(['admin.news.*'])}}">
+                            <a class="nav-link " href="{{ route('admin.news.index') }}">{{__('All News')}}</a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
 
-            <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.about.*','admin.contact.*'])}}">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>{{__('Pages')}}</span></a>
-                <ul class="dropdown-menu">
+            @if(\App\Helpers\canAccess(['show about page','show contact page']) )
 
-                    <li class="{{\App\Helpers\setSidebarActive(['admin.about.*'])}}">
-                        <a class="nav-link" href="{{ route('admin.about.index') }}">{{__('About Page')}}</a>
-                    </li>
+                <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.about.*','admin.contact.*'])}}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i>
+                        <span>{{__('Pages')}}</span>
+                    </a>
 
-                    <li class="{{\App\Helpers\setSidebarActive(['admin.contact.*'])}}">
-                        <a class="nav-link" href="{{ route('admin.contact.index') }}">{{__('Contact Page')}}</a>
-                    </li>
+                    <ul class="dropdown-menu">
+                        @if(\App\Helpers\canAccess(['show about page']) )
 
-                </ul>
-            </li>
+                            <li class="{{\App\Helpers\setSidebarActive(['admin.about.*'])}}">
+                                <a class="nav-link" href="{{ route('admin.about.index') }}">
+                                    {{__('About Page')}}
+                                </a>
+                            </li>
 
-            <li class="{{\App\Helpers\setSidebarActive(['admin.home-section-setting.*'])}}">
-                <a class="nav-link" href="{{ route('admin.home-section-setting.index') }}"><i
-                        class="far fa-square"></i>
-                    <span>{{__('Home Section Setting')}}</span>
-                </a>
-            </li>
+                        @endif
+
+                        @if(\App\Helpers\canAccess(['show contact page']) )
+
+                            <li class="{{\App\Helpers\setSidebarActive(['admin.contact.*'])}}">
+                                <a class="nav-link" href="{{ route('admin.contact.index') }}">
+                                    {{__('Contact Page')}}
+                                </a>
+                            </li>
+
+                        @endif
+                    </ul>
+                </li>
+
+            @endif
+
+            @if(\App\Helpers\canAccess(['show home section setting']) )
+                <li class="{{\App\Helpers\setSidebarActive(['admin.home-section-setting.*'])}}">
+                    <a class="nav-link" href="{{ route('admin.home-section-setting.index') }}"><i
+                            class="far fa-square"></i>
+                        <span>{{__('Home Section Setting')}}</span>
+                    </a>
+                </li>
+            @endif
 
             <li class="{{\App\Helpers\setSidebarActive(['admin.ads.*'])}}">
                 <a class="nav-link" href="{{ route('admin.ads.index') }}"><i class="far fa-square"></i>
@@ -63,11 +84,13 @@
                 </a>
             </li>
 
-            <li class="{{\App\Helpers\setSidebarActive(['admin.social-count.*'])}}">
-                <a class="nav-link" href="{{ route('admin.social-count.index') }}"><i class="far fa-square"></i>
-                    <span>{{__('Social Count')}}</span>
-                </a>
-            </li>
+            @if(\App\Helpers\canAccess(['show social count']) )
+                <li class="{{\App\Helpers\setSidebarActive(['admin.social-count.*'])}}">
+                    <a class="nav-link" href="{{ route('admin.social-count.index') }}"><i class="far fa-square"></i>
+                        <span>{{__('Social Count')}}</span>
+                    </a>
+                </li>
+            @endif
 
             <li class="{{\App\Helpers\setSidebarActive(['admin.contact-message.*'])}}">
                 <a class="nav-link" href="{{ route('admin.contact-message.index') }}"><i class="far fa-square"></i>

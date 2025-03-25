@@ -27,10 +27,10 @@ class CategoryController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware(PermissionMiddleware::using('category show,admin'), only: ['index']),
-            new Middleware(PermissionMiddleware::using('category create,admin'), only: ['create', 'store']),
-            new Middleware(PermissionMiddleware::using('category edit,admin'), only: ['edit', 'update']),
-            new Middleware(PermissionMiddleware::using('category delete,admin'), only: ['destroy']),
+            new Middleware(PermissionMiddleware::using('category show', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('category create', 'admin'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('category edit', 'admin'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('category delete', 'admin'), only: ['destroy']),
         ];
     }
 

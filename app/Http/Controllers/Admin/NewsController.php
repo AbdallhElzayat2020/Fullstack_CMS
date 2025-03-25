@@ -14,7 +14,7 @@ use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
 
-class NewsController extends Controller
+class NewsController extends Controller implements HasMiddleware
 {
     use FileUploadTrait;
 
@@ -25,15 +25,15 @@ class NewsController extends Controller
         $this->news = $news;
     }
 
-//    public static function middleware(): array
-//    {
-//        return [
-//            new Middleware(PermissionMiddleware::using('show news', 'admin'), only: ['index', 'toggleNewsStatus', 'copyNews']),
-//            new Middleware(PermissionMiddleware::using('create news', 'admin'), only: ['create', 'store']),
-//            new Middleware(PermissionMiddleware::using('update news', 'admin'), only: ['edit', 'update']),
-//            new Middleware(PermissionMiddleware::using('delete news', 'admin'), only: ['destroy']),
-//        ];
-//    }
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('show news', 'admin'), only: ['index', 'toggleNewsStatus', 'copyNews']),
+            new Middleware(PermissionMiddleware::using('create news', 'admin'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('update news', 'admin'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('delete news', 'admin'), only: ['destroy']),
+        ];
+    }
 
 
     public function index()

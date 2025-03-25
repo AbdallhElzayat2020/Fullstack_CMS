@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Interfaces\AdminAboutRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class AboutController extends Controller
+class AboutController extends Controller implements HasMiddleware
 {
 
     public $about;
@@ -21,8 +22,8 @@ class AboutController extends Controller
     public static function middleware(): array
     {
         return [
-            new Middleware(PermissionMiddleware::using('show about page,admin'), only: ['index']),
-            new Middleware(PermissionMiddleware::using('update about page,admin'), only: ['update']),
+            new Middleware(PermissionMiddleware::using('show about page', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('update about page', 'admin'), only: ['update']),
         ];
     }
 
