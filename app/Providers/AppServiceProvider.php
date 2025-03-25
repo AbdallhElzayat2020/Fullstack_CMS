@@ -101,8 +101,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         /* Assign a Super Admin */
-//        Gate::before(static function ($user, $ability) {
-//            return $user->hasRole('Super Admin') ? true : null;
-//        });
+        Gate::before(static function ($user, $ability) {
+            return $user->hasRole('Super Admin') ? true : null;
+        });
     }
 }

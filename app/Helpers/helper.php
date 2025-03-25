@@ -75,6 +75,7 @@ function getSetting($key)
     return Setting::where('key', $key)->first()->value;
 }
 
+/* Check Permission */
 function hasPermission(array $permissions)
 {
     return auth()->guard('admin')->user()->hasAnyPermission($permissions);

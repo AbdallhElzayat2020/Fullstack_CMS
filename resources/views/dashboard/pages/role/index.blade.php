@@ -34,6 +34,7 @@
                                     <tbody>
                                     @foreach($roles as $key => $role)
                                         <tr>
+
                                             <td class="text-center">{{ $key + 1 }}</td>
                                             <td>{{ $role->name }}</td>
                                             <td>
@@ -43,12 +44,13 @@
                                                 @endforeach
 
                                                 @if($role->name === 'Super Admin')
-                                                    <span class="badge badge-danger my-1 text-light ">All Permissions *</span>
+                                                    <span class="badge badge-danger my-1 ">All Permissions *</span>
                                                 @endif
 
                                             </td>
+
                                             <td class="d-flex">
-{{--                                                @if($role->name !== 'Super Admin')--}}
+                                                @if($role->name !== 'Super Admin')
 
                                                     <a href="{{ route('admin.role.edit',$role->id) }}"
                                                        class="btn btn-primary mx-1">
@@ -60,8 +62,9 @@
                                                         <i class="fas fa-trash"></i>
                                                     </a>
 
-{{--                                                @endif--}}
+                                                @endif
                                             </td>
+
                                         </tr>
                                     @endforeach
                                     </tbody>
