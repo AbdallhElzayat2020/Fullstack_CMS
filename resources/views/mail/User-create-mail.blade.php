@@ -124,8 +124,8 @@
                             <p>
                                 T{{__('his is your login Credentials')}}
                             </p>
-                            <p>{{__('Email')}}: {{$mail}}</p>
-                            <p>{{__('Password')}}: {{$password}}</p>
+                            <p><span> class="font-weight-bold" {{__('Email')}}</span>: {{$mail}}</p>
+                            <p><span class="font-weight-bold">{{__('Password')}}</span>: {{$password}}</p>
                         </td>
                     </tr>
                     <!-- END MAIN CONTENT AREA -->

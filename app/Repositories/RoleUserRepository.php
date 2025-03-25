@@ -28,6 +28,7 @@ class RoleUserRepository implements RoleUserRepositoryInterface
     public function store($request)
     {
         try {
+
             $user = new Admin();
             $user->image = '';
             $user->name = $request->name;
@@ -39,7 +40,6 @@ class RoleUserRepository implements RoleUserRepositoryInterface
             $user->assignRole($request->role);
 
             /* Send Mail to User  */
-
             Mail::to($request->email)->send(new RoleUserCreateMail($request->email, $request->password));
 
             toast(__('Created Successfully'), 'success');

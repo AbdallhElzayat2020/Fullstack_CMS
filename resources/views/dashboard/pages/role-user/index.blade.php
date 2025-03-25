@@ -50,18 +50,19 @@
                                                </span>
                                             </td>
                                             <td>
-{{--                                                @if($admin->getRoleNames()->first() !== 'Super Admin')--}}
+                                                @if($admin->getRoleNames()->first() !== 'Super Admin')
 
                                                     <a href="{{ route('admin.role-users.edit',$admin->id) }}"
                                                        class="btn btn-primary">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
+
                                                     <a href="{{ route('admin.role-users.destroy',$admin->id) }}"
                                                        class="btn delete-item btn-danger">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
-{{--                                                @endif--}}
 
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
