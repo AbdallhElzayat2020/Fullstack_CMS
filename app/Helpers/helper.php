@@ -13,18 +13,19 @@ function formatTags(array $tags): string
 }
 
 /* get selected language from session */
+
 function getLanguage()
 {
     try {
         if (session()->has('language')) {
             return session('language');
-        } else {
-            $language = Language::where('default', 'yes')->first();
-            //use function
-            setLanguage($language->lang);
-
-            return $language->lang;
         }
+
+        $language = Language::where('default', 'yes')->first();
+        //use function
+        setLanguage($language->lang);
+
+        return $language->lang;
     } catch (\Exception $exception) {
         setLanguage('en');
     }
@@ -43,7 +44,6 @@ function truncate(string $text, $limit, $ending): string
 {
     return Str::limit($text, $limit, $ending);
 }
-
 
 /* Format Views */
 function formatViews(int $number): int|string
@@ -73,6 +73,11 @@ function setSidebarActive(array $routes): ?string
 function getSetting($key)
 {
     return Setting::where('key', $key)->first()->value;
+}
+
+function hasPermission(array $permissions)
+{
+    return auth()->guard('admin')->user()->hasAnyPermission($permissions);
 }
 
 /* check is it SuperAdmin */

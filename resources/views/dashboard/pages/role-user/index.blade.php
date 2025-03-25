@@ -50,6 +50,7 @@
                                                </span>
                                             </td>
                                             <td>
+                                                
                                                 @if($admin->getRoleNames()->first() !== 'Super Admin')
 
                                                     <a href="{{ route('admin.role-users.edit',$admin->id) }}"

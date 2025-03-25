@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminStoreCategoryRequest;
 use App\Http\Requests\AdminUpdateCategoryRequest;
 use App\Interfaces\AdminCategoriesRepositoryInterface;
+
+//use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class CategoryController extends Controller
+class CategoryController extends Controller implements HasMiddleware
 {
 
 

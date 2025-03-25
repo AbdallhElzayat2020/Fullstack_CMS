@@ -16,11 +16,15 @@
 
             <li class="menu-header">{{__('Startket')}}</li>
 
-            <li class="{{\App\Helpers\setSidebarActive(['admin.categories.*'])}}">
-                <a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="far fa-square"></i>
-                    <span>{{__('Categories')}}</span>
-                </a>
-            </li>
+            @if(\App\Helpers\hasPermission(['category show','category create','category edit','category delete']))
+
+                <li class="{{\App\Helpers\setSidebarActive(['admin.categories.*'])}}">
+                    <a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="far fa-square"></i>
+                        <span>{{__('Categories')}}</span>
+                    </a>
+                </li>
+
+            @endif
 
             <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.news.*'])}} ">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>{{__('News')}}</span></a>
@@ -34,6 +38,7 @@
             <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.about.*','admin.contact.*'])}}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>{{__('Pages')}}</span></a>
                 <ul class="dropdown-menu">
+
                     <li class="{{\App\Helpers\setSidebarActive(['admin.about.*'])}}">
                         <a class="nav-link" href="{{ route('admin.about.index') }}">{{__('About Page')}}</a>
                     </li>
@@ -41,6 +46,7 @@
                     <li class="{{\App\Helpers\setSidebarActive(['admin.contact.*'])}}">
                         <a class="nav-link" href="{{ route('admin.contact.index') }}">{{__('Contact Page')}}</a>
                     </li>
+
                 </ul>
             </li>
 
