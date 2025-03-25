@@ -10,7 +10,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class CategoryController extends Controller implements HasMiddleware
+class CategoryController extends Controller
 {
 
 
@@ -19,8 +19,8 @@ class CategoryController extends Controller implements HasMiddleware
     public function __construct(AdminCategoriesRepositoryInterface $category)
     {
         $this->category = $category;
-    }
 
+    }
 
     public static function middleware(): array
     {
@@ -29,7 +29,7 @@ class CategoryController extends Controller implements HasMiddleware
             new Middleware(PermissionMiddleware::using('category create,admin'), only: ['create', 'store']),
             new Middleware(PermissionMiddleware::using('category edit,admin'), only: ['edit', 'update']),
             new Middleware(PermissionMiddleware::using('category delete,admin'), only: ['destroy']),
-        ]; 
+        ];
     }
 
 

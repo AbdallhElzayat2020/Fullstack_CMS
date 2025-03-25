@@ -76,22 +76,5 @@ function getSetting($key)
     return Setting::where('key', $key)->first()->value;
 }
 
-
-function hasPermission($permission)
-{
-    return auth()->guard('admin')->user()->hasAnyPermission($permission);
-}
-function canAccess(array $permission)
-{
-    $permission = auth()->guard('admin')->user()->hasAnyPermission($permission);
-    $superAdmin = auth()->guard('admin')->user()->hasRole('Super Admin');
-
-    if ($permission || $superAdmin) {
-        return true;
-    }
-    return false;
-
-}
-
 /* check is it SuperAdmin */
 

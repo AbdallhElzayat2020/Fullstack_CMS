@@ -91,6 +91,7 @@ class RoleUserRepository implements RoleUserRepositoryInterface
             if ($admin->getRoleNames()->first() === 'Super Admin') {
                 return response(['status' => 'error', 'message' => __('You can not delete Super Admin')]);
             }
+
             $admin->delete();
 
             return response(['status' => 'success', 'message' => __('Deleted successfully')]);

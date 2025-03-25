@@ -30,6 +30,7 @@
                             </div>
 
                             <hr>
+
                             @foreach($permissions as $groupName => $permission)
                                 <div class="form-group">
                                     <h6 class="my-2 text-primary">{{$groupName}}</h6>

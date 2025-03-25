@@ -16,13 +16,12 @@
 
             <li class="menu-header">{{__('Startket')}}</li>
 
-            @if(\App\Helpers\hasPermission(['category show','category create','category edit','category delete']))
-                <li class="{{\App\Helpers\setSidebarActive(['admin.categories.*'])}}">
-                    <a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="far fa-square"></i>
-                        <span>{{__('Categories')}}</span>
-                    </a>
-                </li>
-            @endif
+            <li class="{{\App\Helpers\setSidebarActive(['admin.categories.*'])}}">
+                <a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="far fa-square"></i>
+                    <span>{{__('Categories')}}</span>
+                </a>
+            </li>
+
             <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.news.*'])}} ">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>{{__('News')}}</span></a>
                 <ul class="dropdown-menu">
