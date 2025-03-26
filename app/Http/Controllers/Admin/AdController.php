@@ -8,10 +8,11 @@ use App\Models\Ad;
 use App\Models\User;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class AdController extends Controller
+class AdController extends Controller implements HasMiddleware
 {
     use FileUploadTrait;
 

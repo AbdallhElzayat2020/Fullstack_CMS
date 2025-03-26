@@ -7,10 +7,11 @@ use App\Http\Requests\FooterStoreGridOneRequest;
 use App\Interfaces\AdminFooterRepositoryGridOneInterface;
 use App\Interfaces\AdminFooterRepositoryGridThreeInterface;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class FooterGridThreeController extends Controller
+class FooterGridThreeController extends Controller implements HasMiddleware
 {
     public $gridThree;
 

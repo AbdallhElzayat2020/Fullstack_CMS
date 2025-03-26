@@ -8,11 +8,12 @@ use App\Mail\ContactMail;
 use App\Models\Contact;
 use App\Models\RecivedMail;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class ContactMessageController extends Controller
+class ContactMessageController extends Controller implements HasMiddleware
 {
 
     public $message;

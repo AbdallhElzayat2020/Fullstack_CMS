@@ -7,15 +7,6 @@
             <a href="{{ route('admin.dashboard') }}">St</a>
         </div>
         <ul class="sidebar-menu">
-            <li class="menu-header">{{__('Dashboard')}}</li>
-            {{--            @if(\App\Helpers\canAccess(['dashboard show']) )--}}
-            <li class="{{\App\Helpers\setSidebarActive(['admin.dashboard'])}}">
-                <a class="nav-link " href="{{ route('admin.dashboard') }}"><i class="fas fa-fire"></i>
-                    <span>{{__('Dashboard')}}</span>
-                </a>
-            </li>
-            {{--            @endif--}}
-
             <li class="menu-header">{{__('Startket')}}</li>
 
             @if(\App\Helpers\canAccess(['category show','category create','category edit','category delete']) )
@@ -190,7 +181,7 @@
                         </li>
                     </ul>
                 </li>
-                
+
             @endif
 
             @if(\App\Helpers\canAccess(['show setting']) )

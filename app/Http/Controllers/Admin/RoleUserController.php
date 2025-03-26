@@ -7,10 +7,11 @@ use App\Http\Requests\AdminRoleUserStoreRequest;
 use App\Http\Requests\AdminRoleUserUpdateRequest;
 use App\Interfaces\RoleUserRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class RoleUserController extends Controller
+class RoleUserController extends Controller implements HasMiddleware
 {
     public $adminUser;
 

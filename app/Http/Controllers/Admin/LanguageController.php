@@ -8,10 +8,11 @@ use App\Http\Requests\AdminLanguageUpdateRequest;
 use App\Interfaces\AdminLanguageRepositoryInterface;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class LanguageController extends Controller
+class LanguageController extends Controller implements HasMiddleware
 {
     /**
      * Display a listing of the resource.

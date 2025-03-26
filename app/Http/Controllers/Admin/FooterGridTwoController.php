@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FooterStoreGridTwoRequest;
 use App\Interfaces\AdminFooterRepositoryGridTwoInterface;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class FooterGridTwoController extends Controller
+class FooterGridTwoController extends Controller implements HasMiddleware
 {
     public $gridTwo;
 

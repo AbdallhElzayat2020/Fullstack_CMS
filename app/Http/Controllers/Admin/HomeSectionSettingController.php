@@ -8,10 +8,11 @@ use App\Interfaces\AdminHomeSectionRepositoryInterface;
 use App\Models\HomeSectionSetting;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class HomeSectionSettingController extends Controller
+class HomeSectionSettingController extends Controller implements HasMiddleware
 {
     public $section;
 
