@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 
 interface AdminNewsRepositoryInterface
 {
+
+    public function pendingNews();
+    public function approvedNews($request);
     public function index();
 
     public function fetchCategory(Request $request);

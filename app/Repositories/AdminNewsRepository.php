@@ -21,6 +21,21 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
 {
     use FileUploadTrait;
 
+
+    public function pendingNews()
+    {
+        $languages = Language::all();
+        return view('dashboard.pages.news.pending news.index', compact('languages'));
+    }
+
+    public function approvedNews($request)
+    {
+        $news = News::findOrFail($request->id);
+        $news->is_approved = $request->is_approved;
+        $news->save();
+        return response()->json(['status' => 'success', 'message' => __('updated successfully !')]);
+    }
+
     public function index()
     {
         try {

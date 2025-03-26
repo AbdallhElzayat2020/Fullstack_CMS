@@ -16,15 +16,17 @@
                         <span>{{__('Categories')}}</span>
                     </a>
                 </li>
-
             @endif
 
             @if(\App\Helpers\canAccess(['show news']) )
-                <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.news.*'])}} ">
+                <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.news.*','admin.pending-news'])}} ">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>{{__('News')}}</span></a>
                     <ul class="dropdown-menu">
                         <li class="{{\App\Helpers\setSidebarActive(['admin.news.*'])}}">
                             <a class="nav-link " href="{{ route('admin.news.index') }}">{{__('All News')}}</a>
+                        </li>
+                        <li class="{{\App\Helpers\setSidebarActive(['admin.pending-news'])}}">
+                            <a class="nav-link " href="{{ route('admin.pending-news') }}">{{__('Pending News')}}</a>
                         </li>
                     </ul>
                 </li>

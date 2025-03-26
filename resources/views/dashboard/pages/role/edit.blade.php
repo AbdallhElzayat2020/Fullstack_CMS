@@ -1,18 +1,18 @@
 @extends('dashboard.layouts.master')
-@section('title','Create Social Link')
+@section('title','Edit Roles and Permission ')
 
 @section('content')
 
     <section class="section">
         <div class="section-header">
-            <h1>{{__('Social Link')}}</h1>
+            <h1>{{__('Roles and Permission ')}}</h1>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-primary">
 
                     <div class="card-header">
-                        <h4>{{__('Create Social Link')}}</h4>
+                        <h4>{{__('Create')}}</h4>
                     </div>
 
                     <div class="card-body">
@@ -37,7 +37,7 @@
                                     <div class="row">
                                         @foreach($permission as $item)
                                             <div class="col-md-3">
-                                                <label class="custom-switch mt-2">
+                                                <label class="custom-switch mt-3">
                                                     <input value="{{$item->name}}"
 
                                                            {{in_array($item->name , $rolesPermission) ? 'checked' : ''}}

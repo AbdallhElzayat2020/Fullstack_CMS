@@ -37,7 +37,7 @@
                                     <div class="row">
                                         @foreach($permission as $item)
                                             <div class="col-md-3">
-                                                <label class="custom-switch mt-2">
+                                                <label class="custom-switch mt-3">
                                                     <input value="{{$item->name}}" type="checkbox" name="permissions[]"
                                                            class="custom-switch-input">
                                                     <span class="custom-switch-indicator"></span>

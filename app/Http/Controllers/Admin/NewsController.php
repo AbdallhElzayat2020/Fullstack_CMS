@@ -86,4 +86,14 @@ class NewsController extends Controller implements HasMiddleware
     {
         return $this->news->copyNews($id);
     }
+
+    public function pendingNews()
+    {
+        return $this->news->pendingNews();
+    }
+
+    public function approvedNews(Request $request)
+    {
+        return $this->news->approvedNews($request);
+    }
 }

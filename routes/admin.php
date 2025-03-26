@@ -71,6 +71,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     Route::resource('news', NewsController::class);
 
+    Route::get('pending-news', [NewsController::class, 'pendingNews'])->name('pending-news');
+    Route::put('approved-news', [NewsController::class, 'approvedNews'])->name('approved-news');
+
     /* Home section setting Route */
     Route::get('home-section-setting', [HomeSectionSettingController::class, 'index'])->name('home-section-setting.index');
 
