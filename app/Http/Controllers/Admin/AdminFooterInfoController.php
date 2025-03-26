@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Interfaces\AdminFooterInfoRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class AdminFooterInfoController extends Controller
 {
@@ -13,6 +15,14 @@ class AdminFooterInfoController extends Controller
     public function __construct(AdminFooterInfoRepositoryInterface $footerInfo)
     {
         $this->footerInfo = $footerInfo;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('footer show', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('footer create', 'admin'), only: ['store']),
+        ];
     }
 
     /**
@@ -24,14 +34,6 @@ class AdminFooterInfoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return $this->footerInfo->create();
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -39,28 +41,4 @@ class AdminFooterInfoController extends Controller
         return $this->footerInfo->store($request);
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        return $this->footerInfo->edit($id);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        return $this->footerInfo->update($request, $id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        return $this->footerInfo->destroy($id);
-    }
 }

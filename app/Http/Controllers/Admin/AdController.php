@@ -8,10 +8,21 @@ use App\Models\Ad;
 use App\Models\User;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class AdController extends Controller
 {
     use FileUploadTrait;
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('show ads', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('update ads', 'admin'), only: ['update']),
+        ];
+    }
+
 
     /**
      * Display a listing of the resource.

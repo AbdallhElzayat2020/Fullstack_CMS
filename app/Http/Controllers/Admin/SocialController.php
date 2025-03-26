@@ -27,10 +27,10 @@ class SocialController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware(PermissionMiddleware::using('show social count', 'admin'), only: ['index']),
-            new Middleware(PermissionMiddleware::using('create social count', 'admin'), only: ['create', 'store']),
-            new Middleware(PermissionMiddleware::using('update social count', 'admin'), only: ['edit', 'update']),
-            new Middleware(PermissionMiddleware::using('delete social count', 'admin'), only: ['destroy']),
+            new Middleware(PermissionMiddleware::using('footer show', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('footer create', 'admin'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('footer update', 'admin'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('footer delete', 'admin'), only: ['destroy']),
         ];
     }
 

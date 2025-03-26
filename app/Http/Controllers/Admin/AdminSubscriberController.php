@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Interfaces\AdminSubscriberRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class AdminSubscriberController extends Controller
 {
@@ -17,6 +19,14 @@ class AdminSubscriberController extends Controller
     public function __construct(AdminSubscriberRepositoryInterface $subscriber)
     {
         $this->subscriber = $subscriber;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('show subscribers', 'admin'), only: ['index', 'store']),
+            new Middleware(PermissionMiddleware::using('delete subscribers', 'admin'), only: ['destroy']),
+        ];
     }
 
     public function index()

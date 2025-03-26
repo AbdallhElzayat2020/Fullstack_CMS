@@ -7,15 +7,26 @@ use App\Http\Requests\AdminUpdateGeneralSetting;
 use App\Http\Requests\AdminUpdateSeoSetting;
 use App\Interfaces\AdminSettingRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 
-class SettingController extends Controller
+class SettingController extends Controller implements HasMiddleware
 {
     public $setting;
 
     public function __construct(AdminSettingRepositoryInterface $setting)
     {
         $this->setting = $setting;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('show setting', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('update setting', 'admin'), only: ['updateGeneralSetting', 'updateSeoSetting', 'updateAppearanceSetting']),
+        ];
     }
 
     public function index()

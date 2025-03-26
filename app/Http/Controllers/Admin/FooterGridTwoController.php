@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FooterStoreGridTwoRequest;
 use App\Interfaces\AdminFooterRepositoryGridTwoInterface;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class FooterGridTwoController extends Controller
 {
@@ -13,6 +15,16 @@ class FooterGridTwoController extends Controller
     public function __construct(AdminFooterRepositoryGridTwoInterface $gridTwo)
     {
         $this->gridTwo = $gridTwo;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('footer show', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('footer create', 'admin'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('footer update', 'admin'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('footer delete', 'admin'), only: ['destroy']),
+        ];
     }
 
     /**

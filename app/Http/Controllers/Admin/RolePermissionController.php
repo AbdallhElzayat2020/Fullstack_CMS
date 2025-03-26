@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Interfaces\AdminRoles_PermissionRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class RolePermissionController extends Controller
 {
@@ -14,6 +16,18 @@ class RolePermissionController extends Controller
     {
         $this->roles = $roles;
     }
+
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('access management show', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('access management create', 'admin'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('access management update', 'admin'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('access management delete', 'admin'), only: ['destroy']),
+        ];
+    }
+
 
     public function index()
     {

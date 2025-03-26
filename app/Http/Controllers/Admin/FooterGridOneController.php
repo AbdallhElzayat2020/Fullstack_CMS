@@ -6,14 +6,28 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FooterStoreGridOneRequest;
 use App\Interfaces\AdminFooterRepositoryGridOneInterface;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class FooterGridOneController extends Controller
+class FooterGridOneController extends Controller implements HasMiddleware
 {
     public $gridOne;
 
     public function __construct(AdminFooterRepositoryGridOneInterface $gridOne)
     {
         $this->gridOne = $gridOne;
+    }
+
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('footer show', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('footer create', 'admin'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('footer update', 'admin'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('footer delete', 'admin'), only: ['destroy']),
+        ];
     }
 
     /**

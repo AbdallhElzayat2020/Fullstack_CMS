@@ -7,6 +7,8 @@ use App\Http\Requests\FooterStoreGridOneRequest;
 use App\Interfaces\AdminFooterRepositoryGridOneInterface;
 use App\Interfaces\AdminFooterRepositoryGridThreeInterface;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class FooterGridThreeController extends Controller
 {
@@ -15,6 +17,16 @@ class FooterGridThreeController extends Controller
     public function __construct(AdminFooterRepositoryGridThreeInterface $gridThree)
     {
         $this->gridThree = $gridThree;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('footer show', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('footer create', 'admin'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('footer update', 'admin'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('footer delete', 'admin'), only: ['destroy']),
+        ];
     }
 
     /**

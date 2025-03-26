@@ -7,6 +7,8 @@ use App\Http\Requests\AdminRoleUserStoreRequest;
 use App\Http\Requests\AdminRoleUserUpdateRequest;
 use App\Interfaces\RoleUserRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class RoleUserController extends Controller
 {
@@ -15,6 +17,17 @@ class RoleUserController extends Controller
     public function __construct(RoleUserRepositoryInterface $adminUser)
     {
         $this->adminUser = $adminUser;
+    }
+
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('access management show', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('access management create', 'admin'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('access management update', 'admin'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('access management delete', 'admin'), only: ['destroy']),
+        ];
     }
 
 

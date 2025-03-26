@@ -8,6 +8,8 @@ use App\Http\Requests\AdminLanguageUpdateRequest;
 use App\Interfaces\AdminLanguageRepositoryInterface;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class LanguageController extends Controller
 {
@@ -20,6 +22,16 @@ class LanguageController extends Controller
     public function __construct(AdminLanguageRepositoryInterface $language)
     {
         $this->language = $language;
+    }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('show languages', 'admin'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('create languages', 'admin'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('update languages', 'admin'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('delete languages', 'admin'), only: ['destroy']),
+        ];
     }
 
     public function index()
