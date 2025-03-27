@@ -28,10 +28,11 @@ class NewsController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware(PermissionMiddleware::using('show news', 'admin'), only: ['index', 'toggleNewsStatus', 'copyNews']),
+            new Middleware(PermissionMiddleware::using('show news', 'admin'), only: ['index', 'copyNews']),
             new Middleware(PermissionMiddleware::using('create news', 'admin'), only: ['create', 'store']),
             new Middleware(PermissionMiddleware::using('update news', 'admin'), only: ['edit', 'update']),
             new Middleware(PermissionMiddleware::using('delete news', 'admin'), only: ['destroy']),
+            new Middleware(PermissionMiddleware::using('news all-access', 'admin'), only: ['toggleNewsStatus']),
         ];
     }
 

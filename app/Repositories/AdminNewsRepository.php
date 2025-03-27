@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use function App\Helpers\canAccess;
 use function App\Helpers\checkPermission;
 use function App\Helpers\getRole;
 
@@ -131,25 +132,29 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
 
     public function edit($id)
     {
-        try {
-            $news = News::findOrFail($id);
-            $languages = Language::all();
-            $categories = Category::where('language', $news->language)->get();
 
-            $tags = implode(',', $news->tags->pluck('name')->toArray());
-            $news->tags = $tags;
-
-            return view('dashboard.pages.news.edit', compact('news', 'languages', 'categories', 'tags'));
-        } catch (\Exception $exception) {
-            return redirect()->back()->withErrors([$exception->getMessage()]);
+        $news = News::findOrFail($id);
+        if (!canAccess(['news all-access']) && $news->author_id !== Auth::guard('admin')->user()->id) {
+            abort(403);
         }
+        $languages = Language::all();
+        $categories = Category::where('language', $news->language)->get();
+
+        $tags = implode(',', $news->tags->pluck('name')->toArray());
+        $news->tags = $tags;
+
+        return view('dashboard.pages.news.edit', compact('news', 'languages', 'categories', 'tags'));
     }
+
 
     public function update(AdminUpdateNewsRequest $request, $id)
     {
+
         try {
             $news = News::findOrFail($id);
-
+            if (!canAccess(['news all-access']) && $news->author_id !== Auth::guard('admin')->user()->id) {
+                abort(403);
+            }
             // ✅ Handle Image Upload (Keep old image if no new one uploaded)
             $imagePath = $news->image;
             if ($request->hasFile('image')) {

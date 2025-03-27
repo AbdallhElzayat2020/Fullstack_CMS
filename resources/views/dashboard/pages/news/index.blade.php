@@ -98,9 +98,6 @@
                                                                         <span class="custom-switch-indicator"></span>
                                                                     </label>
                                                                 </td>
-
-
-
                                                                 <td>
                                                                     <label class="custom-switch mt-2">
                                                                         <input
