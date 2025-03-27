@@ -183,7 +183,6 @@
                         </li>
                     </ul>
                 </li>
-
             @endif
 
             @if(\App\Helpers\canAccess(['show setting']) )
@@ -195,12 +194,29 @@
                 </li>
             @endif
 
-            @if(\App\Helpers\canAccess(['show setting']) )
 
-                <li class="{{\App\Helpers\setSidebarActive(['admin.localization.*'])}}">
-                    <a class="nav-link" href="{{ route('admin.localization.index') }}"><i class="far fa-square"></i>
+            @if(\App\Helpers\canAccess(['access management show']) )
+
+                <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.admin-localization.index','admin.frontend-localization.index'])}}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i>
                         <span>{{__('Localization')}}</span>
                     </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li class="{{\App\Helpers\setSidebarActive(['admin.admin-localization.index'])}}">
+                            <a class="nav-link" href="{{ route('admin.admin-localization.index') }}">
+                                <span>{{__('Admin')}}</span>
+                            </a>
+                        </li>
+
+                        <li class="{{\App\Helpers\setSidebarActive(['admin.frontend-localization.index'])}}">
+                            <a class="nav-link" href="{{ route('admin.frontend-localization.index') }}">
+                                <span>{{__('Frontend')}}</span>
+                            </a>
+                        </li>
+
+                    </ul>
                 </li>
             @endif
 

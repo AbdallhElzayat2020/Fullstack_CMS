@@ -1,17 +1,17 @@
 @extends('dashboard.layouts.master')
-@section('title','localization Page')
+@section('title','Admin localization')
 
 @section('content')
 
     <section class="section">
         <div class="section-header">
-            <h1>{{__('Categories')}}</h1>
+            <h1>{{__('Admin localization')}}</h1>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h4>{{__('All Categories')}}</h4>
+                        <h4>{{__('Admin localization')}}</h4>
                         <div class="card-header-action">
                             <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
                                 <i class="fas fa-plus"></i> {{__('Create New')}}
