@@ -10,4 +10,6 @@ return [
     'Remember Me' => 'Remember Me',
     'please fill in your password' => 'Please fill in your password',
     'Email' => 'Email',
+
+    'home' => 'Home',
 ];

@@ -6,7 +6,6 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- breadcrumb -->
-                    <!-- Breadcrumb -->
                     <ul class="breadcrumbs bg-light mb-4">
                         <li class="breadcrumbs__item">
                             <a href="{{ route('home') }}" class="breadcrumbs__url">

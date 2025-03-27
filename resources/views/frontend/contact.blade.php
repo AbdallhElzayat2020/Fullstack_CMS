@@ -103,7 +103,7 @@
                         </ul>
 
                         <div class="social__media">
-                            <h5>find us</h5>
+                            <h5>{{__('find us')}}</h5>
                             <ul class="list-inline">
 
                                 <li class="list-inline-item">

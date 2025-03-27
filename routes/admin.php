@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\RoleUserController;
-
+use App\Http\Controllers\Admin\LocalizationController;
 
 //============================ Public Admin Routes ============================
 
@@ -135,4 +135,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     /* Admin User Routes */
     Route::resource('role-users', RoleUserController::class);
+
+
+    /* Localization Route */
+    Route::get('localization', [LocalizationController::class, 'index'])->name('localization.index');
 });

@@ -195,6 +195,15 @@
                 </li>
             @endif
 
+            @if(\App\Helpers\canAccess(['show setting']) )
+
+                <li class="{{\App\Helpers\setSidebarActive(['admin.localization.*'])}}">
+                    <a class="nav-link" href="{{ route('admin.localization.index') }}"><i class="far fa-square"></i>
+                        <span>{{__('Localization')}}</span>
+                    </a>
+                </li>
+            @endif
+
 
         </ul>
     </aside>

@@ -8,4 +8,6 @@ return [
     'Remember Me' => 'تذكرني',
     'please fill in your password' => 'الرجاء ملء كلمة المرور الخاصة بك',
     'Email' => 'البريد الإلكتروني',
+
+    'home' => 'الصفحة الرئيسية',
 ];

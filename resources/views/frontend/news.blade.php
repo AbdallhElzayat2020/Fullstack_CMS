@@ -35,7 +35,9 @@
                                         <option value="">{{__('All')}}</option>
                                         @foreach($categories as $category)
                                             <option
-                                                @selected(old('category', request()->category) === $category->slug) value="{{$category->slug}}">{{$category->name}}</option>
+                                                @selected(old('category', request()->category) === $category->slug) value="{{$category->slug}}">
+                                                {{$category->name}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -209,7 +211,7 @@
                         </aside>
 
                         <aside class="wrapper__list__article">
-                            <h4 class="border_section">tags</h4>
+                            <h4 class="border_section">{{__('tags')}}</h4>
                             <div class="blog-tags p-0">
                                 <ul class="list-inline">
 
@@ -252,14 +254,14 @@
                             </div>
                         </aside>
 
-                        <aside class="wrapper__list__article mt-3">
-                            <h4 class="border_section">Advertise</h4>
-                            <a href="#">
-                                <figure>
-                                    <img src="images/newsimage1.png" alt="" class="img-fluid">
-                                </figure>
-                            </a>
-                        </aside>
+{{--                        <aside class="wrapper__list__article mt-3">--}}
+{{--                            <h4 class="border_section">{{__('Advertise')}}</h4>--}}
+{{--                            <a href="#">--}}
+{{--                                <figure>--}}
+{{--                                    <img src="images/newsimage1.png" alt="" class="img-fluid">--}}
+{{--                                </figure>--}}
+{{--                            </a>--}}
+{{--                        </aside>--}}
                     </div>
                 </div>
 
