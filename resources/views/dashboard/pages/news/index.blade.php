@@ -36,7 +36,20 @@
                                 <div class="tab-content tab-bordered" id="myTab3Content">
                                     @foreach($languages as $language )
                                         @php
-                                            $news = App\Models\News::with('category')->where('language',$language->lang)->orderBy('id','DESC')->get();
+                                            if (\App\Helpers\canAccess(['news all-access'])){
+                                                   $news = App\Models\News::with('category')
+                                                       ->where('language',$language->lang)
+                                                       ->where('is_approved', 1)
+                                                       ->orderBy('id','DESC')
+                                                       ->get();
+                                            }else {
+                                               $news = App\Models\News::with('category')
+                                                   ->where('language',$language->lang)
+                                                   ->where('is_approved', 1)
+                                                   ->where('author_id',auth()->guard('admin')->user()->id)
+                                                   ->orderBy('id','DESC')
+                                                   ->get();
+                                            }
                                         @endphp
                                         <div class="tab-pane fade show {{$loop->index === 0 ?'active':''}}"
                                              id="home-{{$language->lang}}"
@@ -77,11 +90,11 @@
                                                                 <td>
                                                                     <label class="custom-switch mt-2">
                                                                         <input
-                                                                            {{$newsItem->is_breaking_news === 1 ? 'checked' :'' }} value="1"
-                                                                            data-id="{{$newsItem->id}}"
-                                                                            data-name="is_breaking_news"
-                                                                            type="checkbox"
-                                                                            class="custom-switch-input toggle-status">
+                                                                                {{$newsItem->is_breaking_news === 1 ? 'checked' :'' }} value="1"
+                                                                                data-id="{{$newsItem->id}}"
+                                                                                data-name="is_breaking_news"
+                                                                                type="checkbox"
+                                                                                class="custom-switch-input toggle-status">
                                                                         <span class="custom-switch-indicator"></span>
                                                                     </label>
                                                                 </td>
@@ -91,23 +104,23 @@
                                                                 <td>
                                                                     <label class="custom-switch mt-2">
                                                                         <input
-                                                                            {{$newsItem->show_at_slider === 1 ? 'checked' : '' }} value="1"
-                                                                            data-id="{{$newsItem->id}}"
-                                                                            data-name="show_at_slider"
-                                                                            type="checkbox"
-                                                                            class="custom-switch-input toggle-status">
+                                                                                {{$newsItem->show_at_slider === 1 ? 'checked' : '' }} value="1"
+                                                                                data-id="{{$newsItem->id}}"
+                                                                                data-name="show_at_slider"
+                                                                                type="checkbox"
+                                                                                class="custom-switch-input toggle-status">
                                                                         <span class="custom-switch-indicator"></span>
                                                                     </label>
                                                                 </td>
                                                                 <td>
                                                                     <label class="custom-switch mt-2">
                                                                         <input
-                                                                            value="1"
-                                                                            data-id="{{ $newsItem->id }}"
-                                                                            data-name="show_at_popular"
-                                                                            type="checkbox"
-                                                                            class="custom-switch-input toggle-status"
-                                                                            @checked(($newsItem->show_at_popular ?? 0) === 1)>
+                                                                                value="1"
+                                                                                data-id="{{ $newsItem->id }}"
+                                                                                data-name="show_at_popular"
+                                                                                type="checkbox"
+                                                                                class="custom-switch-input toggle-status"
+                                                                                @checked(($newsItem->show_at_popular ?? 0) === 1)>
                                                                         <span class="custom-switch-indicator"></span>
                                                                     </label>
 
@@ -117,10 +130,10 @@
 
                                                                 @if($newsItem->status === 'active')
                                                                     <span
-                                                                        class="badge badge-success">{{__('Active')}}</span>
+                                                                            class="badge badge-success">{{__('Active')}}</span>
                                                                 @else
                                                                     <span
-                                                                        class="badge badge-danger">{{__('Inactive')}}</span>
+                                                                            class="badge badge-danger">{{__('Inactive')}}</span>
                                                                 @endif
                                                             </td>
 

@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use function App\Helpers\checkPermission;
+use function App\Helpers\getRole;
 
 class AdminNewsRepository implements AdminNewsRepositoryInterface
 {
@@ -101,6 +103,8 @@ class AdminNewsRepository implements AdminNewsRepositoryInterface
             $news->is_breaking_news = $request->is_breaking_news == 1 ? 1 : 0;
             $news->show_at_slider = $request->show_at_slider == 1 ? 1 : 0;
             $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
+
+            $news->is_approved = getRole() === 'Super Admin' || checkPermission('news all-access') ? 1 : 0;
             $news->status = $request->status;
             $news->save();
 
