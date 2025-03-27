@@ -47,10 +47,16 @@
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <button class="btn btn-primary mx-3">
-                                                                    {{__('Generate Strings')}}
-                                                                </button>
-                                                                <button class="btn btn-dark mx-3">
+                                                                <form action="{{ route('admin.extract-localize-string') }}"
+                                                                      method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" name="directory" value="{{resource_path('views/frontend')}}">
+                                                                    <input type="hidden" name="language_code" value="{{$language->lang}}">
+                                                                    <button type="submit" class="btn btn-primary mx-3">
+                                                                        {{__('Generate Strings')}}
+                                                                    </button>
+                                                                </form>
+                                                                <button type="submit" class="btn btn-dark mx-3">
                                                                     {{__('Translate Strings')}}
                                                                 </button>
                                                             </div>

@@ -47,12 +47,16 @@
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <button class="btn btn-primary mx-3">
+
+                                                                <a href=""
+                                                                   class="btn btn-primary mx-3">
                                                                     {{__('Generate Strings')}}
-                                                                </button>
-                                                                <button class="btn btn-dark mx-3">
+                                                                </a>
+
+                                                                <a href="" class="btn btn-dark mx-3">
                                                                     {{__('Translate Strings')}}
-                                                                </button>
+                                                                </a>
+
                                                             </div>
                                                         </div>
                                                     </div>
