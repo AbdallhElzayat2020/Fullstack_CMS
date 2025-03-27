@@ -28,11 +28,28 @@ class LocalizationController extends Controller
         $language_code = $request->language_code;
 
         if (!is_dir($directory)) {
-            return response()->json(['error' => 'المجلد غير موجود'], 400);
+            return response()->json(['error' => 'Dirctory Not found'], 400);
         }
 
         $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory, \FilesystemIterator::SKIP_DOTS));
 
         $localizationString = [];
+
+        /* Iterator over each file in  directory  */
+
+        foreach ($files as $file) {
+            if ($file->isDir()) {
+                continue;
+            }
+
+            $contents = file_get_contents($file->getPathname());
+
+//            preg_match_all('/__\([\'"](.+?)[\'"]\)/', $contents, $matches);
+
+            dd($contents);
+
+        }
+
+
     }
 }
