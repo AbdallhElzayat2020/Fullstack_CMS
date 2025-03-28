@@ -8,12 +8,11 @@
         </div>
 
 
-
         <ul class="sidebar-menu">
             <li class="menu-header">{{__('Startket')}}</li>
 
             <li class="{{\App\Helpers\setSidebarActive(['admin.dashboard'])}}">
-                <a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="far fa-square"></i>
+                <a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-home"></i>
                     <span>{{__('dashboard')}}</span>
                 </a>
             </li>
@@ -22,7 +21,7 @@
             @if(\App\Helpers\canAccess(['category show','category create','category edit','category delete']) )
 
                 <li class="{{\App\Helpers\setSidebarActive(['admin.categories.*'])}}">
-                    <a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="far fa-square"></i>
+                    <a class="nav-link" href="{{ route('admin.categories.index') }}"> <i class="fas fa-boxes"></i>
                         <span>{{__('Categories')}}</span>
                     </a>
                 </li>
@@ -30,7 +29,7 @@
 
             @if(\App\Helpers\canAccess(['show news']) )
                 <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.news.*','admin.pending-news'])}} ">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>{{__('News')}}</span></a>
+                    <a href="#" class="nav-link has-dropdown"> <i class="far fa-newspaper"></i> <span>{{__('News')}}</span></a>
                     <ul class="dropdown-menu">
                         <li class="{{\App\Helpers\setSidebarActive(['admin.news.*'])}}">
                             <a class="nav-link " href="{{ route('admin.news.index') }}">{{__('All News')}}</a>
@@ -45,7 +44,7 @@
             @if(\App\Helpers\canAccess(['show about page','show contact page']) )
 
                 <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.about.*','admin.contact.*'])}}">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i>
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-alt"></i>
                         <span>{{__('Pages')}}</span>
                     </a>
 
@@ -76,8 +75,8 @@
 
             @if(\App\Helpers\canAccess(['show home section setting']) )
                 <li class="{{\App\Helpers\setSidebarActive(['admin.home-section-setting.*'])}}">
-                    <a class="nav-link" href="{{ route('admin.home-section-setting.index') }}"><i
-                            class="far fa-square"></i>
+                    <a class="nav-link" href="{{ route('admin.home-section-setting.index') }}">
+                        <i class="fas fa-puzzle-piece"></i>
                         <span>{{__('Home Section Setting')}}</span>
                     </a>
                 </li>
@@ -86,7 +85,7 @@
 
             @if(\App\Helpers\canAccess(['show ads']) )
                 <li class="{{\App\Helpers\setSidebarActive(['admin.ads.*'])}}">
-                    <a class="nav-link" href="{{ route('admin.ads.index') }}"><i class="far fa-square"></i>
+                    <a class="nav-link" href="{{ route('admin.ads.index') }}"><i class="fas fa-ad"></i>
                         <span>{{__('Advertisement')}}</span>
                     </a>
                 </li>
@@ -94,7 +93,7 @@
 
             @if(\App\Helpers\canAccess(['show social count']) )
                 <li class="{{\App\Helpers\setSidebarActive(['admin.social-count.*'])}}">
-                    <a class="nav-link" href="{{ route('admin.social-count.index') }}"><i class="far fa-square"></i>
+                    <a class="nav-link" href="{{ route('admin.social-count.index') }}"> <i class="fas fa-hashtag"></i>
                         <span>{{__('Social Count')}}</span>
                     </a>
                 </li>
@@ -103,7 +102,7 @@
             @if(\App\Helpers\canAccess(['show contact message']) )
 
                 <li class="{{\App\Helpers\setSidebarActive(['admin.contact-message.*'])}}">
-                    <a class="nav-link" href="{{ route('admin.contact-message.index') }}"><i class="far fa-square"></i>
+                    <a class="nav-link" href="{{ route('admin.contact-message.index') }}"><i class="fas fa-envelope"></i>
                         <span>{{__('Contact Messages ')}}</span>
                         @if($unReadMessages > 0)
                             <i class="badge bg-danger text-white mx-1">{{$unReadMessages}}</i>
@@ -114,7 +113,7 @@
 
             @if(\App\Helpers\canAccess(['show languages']) )
                 <li class="{{\App\Helpers\setSidebarActive(['admin.language.*'])}}">
-                    <a class="nav-link" href="{{ route('admin.language.index') }}"><i class="far fa-square"></i>
+                    <a class="nav-link" href="{{ route('admin.language.index') }}"><i class="fas fa-language"></i>
                         <span>{{_('Languages')}}</span>
                     </a>
                 </li>
@@ -122,7 +121,7 @@
 
             @if(\App\Helpers\canAccess(['show subscribers']) )
                 <li class="{{\App\Helpers\setSidebarActive(['admin.subscribers.*'])}}">
-                    <a class="nav-link" href="{{ route('admin.subscribers.index') }}"><i class="far fa-square"></i>
+                    <a class="nav-link" href="{{ route('admin.subscribers.index') }}"><i class="fas fa-users"></i>
                         <span>{{__('Subscribers')}}</span>
                     </a>
                 </li>
@@ -137,7 +136,7 @@
             'admin.footer-grid-two.*',
             'admin.footer-grid-three.*'
              ])}}">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i>
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-cogs"></i>
                         <span>{{__('Footer Setting')}}</span>
                     </a>
                     <ul class="dropdown-menu">
@@ -176,7 +175,7 @@
             @if(\App\Helpers\canAccess(['access management show']) )
 
                 <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.role.*'])}}">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i>
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-user-cog"></i>
                         <span>{{__('Access Management')}}</span>
                     </a>
 
@@ -198,38 +197,11 @@
             @if(\App\Helpers\canAccess(['show setting']) )
 
                 <li class="{{\App\Helpers\setSidebarActive(['admin.settings.*'])}}">
-                    <a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="far fa-square"></i>
+                    <a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="fas fa-cog"></i>
                         <span>{{__('Settings')}}</span>
                     </a>
                 </li>
             @endif
-
-
-            @if(\App\Helpers\canAccess(['access management show']) )
-
-                <li class="dropdown {{\App\Helpers\setSidebarActive(['admin.admin-localization.index','admin.frontend-localization.index'])}}">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i>
-                        <span>{{__('Localization')}}</span>
-                    </a>
-
-                    <ul class="dropdown-menu">
-
-                        <li class="{{\App\Helpers\setSidebarActive(['admin.admin-localization.index'])}}">
-                            <a class="nav-link" href="{{ route('admin.admin-localization.index') }}">
-                                <span>{{__('Admin')}}</span>
-                            </a>
-                        </li>
-
-                        <li class="{{\App\Helpers\setSidebarActive(['admin.frontend-localization.index'])}}">
-                            <a class="nav-link" href="{{ route('admin.frontend-localization.index') }}">
-                                <span>{{__('Frontend')}}</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-            @endif
-
 
         </ul>
     </aside>
