@@ -34,7 +34,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card mx-auto py-5" style="max-width: 380px;">
+                    <div class="card mx-auto py-4" style="max-width: 380px;">
                         <div class="card-body">
                             <h4 class="card-title mb-4">{{__('Forget Password')}}</h4>
 
