@@ -38,8 +38,20 @@
                         </div>
 
                         <ul class="topbar-link">
-                            <li><a href="{{ route('login') }}">{{__('Login')}}</a></li>
-                            <li><a href="{{ route('register') }}">{{__('Register')}}</a></li>
+                            @if(!auth()->check())
+                                <li><a href="{{ route('login') }}">{{__('Login')}}</a></li>
+                                <li><a href="{{ route('register') }}">{{__('Register')}}</a></li>
+                            @else
+                                <li><a href="">{{auth()->guard('web')->user()->name}}</a></li>
+                                <form id="logout" method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <li>
+                                        <a class="btn btn-danger btn-sm" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout').submit();">
+                                            {{__('Logout')}}
+                                        </a>
+                                    </li>
+                                </form>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -155,34 +167,32 @@
                     <nav class="list-group list-group-flush">
                         <ul class="navbar-nav ">
                             <li class="nav-item">
-                                <a class="nav-link active text-dark" href="index.html"> Home</a>
+                                <a class="nav-link active text-dark" href="{{ route('home') }}"> {{__('Home')}}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="about-us.html"> About </a>
+                                <a class="nav-link text-dark" href="{{ route('about') }}"> {{__('About')}} </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="blog.html">Blog </a>
+                                <a class="nav-link text-dark" href="{{ route('news') }}">{{__('Blog')}} </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active dropdown-toggle  text-dark" href="#"
                                    data-toggle="dropdown">Pages </a>
                                 <ul class="dropdown-menu dropdown-menu-left">
-                                    <li><a class="dropdown-item" href="blog_details.html">Blog details</a></li>
-                                    <li><a class="dropdown-item" href="404.html"> 404 Error</a></li>
+                                    <li><a class="dropdown-item" href="#"> 404 Error</a></li>
 
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link  text-dark" href="contact.html"> Contact </a>
+                            <li class="nav-item"><a class="nav-link  text-dark" href="{{ route('contact') }}"> {{__('Contact')}} </a>
                             </li>
                         </ul>
 
                     </nav>
                 </div>
                 <div class="modal-footer">
-                    <p>© 2025 <a href="https://websolutionus.com/.com">WebSolutionUS</a>
-                        -
-                        Premium template news, blog & magazine &amp;
-                        magazine theme by <a href="https://websolutionus.com/.com">websolutionus.com</a></p>
+                    <p>© 2025 <a href="http://abdallh-elzayat.me/">Abdallh Elzayat</a>
+                        -&amp;
+                        Developed by <a class="text-primary" href="http://abdallh-elzayat.me/">Abdallh Elzayat</a></p>
                 </div>
             </div>
         </div>
