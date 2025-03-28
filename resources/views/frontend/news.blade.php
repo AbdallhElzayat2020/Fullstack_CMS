@@ -254,14 +254,6 @@
                             </div>
                         </aside>
 
-{{--                        <aside class="wrapper__list__article mt-3">--}}
-{{--                            <h4 class="border_section">{{__('Advertise')}}</h4>--}}
-{{--                            <a href="#">--}}
-{{--                                <figure>--}}
-{{--                                    <img src="images/newsimage1.png" alt="" class="img-fluid">--}}
-{{--                                </figure>--}}
-{{--                            </a>--}}
-{{--                        </aside>--}}
                     </div>
                 </div>
 

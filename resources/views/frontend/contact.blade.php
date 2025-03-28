@@ -83,21 +83,21 @@
                                     <i class="fa fa-home"></i>
                                 </span>
 
-                                {{$contact->address}}
+                                {{@$contact->address}}
 
 
                             </li>
                             <li>
                                 <span>
                                     <i class="fa fa-phone"></i>
-                                    <a target="_blank" href="tel:{{$contact->phone}}">{{$contact->phone}}</a>
+                                    <a target="_blank" href="tel:{{@$contact->phone}}">{{@$contact->phone}}</a>
                                 </span>
 
                             </li>
                             <li>
                                 <span>
                                     <i class="fa fa-envelope"></i>
-                                    <a target="_blank" href="mailto:{{$contact->email}}">{{$contact->email}}</a>
+                                    <a target="_blank" href="mailto:{{@$contact->email}}">{{@$contact->email}}</a>
                                 </span>
                             </li>
                         </ul>
@@ -106,11 +106,6 @@
                             <h5>{{__('find us')}}</h5>
                             <ul class="list-inline">
 
-                                {{--                                <li class="list-inline-item">--}}
-                                {{--                                    <a href="#" class="btn btn-social rounded text-white facebook">--}}
-                                {{--                                        <i class="fa fa-facebook"></i>--}}
-                                {{--                                    </a>--}}
-                                {{--                                </li>--}}
                                 @php
                                     $socialLinks = \App\Models\FooterSocial::where('status', 'active')->get();
                                 @endphp
