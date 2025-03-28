@@ -38,8 +38,8 @@
                         </div>
 
                         <ul class="topbar-link">
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="{{ route('login') }}">{{__('Login')}}</a></li>
+                            <li><a href="{{ route('register') }}">{{__('Register')}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                 </div>
                 <figure class="mb-0 mx-auto">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset($setting['site_logo']) }}" alt=""
+                        <img src="{{ asset($setting['site_logo']) }}" alt="{{$setting['site_name']}}"
                              class="img-fluid logo">
                     </a>
                 </figure>
@@ -68,13 +68,13 @@
                 <div class="collapse navbar-collapse justify-content-between" id="main_nav99">
                     <ul class="navbar-nav ml-auto ">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('home') }}">home</a>
+                            <a class="nav-link active" href="{{ route('home') }}">{{__('home')}}</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="{{ route('about') }}"> about </a>
+                            <a class="nav-link" href="{{ route('about') }}"> {{__('about')}} </a>
                         </li>
                         <li class="nav-item dropdown has-megamenu">
-                            <a class="nav-link" href="{{ route('news') }}">News </a>
+                            <a class="nav-link" href="{{ route('news') }}">{{__('News')}} </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Pages </a>
