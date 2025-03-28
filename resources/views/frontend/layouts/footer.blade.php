@@ -8,12 +8,18 @@
                         <div class="col-md-4">
                             <div class="widget__footer">
                                 <figure class="image-logo">
-                                    <img style="width: 100px!important; height: 100px!important;"
-                                         src="{{asset($footerInfo->logo)}}" alt="" class="logo-footer">
+
+
+                                        <img style="width: 100px!important; height: 100px!important;"
+                                             src="{{asset(@$footerInfo->logo)}}" alt="" class="logo-footer">
+
+
+
                                 </figure>
 
                                 <p style="overflow-wrap: break-word;">
-                                    {!! $footerInfo->description !!}
+
+                                    {!! @$footerInfo->description !!}
                                 </p>
 
 
@@ -103,7 +109,7 @@
                         <div class="col-md-12">
                             <div class="border-top-1 bg__footer-bottom-section">
                                 <p class="text-white text-center">
-                                    {{$footerInfo->copyright}}
+                                    {{@$footerInfo->copyright}}
                                     <a class="text-warning bold" href="https://abdallh-elzayat.me" target="_blank">
                                         {{__('Abdallh Elzayat')}}
                                     </a>
