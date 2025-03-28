@@ -175,9 +175,7 @@
                                     {{ $news->author->name }}
                                 </h4>
                                 <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis laboriosam ad
-                                    beatae itaque ea non
-                                    placeat officia ipsum praesentium! Ullam?
+                                    Hello There I'm Abdallh Elzayat Fullstack Developer https://abdallh-elzayat.me/
                                 </p>
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
@@ -468,23 +466,6 @@
                 <div class="col-md-4">
                     <div class="sticky-top">
                         <aside class="wrapper__list__article ">
-                            <!-- <h4 class="border_section">Sidebar</h4> -->
-                            <div class="mb-4">
-                                <div class="widget__form-search-bar  ">
-                                    <div class="row no-gutters">
-                                        <div class="col">
-                                            <input class="form-control border-secondary border-right-0 rounded-0"
-                                                   value="" placeholder="Search">
-                                        </div>
-                                        <div class="col-auto">
-                                            <button
-                                                class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="wrapper__list__article-small">
                                 @foreach ($recentNews as $key => $recentNew)
                                     @if ($loop->index <= 2)

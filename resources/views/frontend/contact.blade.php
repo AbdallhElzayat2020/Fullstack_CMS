@@ -106,31 +106,20 @@
                             <h5>{{__('find us')}}</h5>
                             <ul class="list-inline">
 
-                                <li class="list-inline-item">
-                                    <a href="#" class="btn btn-social rounded text-white facebook">
-                                        <i class="fa fa-facebook"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="btn btn-social rounded text-white twitter">
-                                        <i class="fa fa-twitter"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="btn btn-social rounded text-white whatsapp">
-                                        <i class="fa fa-whatsapp"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="btn btn-social rounded text-white telegram">
-                                        <i class="fa fa-telegram"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="btn btn-social rounded text-white linkedin">
-                                        <i class="fa fa-linkedin"></i>
-                                    </a>
-                                </li>
+                                {{--                                <li class="list-inline-item">--}}
+                                {{--                                    <a href="#" class="btn btn-social rounded text-white facebook">--}}
+                                {{--                                        <i class="fa fa-facebook"></i>--}}
+                                {{--                                    </a>--}}
+                                {{--                                </li>--}}
+                                @php
+                                    $socialLinks = \App\Models\FooterSocial::where('status', 'active')->get();
+                                @endphp
+                                @foreach($socialLinks as $link)
+
+                                    <li class="list-inline-item">
+                                        <a href="{{$link->url}}"><i style="font-size: 20px; margin: 0 15px;" class="{{$link->icon}}"></i></a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>

@@ -19,6 +19,7 @@
                 </div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
+
                 @auth('admin')
                     <div class="dropdown-title">
                         {{ Auth::guard('admin')->user()->email }}

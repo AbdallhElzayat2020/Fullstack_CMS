@@ -114,9 +114,7 @@
                                         {{__('Abdallh Elzayat')}}
                                     </a>
                                 </p>
-
                             </div>
-
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,7 @@ class AdminContactRepository implements AdminContactRepositoryInterface
     public function index()
     {
         $languages = Language::all();
+        $socialLinks= Contact::all();
         return view('dashboard.pages.contact.index', compact('languages'));
     }
 
