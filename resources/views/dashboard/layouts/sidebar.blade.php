@@ -6,8 +6,18 @@
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{ route('admin.dashboard') }}">St</a>
         </div>
+
+
+
         <ul class="sidebar-menu">
             <li class="menu-header">{{__('Startket')}}</li>
+
+            <li class="{{\App\Helpers\setSidebarActive(['admin.dashboard'])}}">
+                <a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="far fa-square"></i>
+                    <span>{{__('dashboard')}}</span>
+                </a>
+            </li>
+
 
             @if(\App\Helpers\canAccess(['category show','category create','category edit','category delete']) )
 
